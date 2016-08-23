@@ -21,7 +21,7 @@ bool Pacman::init(Renderer& rkRenderer){
 	player.setScale(50, 50);
 	player.setPosX(-150);
 	player.setPosY(60);
-	player.setPosZ(0);
+	player.setPosZ(3);
 	player.setAnimation(&nada);
 	Texture playerTexture = rkRenderer.loadTexture("Assets/BabyMario.png", D3DCOLOR_XRGB(255, 255, 255));
 	player.setTexture(playerTexture);
@@ -38,10 +38,10 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	static int i = 0;
 
 	if (rkInput.keyDown(Input::KEY_Q)){
-		cam->strafe(cSpeed);
+		cam->strafe(-cSpeed);
 	}
 	else if (rkInput.keyDown(Input::KEY_E)){
-		cam->strafe(-cSpeed);
+		cam->strafe(cSpeed);
 	}
 	
 	if (rkInput.keyDown(Input::KEY_SPACE)){
