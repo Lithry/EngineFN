@@ -1,5 +1,8 @@
 #include "Renderer.h"
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include <d3d9.h>
 #pragma comment (lib, "d3d9.lib") 
 #include <d3dx9.h>
@@ -58,26 +61,11 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 
 	if (hr != D3D_OK) return false;
 
-	//D3DVIEWPORT9 viewport;
-	//m_pkDevice->GetViewport(&viewport);
-	
-	//float viewportW = static_cast<float>(viewport.Width);
-	//float viewportH = static_cast<float>(viewport.Height);
-	
 	D3DXMATRIX matProjection;
-	
-	/*D3DXMatrixOrthoLH(&matProjection,
-		uiW, uiH,
-		-10.0f,
-		10.0f);*/
 
-	/*D3DXMatrixPerspectiveFovLH(&matProjection,
-		180,
+	D3DXMatrixPerspectiveFovLH(&matProjection,
+		(M_PI*0.25),
 		uiW / uiH,
-		-10.0f,
-		10.0f);*/
-	D3DXMatrixPerspectiveLH(&matProjection,
-		uiW, uiH,
 		-10.0f,
 		10.0f);
 
