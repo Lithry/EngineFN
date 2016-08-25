@@ -1,16 +1,14 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-struct uvTexture{
-	float u, v;
-};
+#include "Maths.h"
 
 #define DllExport __declspec( dllexport )
 
-class Frame{
+class DllExport Frame{
 public:
-	DllExport Frame(float tWidth, float tHeight, float fPosX, float fPosY, float fWidth, float fHeight);
-	DllExport ~Frame();
+	Frame(float tWidth, float tHeight, float fPosX, float fPosY, float fWidth, float fHeight);
+	~Frame();
 	uvTexture uvTextures[4];
 };
 #endif

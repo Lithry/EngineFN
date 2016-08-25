@@ -10,13 +10,13 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 //Se encarga de registrar y crear la ventana
-class Window{
+class DllExport Window{
 public:
+	Window();
+	~Window();
+	bool init(HINSTANCE hInst, unsigned int uiWidth, unsigned int uiHeight);
+	void Window::setTitle(std::string title);
 	HWND hWnd; //Handler de la ventana
-	DllExport Window();
-	DllExport ~Window();
-	DllExport bool init(HINSTANCE hInst, unsigned int uiWidth, unsigned int uiHeight);
-	DllExport void Window::setTitle(std::string title);
 	std::string title;
 private:
 };

@@ -10,15 +10,15 @@ class Renderer;
 
 #define DllExport   __declspec( dllexport )
 
-class VertexBuffer{
+class DllExport VertexBuffer{
 public:
-	DllExport VertexBuffer(IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF);
-	DllExport ~VertexBuffer();
-	DllExport bool create();
-	DllExport void bind();
-	DllExport void flush();
-	DllExport void draw(const void* pvVertices, D3DPRIMITIVETYPE ePrimitiveType, unsigned int uiVertexCount);
-	DllExport void release();
+	VertexBuffer(IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF);
+	~VertexBuffer();
+	bool create();
+	void bind();
+	void flush();
+	void draw(const void* pvVertices, D3DPRIMITIVETYPE ePrimitiveType, unsigned int uiVertexCount);
+	void release();
 private:
 	static const unsigned int SIZE = 400;
 	static const unsigned int FLUSH_COUNT = 200;

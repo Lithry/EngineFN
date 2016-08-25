@@ -13,6 +13,7 @@ Camera::Camera(Renderer& rend)
 	_lookAt(new D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 	_up(new D3DXVECTOR3(0.0f, 1.0f, 0.0f)),
 	_rigth(new D3DXVECTOR3(1.0f, 0.0f, 0.0f)),
+	_left(new D3DXVECTOR3(-1.0f, 0.0f, 0.0f)),
 	_view(new D3DXMATRIX),
 	cameraSpeed(1.0f)
 {
@@ -48,7 +49,6 @@ void Camera::pitch(float angl){
 	D3DXMATRIX pitchMat;
 	D3DXMatrixRotationAxis(&pitchMat, &*_rigth, D3DXToRadian(angl));
 	D3DXVec3TransformCoord(&*_forward, &*_forward, &pitchMat);
-	D3DXVec3TransformCoord(&*_up, &*_up, &pitchMat);
 
 	update();
 }

@@ -87,6 +87,7 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="Maths.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ScreenText.h" />

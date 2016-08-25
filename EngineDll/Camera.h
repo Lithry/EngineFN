@@ -4,30 +4,29 @@
 #include "Renderer.h"
 #include "input.h"
 
-struct D3DXVECTOR3;
-typedef D3DXVECTOR3* Vector3;
+#include "Maths.h"
 
 #define DllExport __declspec( dllexport )
 
-class Camera{
+class DllExport Camera{
 public:
-	DllExport Camera(Renderer& rend);
-	DllExport ~Camera();
+	Camera(Renderer& rend);
+	~Camera();
 	
-	DllExport bool init();
+	bool init();
 	
-	DllExport void roll(float angl);
-	DllExport void pitch(float angl);
-	DllExport void yaw(float angl);
+	void roll(float angl);
+	void pitch(float angl);
+	void yaw(float angl);
 	
-	DllExport void walk(float dist);
-	DllExport void strafe(float dist);
-	DllExport void fly(float dist);
+	void walk(float dist);
+	void strafe(float dist);
+	void fly(float dist);
 
-	DllExport void update();
+	void update();
 
-	DllExport void controls(Input& rkInput);
-	DllExport void setCameraSpeed(float speed);
+	void controls(Input& rkInput);
+	void setCameraSpeed(float speed);
 private:
 	Renderer _renderer;
 	Vector3 _eye;
@@ -35,6 +34,7 @@ private:
 	Vector3 _lookAt;
 	Vector3 _up;
 	Vector3 _rigth;
+	Vector3 _left;
 	Matrix _view;
 	float cameraSpeed;
 };

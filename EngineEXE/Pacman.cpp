@@ -28,35 +28,16 @@ bool Pacman::init(Renderer& rkRenderer){
 	player.setAnimation(&nada);
 
 	cam = new Camera(rkRenderer);
+	cam->setCameraSpeed(2);
 
 	return true;
 }
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	static float fSpeed = 3.0f;
-	static float cSpeed = 1.0f;
 	static int i = 0;
 
-	if (rkInput.keyDown(Input::KEY_Q)){
-		cam->strafe(-cSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_E)){
-		cam->strafe(cSpeed);
-	}
-	
-	if (rkInput.keyDown(Input::KEY_SPACE)){
-		cam->fly(cSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_LCONTROL)){
-		cam->fly(-cSpeed);
-	}
-
-	if (rkInput.keyDown(Input::KEY_W)){
-		cam->walk(cSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_S)){
-		cam->walk(-cSpeed);
-	}
+	cam->controls(rkInput);
 
 	player.setAnimation(&nada);
 

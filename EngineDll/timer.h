@@ -7,13 +7,10 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-class Timer
-{
+class Timer{
 // constructor
 public:
 	Timer ();
-
-
 // measure
 public:
 	void firstMeasure ();
@@ -21,7 +18,6 @@ public:
 
 	float timeBetweenFrames () const;
 	unsigned int fps () const;
-
 private:
 	double m_dTimeBetweenFrames;
 	double m_dMeasureFpsSample;

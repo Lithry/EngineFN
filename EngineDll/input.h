@@ -7,7 +7,7 @@
 //---------------------------------------------------------------------------
 #define DllExport __declspec( dllexport )
 //---------------------------------------------------------------------------
-class Input{
+class DllExport Input{
 public:
 	enum{
 		POS_X,
@@ -178,34 +178,29 @@ public:
 
 // constructor/destructor
 public:
-	DllExport Input();
-	DllExport virtual ~Input();
-
-
+	Input();
+	virtual ~Input();
 // interface
 public:
-	DllExport virtual void acquire() = 0;
-	DllExport virtual void reacquire() = 0;
-	DllExport virtual void unacquire() = 0;
-
-
+	virtual void acquire() = 0;
+	virtual void reacquire() = 0;
+	virtual void unacquire() = 0;
 // input devices state
 public:
-	DllExport void reset();
+	void reset();
 
-	DllExport bool keyDown(KeyCode eKey);
-	DllExport bool keyUp(KeyCode eKey);
+	bool keyDown(KeyCode eKey);
+	bool keyUp(KeyCode eKey);
 
-	DllExport bool mouseDown(MouseButton eButtonID);
-	DllExport bool mouseUp(MouseButton eButtonID);
+	bool mouseDown(MouseButton eButtonID);
+	bool mouseUp(MouseButton eButtonID);
 
-	DllExport long mouseRelPosX();
-	DllExport long mouseRelPosY();
-	DllExport long mouseRelPosZ();
-	DllExport long mouseScrAbsPosX();
-	DllExport long mouseScrAbsPosY();
-	DllExport long mouseScrAbsPosZ();
-
+	long mouseRelPosX();
+	long mouseRelPosY();
+	long mouseRelPosZ();
+	long mouseScrAbsPosX();
+	long mouseScrAbsPosY();
+	long mouseScrAbsPosZ();
 protected:
 	unsigned char m_ucKeyBuffer[256];
 	unsigned char m_ucMouseButton[3];

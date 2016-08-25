@@ -14,20 +14,19 @@
 //---------------------------------------------------------------------------
 #define DllExport __declspec( dllexport )
 //---------------------------------------------------------------------------
-class DirectInput : public Input{
+class DllExport DirectInput : public Input{
 public:
-	DllExport DirectInput();
-	DllExport ~DirectInput();
+	DirectInput();
+	~DirectInput();
 
-	DllExport bool init(HINSTANCE hInstance, HWND hWnd);
-	DllExport void deinit();
+	bool init(HINSTANCE hInstance, HWND hWnd);
+	void deinit();
 
 	// Mouse y Keyboard
-	DllExport void acquire();
-	DllExport void reacquire();
-	DllExport void unacquire();
-	DllExport void reset();
-
+	void acquire();
+	void reacquire();
+	void unacquire();
+	void reset();
 private:
 	LPDIRECTINPUT8 m_lpObjectOne;
 	LPDIRECTINPUT8 m_lpObjectTwo;

@@ -7,13 +7,13 @@
 
 #define DllExport __declspec( dllexport )
 
-class Animation{
+class DllExport Animation{
 public:
-	DllExport Animation();
-	DllExport ~Animation();
-	DllExport void addFrame(float tWidth, float tHeight, float fPosX, float fPosY, float fWidth, float fHeight);
-	DllExport void addFrame(float tWidth, float tHeight, float fPosX, float fPosY, float fWidth, float fHeight, int frameCount);
-	DllExport void update(Timer& t);
+	Animation();
+	~Animation();
+	void addFrame(float tWidth, float tHeight, float fPosX, float fPosY, float fWidth, float fHeight);
+	void addFrame(float tWidth, float tHeight, float fPosX, float fPosY, float fWidth, float fHeight, int frameCount);
+	void update(Timer& t);
 	float currentTime;
 	int currentFrame;
 	float length;

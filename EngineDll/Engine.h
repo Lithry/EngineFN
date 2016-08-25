@@ -12,13 +12,13 @@
 
 using namespace std;
 
-class Engine{
+class DllExport Engine{
 public:
-	DllExport Engine(HINSTANCE hinst, unsigned int uiW, unsigned int uiH);
-	DllExport ~Engine();
-	DllExport bool init();
-	DllExport void run();
-	DllExport void setGame(Game* a);
+	Engine(HINSTANCE hinst, unsigned int uiW, unsigned int uiH);
+	~Engine();
+	bool init();
+	void run();
+	void setGame(Game* a);
 private:
 	HINSTANCE hinstance;
 	unsigned int uiWidth;

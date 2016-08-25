@@ -6,23 +6,21 @@
 //===================================================================
 #define DllExport __declspec(dllexport)
 //===================================================================
-class ScreenText
-{
+class DllExport ScreenText{
 public:
-	DllExport ScreenText();
-	DllExport ~ScreenText();
+	ScreenText();
+	~ScreenText();
 
-	DllExport void create(int x, int y, 
-						  int width, int height,
-						  int charSize,
-						  std::string textFont, std::string text,
-						  bool italic,
-						  Renderer& renderer);
+	void create(int x, int y, 
+			  int width, int height,
+			  int charSize,
+			  std::string textFont, std::string text,
+			  bool italic,
+			  Renderer& renderer);
 
-	DllExport void display(Renderer& renderer);
+	void display(Renderer& renderer);
 
-	DllExport void setText(std::string text);
-
+	void setText(std::string text);
 private:
 	Font _font;
 	int _width, _height;

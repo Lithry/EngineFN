@@ -9,14 +9,14 @@ class Renderer;
 class Input;
 class Timer;
 
-class Game{
+class DllExport Game{
 public:
-	DllExport Game();
-	DllExport virtual bool init(Renderer& rkRenderer) = 0;
-	DllExport virtual void frame(Renderer& rkRenderer, Input& rkInputm, Timer& rkTimer) = 0;
-	DllExport virtual void deinit() = 0;
-	DllExport bool isDone() const;
-	DllExport void setDone(bool bDone);
+	Game();
+	virtual bool init(Renderer& rkRenderer) = 0;
+	virtual void frame(Renderer& rkRenderer, Input& rkInputm, Timer& rkTimer) = 0;
+	virtual void deinit() = 0;
+	bool isDone() const;
+	void setDone(bool bDone);
 private:
 	bool m_bDone;
 };

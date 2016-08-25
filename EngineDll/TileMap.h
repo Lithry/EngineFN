@@ -4,24 +4,24 @@
 #include "Tile.h"
 #include <string>
 
-class TileMap{
+class DllExport TileMap{
 public:
-	DllExport TileMap();
-	DllExport ~TileMap();
+	TileMap();
+	~TileMap();
 
-	DllExport const Tile& tile(unsigned int id);
-	DllExport void setTile(const Tile& tile);
-	DllExport void setMapTileId(int layer, unsigned int column, unsigned int row, unsigned int id);
-	DllExport void makeGrid();
+	const Tile& tile(unsigned int id);
+	void setTile(const Tile& tile);
+	void setMapTileId(int layer, unsigned int column, unsigned int row, unsigned int id);
+	void makeGrid();
 
-	DllExport void setDimensions(float width, float heigth);
-	DllExport void setTileDimensions(float tileWidth, float tileHeigth);
+	void setDimensions(float width, float heigth);
+	void setTileDimensions(float tileWidth, float tileHeigth);
 
-	DllExport void setTexture(const Texture& texture);
-	DllExport void draw(Renderer& renderer);
+	void setTexture(const Texture& texture);
+	void draw(Renderer& renderer);
 
-	DllExport bool importTileMap(std::string filePath, Renderer& renderer);
-	DllExport void checkCollision(Entity2D& object);
+	bool importTileMap(std::string filePath, Renderer& renderer);
+	void checkCollision(Entity2D& object);
 private:
 	std::vector<Tile> tiles;
 	std::vector<Tile**> _tileMapGrid;

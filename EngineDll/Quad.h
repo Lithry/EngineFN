@@ -5,11 +5,11 @@
 
 #include "Entity2D.h"
 
-class Quad : public Entity2D{
+class DllExport Quad : public Entity2D{
 public:
-	DllExport Quad();
-	DllExport ~Quad();
-	DllExport void draw(Renderer& rkRenderer);
+	Quad();
+	~Quad();
+	void draw(Renderer& rkRenderer);
 private:
 	Vertex* Vert;
 };

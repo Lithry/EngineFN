@@ -3,17 +3,15 @@
 
 #include "Sprite.h"
 
-class Tile : public Sprite
-{
+class DllExport Tile : public Sprite{
 public:
-	DllExport Tile();
-	DllExport ~Tile();
+	Tile();
+	~Tile();
 	
-	DllExport bool isWalkable();
-	DllExport void makeSolid(bool collidable);
-	DllExport void setId(unsigned int id);
-	DllExport unsigned int getId();
-
+	bool isWalkable();
+	void makeSolid(bool collidable);
+	void setId(unsigned int id);
+	unsigned int getId();
 private:
 	bool _collidable;
 	unsigned int _id;
