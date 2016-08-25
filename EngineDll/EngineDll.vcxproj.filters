@@ -40,6 +40,15 @@
     <Filter Include="Others">
       <UniqueIdentifier>{bc3ee1dc-0e80-40ee-8d82-8239fb7aa7ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\IndexBuffer">
+      <UniqueIdentifier>{60263fab-9e0b-4d0c-ac34-b9199101a6e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\VertexBuffer">
+      <UniqueIdentifier>{f93d985d-c5bc-43da-812e-947f00d1f0ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -99,6 +108,15 @@
     <ClInclude Include="Maths.h">
       <Filter>Others</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="pg2_indexbuffer.h">
+      <Filter>Mesh\IndexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="pg2_vertexbuffer.h">
+      <Filter>Mesh\VertexBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -106,6 +124,12 @@
     </None>
     <None Include="timer.inl">
       <Filter>Timer</Filter>
+    </None>
+    <None Include="pg2_indexbuffer.inl">
+      <Filter>Mesh\IndexBuffer</Filter>
+    </None>
+    <None Include="pg2_vertexbuffer.inl">
+      <Filter>Mesh\VertexBuffer</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +186,15 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="pg2_indexbuffer.cpp">
+      <Filter>Mesh\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="pg2_vertexbuffer.cpp">
+      <Filter>Mesh\VertexBuffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
