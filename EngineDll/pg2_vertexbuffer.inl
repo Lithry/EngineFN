@@ -1,6 +1,6 @@
 
 //---------------------------------------------------------------------------
-inline size_t VertexBuffer::vertexCount () const
+inline size_t VertexBuffer3D::vertexCount () const
 {
 	return m_uiVertexCount;
 }

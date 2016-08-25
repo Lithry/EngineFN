@@ -1,7 +1,9 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "Maths.h"
+struct uvTexture{
+	float u, v;
+};
 
 #define DllExport __declspec( dllexport )
 

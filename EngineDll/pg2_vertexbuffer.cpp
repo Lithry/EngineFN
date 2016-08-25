@@ -1,24 +1,21 @@
-
 //---------------------------------------------------------------------------
 #include "pg2_vertexbuffer.h"
 //---------------------------------------------------------------------------
-#include "rendering/pg2_renderer.h"
+
 //---------------------------------------------------------------------------
-using namespace pg2;
-//---------------------------------------------------------------------------
-VertexBuffer::VertexBuffer (Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF)
-:
-m_uiFVF(uiFVF),
-m_uiVertexSize(uiVertexSize),
-m_uiVertexCount(0),
-m_pkVertexBuffer(NULL),
-m_pkDevice(pkDevice),
-m_rkRenderer(rkRenderer)
+VertexBuffer3D::VertexBuffer3D (Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF)
+	:
+	m_uiFVF(uiFVF),
+	m_uiVertexSize(uiVertexSize),
+	m_uiVertexCount(0),
+	m_pkVertexBuffer(NULL),
+	m_pkDevice(pkDevice),
+	m_rkRenderer(rkRenderer)
 {
 	// nothing to do
 }
 //---------------------------------------------------------------------------
-VertexBuffer::~VertexBuffer ()
+VertexBuffer3D::~VertexBuffer3D ()
 {
 	if(m_pkVertexBuffer)
 	{
@@ -27,7 +24,7 @@ VertexBuffer::~VertexBuffer ()
 	}
 }
 //---------------------------------------------------------------------------
-void VertexBuffer::setVertexData (const void* pakVertices, size_t uiVertexCount)
+void VertexBuffer3D::setVertexData (const void* pakVertices, size_t uiVertexCount)
 {
 	// release if previously created
 	if(m_pkVertexBuffer)
@@ -63,7 +60,7 @@ void VertexBuffer::setVertexData (const void* pakVertices, size_t uiVertexCount)
 	m_uiVertexCount = uiVertexCount;
 }
 //---------------------------------------------------------------------------
-void VertexBuffer::bind ()
+void VertexBuffer3D::bind ()
 {
 	// bind the buffer
 	HRESULT hr;
@@ -77,6 +74,6 @@ void VertexBuffer::bind ()
 	hr = m_pkDevice->SetStreamSource(0, m_pkVertexBuffer, 0, m_uiVertexSize);
 	assert(hr == D3D_OK);
 
-	m_rkRenderer.setCurrentVertexBuffer(this);
+	//m_rkRenderer.setCurrentVertexBuffer(this);
 }
 //---------------------------------------------------------------------------

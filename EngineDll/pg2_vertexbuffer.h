@@ -3,23 +3,21 @@
 #ifndef PG2_VERTEXBUFFER_H
 #define PG2_VERTEXBUFFER_H
 //---------------------------------------------------------------------------
-#include "rendering/pg2_rendertypes.h"
+//#include "rendering/pg2_rendertypes.h" // Donde estan las primitivas
 //---------------------------------------------------------------------------
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <cassert>
+#include "Renderer.h"
 //---------------------------------------------------------------------------
-namespace pg2
-{
-//---------------------------------------------------------------------------
-class Renderer;
+//class Renderer;
 //---------------------------------------------------------------------------
 #define DllExport __declspec( dllexport )
 
-class DllExport VertexBuffer{
+class DllExport VertexBuffer3D{
 public:
-	VertexBuffer (Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF);
-	~VertexBuffer ();
+	VertexBuffer3D (Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF);
+	~VertexBuffer3D ();
 
 	void bind ();
 	void setVertexData (const void* pakVertices, size_t uiVertexCount);
@@ -38,7 +36,6 @@ private:
 //---------------------------------------------------------------------------
 #include "pg2_vertexbuffer.inl"
 //---------------------------------------------------------------------------
-} // end namespace
 //---------------------------------------------------------------------------
 #endif  // PG2_VERTEXBUFFER_H
 //---------------------------------------------------------------------------

@@ -4,7 +4,8 @@
 #include "Renderer.h"
 #include "input.h"
 
-#include "Maths.h"
+struct D3DXVECTOR3;
+typedef D3DXVECTOR3* Vector3;
 
 #define DllExport __declspec( dllexport )
 

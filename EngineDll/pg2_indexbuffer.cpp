@@ -2,9 +2,7 @@
 //---------------------------------------------------------------------------
 #include "pg2_indexbuffer.h"
 //---------------------------------------------------------------------------
-#include "rendering/pg2_renderer.h"
-//---------------------------------------------------------------------------
-using namespace pg2;
+#include "Renderer.h"
 //---------------------------------------------------------------------------
 IndexBuffer::IndexBuffer (Renderer& rkRenderer, IDirect3DDevice9* pkDevice)
 :
@@ -62,6 +60,6 @@ void IndexBuffer::bind ()
 	HRESULT hr = m_pkDevice->SetIndices(m_IndexBuffer);
 	assert(hr == D3D_OK);
 
-	m_rkRenderer.setCurrentIndexBuffer(this);
+	//m_rkRenderer.setCurrentIndexBuffer(this);
 }
 //---------------------------------------------------------------------------

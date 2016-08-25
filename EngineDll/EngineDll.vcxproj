@@ -87,7 +87,6 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="Maths.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="pg2_indexbuffer.h" />
     <ClInclude Include="pg2_vertexbuffer.h" />

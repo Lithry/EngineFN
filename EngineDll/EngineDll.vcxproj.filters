@@ -37,9 +37,6 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{61f86655-7b57-4eb5-825a-d250ec7194ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Others">
-      <UniqueIdentifier>{bc3ee1dc-0e80-40ee-8d82-8239fb7aa7ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Mesh">
       <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
     </Filter>
@@ -104,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Maths.h">
-      <Filter>Others</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Mesh</Filter>
