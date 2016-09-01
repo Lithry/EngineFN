@@ -8,9 +8,8 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <cassert>
-#include "Renderer.h"
 //---------------------------------------------------------------------------
-//class Renderer;
+class Renderer;
 //---------------------------------------------------------------------------
 #define DllExport __declspec( dllexport )
 

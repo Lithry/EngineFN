@@ -64,7 +64,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	D3DXMATRIX matProjection;
 
 	D3DXMatrixPerspectiveFovLH(&matProjection,
-		(M_PI*0.25),
+		(/*M_PI*/3.1415*0.25),
 		uiW / uiH,
 		-10.0f,
 		10.0f);
@@ -77,6 +77,9 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	// Apagar Luces
 	m_pkDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pkDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
+	// Enable Z-Buffer
+	m_pkDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
 
 	// Alpha
 	m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
@@ -176,4 +179,26 @@ int Renderer::getHeigth() const{
 
 void Renderer::setViewMatrix(D3DXMATRIX& viewMat){
 	m_pkDevice->SetTransform(D3DTS_VIEW, &viewMat);
+}
+
+VertexBuffer3D* Renderer::createVertexBuffer(size_t uiVertexSize, unsigned int uiFVF){
+	VertexBuffer3D* vBuffer = new VertexBuffer3D(*this, m_pkDevice, uiVertexSize, uiFVF);
+	return vBuffer;
+}
+
+IndexBuffer* Renderer::createIndexBuffer(){
+	IndexBuffer* iBuffer = new IndexBuffer(*this, m_pkDevice);
+	return iBuffer;
+}
+
+void Renderer::setCurrentIndexBuffer(IndexBuffer* pkIndexBuffer){
+	pkIndexBuffer->bind();
+}
+
+void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
+	pkVertexBuffer->bind();
+}
+
+void Renderer::drawCurrentBuffers(Primitive ePrimitive){
+	HRESULT DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0, 8, 0, 12);
 }

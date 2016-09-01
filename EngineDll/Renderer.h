@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <vector>
 #include "vertexbuffer.h"
+#include "pg2_vertexbuffer.h"
+#include "pg2_indexbuffer.h"
 
 #define DllExport __declspec( dllexport )
 
@@ -17,6 +19,23 @@ public:
 	float x, y, z;
 	float u, v;
 };
+
+enum Primitive{
+	PointList = 0,
+	LineList,
+	LineStrip,
+	TriangleList,
+	TriangleStrip,
+	TriangleFan,
+	PrimitiveCount
+};
+D3DPRIMITIVETYPE Primitives[Primitive::PrimitiveCount] = { D3DPT_POINTLIST,
+														   D3DPT_LINELIST,
+														   D3DPT_LINESTRIP,
+														   D3DPT_TRIANGLELIST,
+														   D3DPT_TRIANGLESTRIP,
+														   D3DPT_TRIANGLEFAN };
+
 struct D3DXMATRIX;
 typedef D3DXMATRIX* Matrix;
 struct IDirect3DTexture9;
@@ -51,6 +70,13 @@ public:
 	int getWidth() const;
 	int getHeigth() const;
 	void setViewMatrix(D3DXMATRIX& viewMat);
+
+	VertexBuffer3D* createVertexBuffer(size_t uiVertexSize, unsigned int uiFVF);
+	IndexBuffer* createIndexBuffer();
+	void setCurrentIndexBuffer(IndexBuffer* pkIndexBuffer);
+	void setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer);
+
+	void drawCurrentBuffers(Primitive ePrimitive);
 private:
 	HWND _hwnd;
 	unsigned int uiWidth;

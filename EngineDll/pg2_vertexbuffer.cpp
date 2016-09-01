@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 #include "pg2_vertexbuffer.h"
 //---------------------------------------------------------------------------
-
+#include "Renderer.h"
 //---------------------------------------------------------------------------
 VertexBuffer3D::VertexBuffer3D (Renderer& rkRenderer, IDirect3DDevice9* pkDevice, size_t uiVertexSize, unsigned int uiFVF)
 	:
