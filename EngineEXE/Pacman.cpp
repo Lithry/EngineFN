@@ -21,7 +21,7 @@ bool Pacman::init(Renderer& rkRenderer){
 	player.setScale(50, 50);
 	player.setPosX(-150);
 	player.setPosY(60);
-	player.setPosZ(3);
+	player.setPosZ(10);
 	player.setAnimation(&nada);
 	Texture playerTexture = rkRenderer.loadTexture("Assets/BabyMario.png", D3DCOLOR_XRGB(255, 255, 255));
 	player.setTexture(playerTexture);

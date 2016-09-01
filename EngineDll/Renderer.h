@@ -4,8 +4,6 @@
 #include <windows.h>
 #include <vector>
 #include "vertexbuffer.h"
-#include "pg2_vertexbuffer.h"
-#include "pg2_indexbuffer.h"
 
 #define DllExport __declspec( dllexport )
 
@@ -29,12 +27,6 @@ enum Primitive{
 	TriangleFan,
 	PrimitiveCount
 };
-D3DPRIMITIVETYPE Primitives[Primitive::PrimitiveCount] = { D3DPT_POINTLIST,
-														   D3DPT_LINELIST,
-														   D3DPT_LINESTRIP,
-														   D3DPT_TRIANGLELIST,
-														   D3DPT_TRIANGLESTRIP,
-														   D3DPT_TRIANGLEFAN };
 
 struct D3DXMATRIX;
 typedef D3DXMATRIX* Matrix;
@@ -48,6 +40,9 @@ typedef ID3DXFont* Font;
 
 struct IDirect3D9;
 struct IDirect3DDevice9;
+
+class VertexBuffer3D;
+class IndexBuffer;
 
 //Se encarga de la comunicacion con el Direct3D
 class DllExport Renderer{

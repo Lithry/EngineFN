@@ -1,5 +1,8 @@
 #include "Renderer.h"
 
+#include "pg2_vertexbuffer.h"
+#include "pg2_indexbuffer.h"
+
 #define _USE_MATH_DEFINES
 #include <cmath>
 
@@ -10,6 +13,13 @@
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 #define TEXTUREFVF (D3DFVF_XYZ | D3DFVF_TEX1)
+
+D3DPRIMITIVETYPE Primitives[Primitive::PrimitiveCount] = { D3DPT_POINTLIST,
+															D3DPT_LINELIST,
+															D3DPT_LINESTRIP,
+															D3DPT_TRIANGLELIST,
+															D3DPT_TRIANGLESTRIP,
+															D3DPT_TRIANGLEFAN };
 
 Renderer::Renderer(){}
 
@@ -200,5 +210,5 @@ void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
 }
 
 void Renderer::drawCurrentBuffers(Primitive ePrimitive){
-	HRESULT DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0, 8, 0, 12);
+	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0, 8, 0, 12);
 }

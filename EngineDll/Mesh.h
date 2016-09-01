@@ -1,8 +1,7 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "pg2_vertexbuffer.h"
-#include "pg2_indexbuffer.h"
+#include "Renderer.h"
 
 typedef TexturedVertex;
 typedef Primitive;
@@ -21,6 +20,8 @@ public:
 	void setTextureId(int iTextureId);
 
 private:
-	VertexBuffer3D vertexBuffer;
+	Renderer render;
+	VertexBuffer3D* vertexBuffer;
+	IndexBuffer* indexBuffer;
 };
 #endif
