@@ -16,3 +16,18 @@ Mesh::Mesh(Renderer& rkRenderer)
 Mesh::~Mesh(){
 
 }
+
+void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
+	size_t uiVertexCount, const unsigned short* pusIndices,
+	size_t uiIndexCount){
+
+	_textureVertex = *pakVertices;
+}
+
+void Mesh::draw(){
+	render.draw(_textureVertex, ARRAY_SIZE(_texturedVertex));
+}
+
+void Mesh::setTextureId(int iTextureId){
+
+}

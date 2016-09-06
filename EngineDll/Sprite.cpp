@@ -4,15 +4,15 @@ Sprite::Sprite()
 	:
 	_texture(NULL)
 {
-	_texturedVertex[0].x = -0.5;	_texturedVertex[0].y = 0.5;		_texturedVertex[0].z = 0.0f;
-	_texturedVertex[1].x = 0.5;		_texturedVertex[1].y = 0.5;		_texturedVertex[1].z = 0.0f;
-	_texturedVertex[2].x = -0.5;	_texturedVertex[2].y = -0.5;	_texturedVertex[2].z = 0.0f;
-	_texturedVertex[3].x = 0.5;		_texturedVertex[3].y = -0.5;	_texturedVertex[3].z = 0.0f;
+	_texturedVertex[0].x = -0.5f;	_texturedVertex[0].y = 0.5f;	_texturedVertex[0].z = 0.0f;
+	_texturedVertex[1].x = 0.5f;	_texturedVertex[1].y = 0.5f;	_texturedVertex[1].z = 0.0f;
+	_texturedVertex[2].x = -0.5f;	_texturedVertex[2].y = -0.5f;	_texturedVertex[2].z = 0.0f;
+	_texturedVertex[3].x = 0.5f;	_texturedVertex[3].y = -0.5f;	_texturedVertex[3].z = 0.0f;
 
-	_texturedVertex[0].u = 0.0;		_texturedVertex[0].v = 0.0f;
-	_texturedVertex[1].u = 1.0;		_texturedVertex[1].v = 0.0;
-	_texturedVertex[2].u = 0.0;		_texturedVertex[2].v = 1.0;
-	_texturedVertex[3].u = 1.0;		_texturedVertex[3].v = 1.0;
+	_texturedVertex[0].u = 0.0f;		_texturedVertex[0].v = 0.0f;
+	_texturedVertex[1].u = 1.0f;		_texturedVertex[1].v = 0.0f;
+	_texturedVertex[2].u = 0.0f;		_texturedVertex[2].v = 1.0f;
+	_texturedVertex[3].u = 1.0f;		_texturedVertex[3].v = 1.0f;
 }
 
 Sprite::~Sprite(){

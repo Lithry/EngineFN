@@ -8,6 +8,7 @@
 #include "Animation.h"
 #include "ScreenText.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 class Pacman : public Game{
 public:
@@ -16,7 +17,7 @@ public:
 	void deinit();
 private:
 	TileMap tileMap;
-	Vertex OurVertices[4];
+	TexturedVertex OurVertices[8];
 	std::vector<Quad*> obstacle;
 	Sprite background;
 	Sprite player;
@@ -29,5 +30,7 @@ private:
 	ScreenText text2;
 	ScreenText text3;
 	std::string score;
+
+	Mesh* mesh;
 };
 #endif

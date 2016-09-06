@@ -3,7 +3,7 @@
 #include "Camera.h"
 
 bool Pacman::init(Renderer& rkRenderer){
-	tileMap.importTileMap("Assets/test4.tmx", rkRenderer);
+	/*tileMap.importTileMap("Assets/test4.tmx", rkRenderer);
 
 	text.create(5, 5, 400, 100, 20, "Arial", "Hola", false, rkRenderer);
 	text2.create(5, 30, 300, 100, 20, "Arial", "UserName: Loki", false, rkRenderer);
@@ -30,11 +30,35 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(2);
 
-	return true;
+	return true;*/
+
+	mesh = new Mesh(rkRenderer);
+
+	OurVertices[0].x = -0.5;	OurVertices[0].y = 0.5;		OurVertices[0].z = 0.0f;
+	OurVertices[1].x = 0.5;		OurVertices[1].y = 0.5;		OurVertices[1].z = 0.0f;
+	OurVertices[2].x = -0.5;	OurVertices[2].y = -0.5;	OurVertices[2].z = 0.0f;
+	OurVertices[3].x = 0.5;		OurVertices[3].y = -0.5;	OurVertices[3].z = 0.0f;
+	
+	OurVertices[4].x = -0.5;	OurVertices[4].y = 0.5;		OurVertices[4].z = 0.5f;
+	OurVertices[5].x = 0.5;		OurVertices[5].y = 0.5;		OurVertices[5].z = 0.5f;
+	OurVertices[6].x = -0.5;	OurVertices[6].y = -0.5;	OurVertices[6].z = 0.5f;
+	OurVertices[7].x = 0.5;		OurVertices[7].y = -0.5;	OurVertices[7].z = 0.5f;
+
+	OurVertices[0].u = 0.0f;		OurVertices[0].v = 0.0f;
+	OurVertices[1].u = 1.0f;		OurVertices[1].v = 0.0f;
+	OurVertices[2].u = 0.0f;		OurVertices[2].v = 1.0f;
+	OurVertices[3].u = 1.0f;		OurVertices[3].v = 1.0f;
+
+	OurVertices[4].u = 0.0f;		OurVertices[4].v = 0.0f;
+	OurVertices[5].u = 1.0f;		OurVertices[5].v = 0.0f;
+	OurVertices[6].u = 0.0f;		OurVertices[6].v = 1.0f;
+	OurVertices[7].u = 1.0f;		OurVertices[7].v = 1.0f;
+
+	mesh->setMeshData(OurVertices, Primitive::TriangleStrip, 8, )
 }
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
-	static float fSpeed = 3.0f;
+	/*static float fSpeed = 3.0f;
 	static int i = 0;
 
 	cam->controls(rkInput);
@@ -81,7 +105,7 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	text.setText(score);
 	text.display(rkRenderer);
 	text2.display(rkRenderer);
-	text3.display(rkRenderer);
+	text3.display(rkRenderer);*/
 }
 
 void Pacman::deinit(){

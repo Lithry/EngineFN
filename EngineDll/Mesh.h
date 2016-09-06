@@ -3,6 +3,8 @@
 
 #include "Renderer.h"
 
+#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
+
 typedef TexturedVertex;
 typedef Primitive;
 
@@ -23,5 +25,7 @@ private:
 	Renderer render;
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
+
+	TexturedVertex _textureVertex;
 };
 #endif
