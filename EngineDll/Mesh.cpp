@@ -48,7 +48,7 @@ void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 
 void Mesh::draw(){
 	render.setMatrix(_transformationMatrix);
-	render.drawCurrentBuffers(_primitiv, indexBuffer->indexCount());
+	render.drawCurrentBuffers(_primitiv);
 }
 
 void Mesh::setTextureId(int iTextureId){
