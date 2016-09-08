@@ -50,7 +50,7 @@ public:
 	void setCurrentIndexBuffer(IndexBuffer* pkIndexBuffer);
 	void setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer);
 
-	void drawCurrentBuffers(Primitive ePrimitive, int vertexCount);
+	void drawCurrentBuffers(Primitive ePrimitive);
 private:
 	HWND _hwnd;
 	unsigned int uiWidth;
