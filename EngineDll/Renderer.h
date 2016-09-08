@@ -60,5 +60,8 @@ private:
 	IDirect3D9* m_pkD3D;
 	IDirect3DDevice9* m_pkDevice;
 	std::vector<Texture> _textureList;
+
+	VertexBuffer3D* v3D_buffer;
+	IndexBuffer* i3D_buffer;
 };
 #endif

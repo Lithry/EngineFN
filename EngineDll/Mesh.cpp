@@ -10,7 +10,7 @@ Mesh::Mesh(Renderer& rkRenderer)
 	:
 	render(rkRenderer)
 {
-	vertexBuffer = render.createVertexBuffer(sizeof(TexturedVertex), TEXTUREFVF);
+	vertexBuffer = render.createVertexBuffer(sizeof(Vertex), TEXTUREFVF);
 	indexBuffer = render.createIndexBuffer();
 }
 
@@ -22,16 +22,19 @@ Mesh::~Mesh(){
 	indexBuffer = NULL;
 }
 
-void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
+void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 	size_t uiVertexCount, const unsigned short* pusIndices,
 	size_t uiIndexCount){
 
 	vertexBuffer->setVertexData(pakVertices, uiVertexCount);
 	indexBuffer->setIndexData(pusIndices, uiIndexCount);
 	
+	render.setCurrentVertexBuffer(vertexBuffer);
+	render.setCurrentIndexBuffer(indexBuffer);
+
 	_primitiv = ePrimitive;
 
-	_textureVertex.clear();
+	/*_textureVertex.clear();
 	_index.clear();	
 	
 	for (int i = 0; i < uiVertexCount; i++)	{
@@ -40,17 +43,11 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 
 	for (int i = 0; i < uiIndexCount; i++)	{
 		_index.push_back(pusIndices[i]);
-	}
+	}*/
 }
 
 void Mesh::draw(){
-
-
-	Texture cube = render.loadTexture("Assets/rojo.png", D3DCOLOR_XRGB(255, 255, 255));
-	render.setCurrentTexture(cube);
-	
-	vertexBuffer->bind();
-	indexBuffer->bind();
+	render.setMatrix(_transformationMatrix);
 	render.drawCurrentBuffers(_primitiv, indexBuffer->indexCount());
 }
 

@@ -103,7 +103,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 
 void Renderer::beginFrame(){
 	m_pkDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(25, 25, 25), 1.0f, 0);
-	m_pkDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	//m_pkDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	m_pkDevice->BeginScene();
 }
 
@@ -204,15 +204,16 @@ IndexBuffer* Renderer::createIndexBuffer(){
 }
 
 void Renderer::setCurrentIndexBuffer(IndexBuffer* pkIndexBuffer){
-	pkIndexBuffer->bind();
+	i3D_buffer = pkIndexBuffer;
 }
 
 void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
-	pkVertexBuffer->bind();
+	v3D_buffer = pkVertexBuffer;
 }
 
 void Renderer::drawCurrentBuffers(Primitive ePrimitive, int vertexCount){
-	
+	v3D_buffer->bind();
+	i3D_buffer->bind();
 	int iPrimitiveCount = 0;
 
 	if (Primitives[ePrimitive] == D3DPT_POINTLIST){

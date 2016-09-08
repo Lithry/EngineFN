@@ -26,7 +26,7 @@ public:
 	void setPosY(float fPosY);
 	void setPosZ(float fPosZ);
 	void setRotation(float fRotation);
-	void setScale(float fScaleX, float fScaleY);
+	void setScale(float fScaleX, float fScaleY, float fScaleZ);
 	void flipNot();
 	void Flip();
 	CollisionResult checkCollision(Entity2D& toCheck);
@@ -53,6 +53,7 @@ protected:
 	float _rotation;
 	float _scaleX;
 	float _scaleY;
+	float _scaleZ;
 	bool _flip;
 
 	Matrix _transformationMatrix;
