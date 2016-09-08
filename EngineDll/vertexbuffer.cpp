@@ -88,7 +88,6 @@ void VertexBuffer::draw (const void* pvVertices, D3DPRIMITIVETYPE ePrimitiveType
 	}
 
 	m_pkVertexBuffer->Unlock();
-
 }
 
 void VertexBuffer::flush ()

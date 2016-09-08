@@ -54,7 +54,9 @@ bool Pacman::init(Renderer& rkRenderer){
 	OurVertices[6].u = 0.0f;		OurVertices[6].v = 1.0f;
 	OurVertices[7].u = 1.0f;		OurVertices[7].v = 1.0f;
 
-	mesh->setMeshData(OurVertices, Primitive::TriangleStrip, 8, )
+
+
+	mesh->setMeshData(OurVertices, Primitive::TriangleStrip, 8,)
 }
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){

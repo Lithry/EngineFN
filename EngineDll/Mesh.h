@@ -1,12 +1,14 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "Renderer.h"
-
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 typedef TexturedVertex;
 typedef Primitive;
+
+class Renderer;
+class VertexBuffer3D;
+class IndexBuffer;
 
 #define DllExport __declspec( dllexport )
 
@@ -26,6 +28,9 @@ private:
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
 
-	TexturedVertex _textureVertex;
+	std::vector<TexturedVertex> _textureVertex;
+	std::vector<int> _index;
+	Primitive _primitiv;
+	size_t _vertexCount;
 };
 #endif
