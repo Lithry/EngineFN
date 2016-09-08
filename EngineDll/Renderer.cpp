@@ -211,7 +211,7 @@ void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
 	v3D_buffer = pkVertexBuffer;
 }
 
-void Renderer::drawCurrentBuffers(Primitive ePrimitive, int vertexCount){
+void Renderer::drawCurrentBuffers(Primitive ePrimitive){
 	v3D_buffer->bind();
 	i3D_buffer->bind();
 	int iPrimitiveCount = 0;
@@ -237,7 +237,7 @@ void Renderer::drawCurrentBuffers(Primitive ePrimitive, int vertexCount){
 	
 	
 	HRESULT hr = m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
-		vertexCount, 0, iPrimitiveCount);
+		i3D_buffer->indexCount(), 0, iPrimitiveCount);
 	
 	assert(hr == D3D_OK);
 }
