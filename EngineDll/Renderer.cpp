@@ -61,6 +61,8 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	d3dpp.Windowed = TRUE;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = hWnd;
+	d3dpp.EnableAutoDepthStencil = TRUE;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 
 	hr = m_pkD3D->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
@@ -89,12 +91,12 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	m_pkDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	
 	// Enable Z-Buffer
-	m_pkDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+	m_pkDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
 
 	// Alpha
 	m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	m_pkDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-	m_pkDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); // Por esto no dibuja los Quad
+	m_pkDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_pkDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	
 	return true;
@@ -102,6 +104,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 
 void Renderer::beginFrame(){
 	m_pkDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(25, 25, 25), 1.0f, 0);
+	m_pkDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	m_pkDevice->BeginScene();
 }
 
@@ -209,9 +212,32 @@ void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
 	pkVertexBuffer->bind();
 }
 
-void Renderer::drawCurrentBuffers(Primitive ePrimitive, int vertexCount, int primitiveCount){
+void Renderer::drawCurrentBuffers(Primitive ePrimitive, int vertexCount){
+	
+	int iPrimitiveCount = 0;
+
+	if (Primitives[ePrimitive] == D3DPT_POINTLIST){
+		iPrimitiveCount = vertexCount;
+	}
+	else if (Primitives[ePrimitive] == D3DPT_LINELIST){
+		iPrimitiveCount = vertexCount / 2;
+	}
+	else if (Primitives[ePrimitive] == D3DPT_LINESTRIP){
+		iPrimitiveCount = vertexCount - 1;
+	}
+	else if (Primitives[ePrimitive] == D3DPT_TRIANGLELIST){
+		iPrimitiveCount = vertexCount / 3;
+	}
+	else if (Primitives[ePrimitive] == D3DPT_TRIANGLESTRIP){
+		iPrimitiveCount = vertexCount - 2;
+	}
+	else if (Primitives[ePrimitive] == D3DPT_TRIANGLEFAN){
+		iPrimitiveCount = vertexCount - 2;
+	}
+	
+	
 	HRESULT hr = m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
-		vertexCount, 0, primitiveCount);
+		vertexCount, 0, iPrimitiveCount);
 	
 	assert(hr == D3D_OK);
 }

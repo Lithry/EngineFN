@@ -15,6 +15,7 @@ Entity2D::Entity2D()
 	_posZ(0),
 	_previusPosX(0),
 	_previusPosY(0),
+	_previusPosZ(0),
 	_rotation(0),
 	_scaleX(100.0f),
 	_scaleY(100.0f),

@@ -49,6 +49,7 @@ protected:
 	float _posZ;
 	float _previusPosX;
 	float _previusPosY;
+	float _previusPosZ;
 	float _rotation;
 	float _scaleX;
 	float _scaleY;

@@ -3,8 +3,8 @@
 
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
-typedef TexturedVertex;
-typedef Primitive;
+#include <vector>
+#include "VertexAndPrimitives.h"
 
 class Renderer;
 class VertexBuffer3D;
@@ -24,7 +24,7 @@ public:
 	void setTextureId(int iTextureId);
 
 private:
-	Renderer render;
+	Renderer& render;
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
 

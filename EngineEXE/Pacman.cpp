@@ -18,19 +18,18 @@ bool Pacman::init(Renderer& rkRenderer){
 	walk.addFrame(440, 336, 208, 141, 33, 33);
 
 	// Player scale, position, texture and animation seting
-	player.setScale(50, 50);
+	player.setScale(50, 50, 50);
 	player.setPosX(-150);
 	player.setPosY(60);
-	player.setPosZ(10);
+	player.setPosZ(40);
 	player.setAnimation(&nada);
 	Texture playerTexture = rkRenderer.loadTexture("Assets/BabyMario.png", D3DCOLOR_XRGB(255, 255, 255));
 	player.setTexture(playerTexture);
 	player.setAnimation(&nada);
 
 	cam = new Camera(rkRenderer);
-	cam->setCameraSpeed(2);
+	cam->setCameraSpeed(2);*/
 
-	return true;*/
 
 	mesh = new Mesh(rkRenderer);
 
@@ -38,7 +37,7 @@ bool Pacman::init(Renderer& rkRenderer){
 	OurVertices[1].x = 0.5;		OurVertices[1].y = 0.5;		OurVertices[1].z = 0.0f;
 	OurVertices[2].x = -0.5;	OurVertices[2].y = -0.5;	OurVertices[2].z = 0.0f;
 	OurVertices[3].x = 0.5;		OurVertices[3].y = -0.5;	OurVertices[3].z = 0.0f;
-	
+
 	OurVertices[4].x = -0.5;	OurVertices[4].y = 0.5;		OurVertices[4].z = 0.5f;
 	OurVertices[5].x = 0.5;		OurVertices[5].y = 0.5;		OurVertices[5].z = 0.5f;
 	OurVertices[6].x = -0.5;	OurVertices[6].y = -0.5;	OurVertices[6].z = 0.5f;
@@ -54,9 +53,25 @@ bool Pacman::init(Renderer& rkRenderer){
 	OurVertices[6].u = 0.0f;		OurVertices[6].v = 1.0f;
 	OurVertices[7].u = 1.0f;		OurVertices[7].v = 1.0f;
 
+	WORD indices[36] = {
+		0, 1, 2,    // side 1
+		2, 1, 3,
+		4, 0, 6,    // side 2
+		6, 0, 2,
+		7, 5, 6,    // side 3
+		6, 5, 4,
+		3, 1, 7,    // side 4
+		7, 1, 5,
+		4, 5, 0,    // side 5
+		0, 5, 1,
+		3, 7, 2,    // side 6
+		2, 7, 6,
+	};
 
 
-	mesh->setMeshData(OurVertices, Primitive::TriangleStrip, 8,)
+	mesh->setMeshData(OurVertices, Primitive::TriangleList, 8, indices, 36);
+
+	return true;
 }
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
@@ -108,7 +123,11 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	text.display(rkRenderer);
 	text2.display(rkRenderer);
 	text3.display(rkRenderer);*/
+
+	mesh->draw();
 }
 
 void Pacman::deinit(){
+	/*delete mesh;
+	mesh = NULL;*/
 }

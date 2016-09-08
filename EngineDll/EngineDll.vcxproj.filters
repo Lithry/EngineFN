@@ -111,6 +111,7 @@
     <ClInclude Include="pg2_vertexbuffer.h">
       <Filter>Mesh\VertexBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="VertexAndPrimitives.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">

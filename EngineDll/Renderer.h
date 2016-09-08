@@ -1,32 +1,11 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <windows.h>
+#include "VertexAndPrimitives.h"
 #include <vector>
 #include "vertexbuffer.h"
 
 #define DllExport __declspec( dllexport )
-
-class Vertex{
-public:
-	float x, y, z;
-	DWORD color;
-};
-struct TexturedVertex{
-public:
-	float x, y, z;
-	float u, v;
-};
-
-enum Primitive{
-	PointList = 0,
-	LineList,
-	LineStrip,
-	TriangleList,
-	TriangleStrip,
-	TriangleFan,
-	PrimitiveCount
-};
 
 struct D3DXMATRIX;
 typedef D3DXMATRIX* Matrix;
@@ -71,7 +50,7 @@ public:
 	void setCurrentIndexBuffer(IndexBuffer* pkIndexBuffer);
 	void setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer);
 
-	void drawCurrentBuffers(Primitive ePrimitive, int vertexCount, int primitiveCount);
+	void drawCurrentBuffers(Primitive ePrimitive, int vertexCount);
 private:
 	HWND _hwnd;
 	unsigned int uiWidth;
