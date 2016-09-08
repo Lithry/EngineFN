@@ -44,9 +44,13 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 }
 
 void Mesh::draw(){
+
+
+	Texture cube = render.loadTexture("Assets/rojo.png", D3DCOLOR_XRGB(255, 255, 255));
+	render.setCurrentTexture(cube);
+	
 	vertexBuffer->bind();
 	indexBuffer->bind();
-
 	render.drawCurrentBuffers(_primitiv, indexBuffer->indexCount());
 }
 

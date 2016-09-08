@@ -3,9 +3,6 @@
 #include "pg2_vertexbuffer.h"
 #include "pg2_indexbuffer.h"
 
-#define _USE_MATH_DEFINES
-#include <cmath>
-
 #include <d3d9.h>
 #pragma comment (lib, "d3d9.lib") 
 #include <d3dx9.h>
@@ -58,6 +55,8 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	D3DPRESENT_PARAMETERS d3dpp;
 
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
+	d3dpp.BackBufferFormat = displayMode.Format;
+	d3dpp.BackBufferCount = 1;
 	d3dpp.Windowed = TRUE;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = hWnd;
@@ -76,7 +75,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	D3DXMATRIX matProjection;
 
 	D3DXMatrixPerspectiveFovLH(&matProjection,
-		(/*M_PI*/3.1415*0.25),
+		(D3DX_PI*0.25),
 		uiW / uiH,
 		-10.0f,
 		10.0f);
