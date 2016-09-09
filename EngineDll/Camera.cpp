@@ -8,7 +8,7 @@
 Camera::Camera(Renderer& rend)
 	:
 	_renderer(rend),
-	_eye(new D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
+	_eye(new D3DXVECTOR3(0.0f, 0.0f, -500.0f)),
 	_forward(new D3DXVECTOR3(0.0f, 0.0f, 1.0f)),
 	_lookAt(new D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 	_up(new D3DXVECTOR3(0.0f, 1.0f, 0.0f)),

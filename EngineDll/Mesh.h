@@ -25,7 +25,7 @@ public:
 	void setTextureId(int iTextureId);
 
 private:
-	Renderer& render;
+	Renderer render;
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
 

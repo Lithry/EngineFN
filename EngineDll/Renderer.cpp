@@ -25,8 +25,8 @@ Renderer::~Renderer(){
 	m_pkDevice = NULL;
 	m_pkD3D->Release();
 	m_pkD3D = NULL;
-	delete v_buffer;
-	v_buffer = NULL;
+	//delete v_buffer;
+	//v_buffer = NULL;
 
 	std::vector<Texture>::iterator iter;
 	for (iter = _textureList.begin(); iter != _textureList.end(); iter++){
@@ -56,7 +56,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 	d3dpp.BackBufferFormat = displayMode.Format;
-	d3dpp.BackBufferCount = 1;
+	//d3dpp.BackBufferCount = 1;
 	d3dpp.Windowed = TRUE;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = hWnd;
@@ -77,12 +77,12 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	D3DXMatrixPerspectiveFovLH(&matProjection,
 		(D3DX_PI*0.25),
 		uiW / uiH,
-		-10.0f,
-		10.0f);
+		1.0f,
+		1000000.0f);
 
 	m_pkDevice->SetTransform(D3DTS_PROJECTION, &matProjection);
 
-	v_buffer = new VertexBuffer(m_pkDevice, sizeof(Vertex), CUSTOMFVF);
+	//v_buffer = new VertexBuffer(m_pkDevice, sizeof(Vertex), CUSTOMFVF);
 	t_buffer = new VertexBuffer(m_pkDevice, sizeof(TexturedVertex), TEXTUREFVF);
 
 	// Apagar Luces
@@ -90,7 +90,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	m_pkDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	
 	// Enable Z-Buffer
-	m_pkDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+	m_pkDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
 
 	// Alpha
 	m_pkDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
@@ -102,14 +102,14 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 }
 
 void Renderer::beginFrame(){
-	m_pkDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(25, 25, 25), 1.0f, 0);
+	m_pkDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	//m_pkDevice->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	m_pkDevice->BeginScene();
 }
 
 void Renderer::draw(Vertex gameVertex[]){
-	v_buffer->bind();
-	v_buffer->draw(gameVertex, D3DPT_TRIANGLESTRIP, 4);
+	//v_buffer->bind();
+	//v_buffer->draw(gameVertex, D3DPT_TRIANGLESTRIP, 4);
 }
 
 void Renderer::draw(TexturedVertex* gameVertex, int vertexCount){
@@ -212,32 +212,29 @@ void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
 }
 
 void Renderer::drawCurrentBuffers(Primitive ePrimitive){
-	v3D_buffer->bind();
 	i3D_buffer->bind();
+	v3D_buffer->bind();
 	int iPrimitiveCount = 0;
 
 	if (Primitives[ePrimitive] == D3DPT_POINTLIST){
-		iPrimitiveCount = vertexCount;
+		iPrimitiveCount = i3D_buffer->indexCount();
 	}
 	else if (Primitives[ePrimitive] == D3DPT_LINELIST){
-		iPrimitiveCount = vertexCount / 2;
+		iPrimitiveCount = i3D_buffer->indexCount() / 2;
 	}
 	else if (Primitives[ePrimitive] == D3DPT_LINESTRIP){
-		iPrimitiveCount = vertexCount - 1;
+		iPrimitiveCount = i3D_buffer->indexCount() - 1;
 	}
 	else if (Primitives[ePrimitive] == D3DPT_TRIANGLELIST){
-		iPrimitiveCount = vertexCount / 3;
+		iPrimitiveCount = i3D_buffer->indexCount() / 3;
 	}
 	else if (Primitives[ePrimitive] == D3DPT_TRIANGLESTRIP){
-		iPrimitiveCount = vertexCount - 2;
+		iPrimitiveCount = i3D_buffer->indexCount() - 2;
 	}
 	else if (Primitives[ePrimitive] == D3DPT_TRIANGLEFAN){
-		iPrimitiveCount = vertexCount - 2;
+		iPrimitiveCount = i3D_buffer->indexCount() - 2;
 	}
 	
-	
-	HRESULT hr = m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
-		i3D_buffer->indexCount(), 0, iPrimitiveCount);
-	
-	assert(hr == D3D_OK);
+	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
+		i3D_buffer->indexCount(), 0, 12);
 }

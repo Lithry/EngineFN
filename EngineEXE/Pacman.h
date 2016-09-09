@@ -17,7 +17,6 @@ public:
 	void deinit();
 private:
 	TileMap tileMap;
-	Vertex OurVertices[8];
 	std::vector<Quad*> obstacle;
 	Sprite background;
 	Sprite player;
