@@ -109,7 +109,7 @@ bool TileMap::importTileMap(std::string filePath, Renderer& renderer){
 
 			newTile.setId(_id);
 			newTile.setTexture(_texture);
-			newTile.setScale(_tileWidth, _tileHeight, 1);
+			newTile.setScale(_tileWidth, _tileHeight);
 
 			newTile.setTextureCoordinates(tileX / _imageWidth, tileY / _imageHeight,
 				(tileX + _tileWidth) / _imageWidth, tileY / _imageHeight,

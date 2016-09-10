@@ -56,7 +56,7 @@ private:
 	unsigned int uiWidth;
 	unsigned int uiHeight;
 	//VertexBuffer* v_buffer;
-	VertexBuffer* t_buffer;
+	//VertexBuffer* t_buffer;
 	IDirect3D9* m_pkD3D;
 	IDirect3DDevice9* m_pkDevice;
 	std::vector<Texture> _textureList;

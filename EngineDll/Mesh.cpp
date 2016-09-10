@@ -11,7 +11,8 @@ Mesh::Mesh(Renderer& rkRenderer)
 	:
 	vertexBuffer(NULL),
 	indexBuffer(NULL),
-	render(rkRenderer)
+	render(rkRenderer),
+	vert(new Vertex())
 {
 
 }
@@ -28,6 +29,7 @@ void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 	size_t uiVertexCount, const unsigned short* pusIndices,
 	size_t uiIndexCount){
 
+	*vert = *pakVertices;
 	vertexBuffer = render.createVertexBuffer(sizeof(Vertex), CUSTOMFVF);
 	indexBuffer = render.createIndexBuffer();
 
@@ -41,6 +43,25 @@ void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 }
 
 void Mesh::draw(){
+	Matrix _transformationMatrix;
+	_transformationMatrix = new D3DXMATRIX();
+
+	D3DXMATRIX traslatrionMat;
+	D3DXMatrixTranslation(&traslatrionMat, 0, 0, vert->z+4000);
+
+	D3DXMATRIX rotationMat;
+	D3DXMatrixRotationZ(&rotationMat, 0);
+
+	D3DXMATRIX scaleMat;
+	D3DXMatrixScaling(&scaleMat, vert->x, vert->y, vert->z);
+
+	D3DXMatrixIdentity(_transformationMatrix);
+	D3DXMatrixMultiply(_transformationMatrix, &traslatrionMat, _transformationMatrix);
+	D3DXMatrixMultiply(_transformationMatrix, &rotationMat, _transformationMatrix);
+	D3DXMatrixMultiply(_transformationMatrix, &scaleMat, _transformationMatrix);
+
+
+
 	render.setMatrix(_transformationMatrix);
 	render.drawCurrentBuffers(_primitiv);
 }

@@ -4,7 +4,6 @@
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 #include <vector>
-#include "Entity2D.h"
 #include "VertexAndPrimitives.h"
 
 class Renderer;
@@ -13,7 +12,7 @@ class IndexBuffer;
 
 #define DllExport __declspec( dllexport )
 
-class DllExport Mesh : public Entity2D{
+class DllExport Mesh{
 public:
 	Mesh(Renderer& rkRenderer);
 	~Mesh();
@@ -25,13 +24,11 @@ public:
 	void setTextureId(int iTextureId);
 
 private:
-	Renderer render;
+	Renderer& render;
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
-
-	std::vector<Vertex> _textureVertex;
-	std::vector<int> _index;
 	Primitive _primitiv;
-	size_t _vertexCount;
+
+	Vertex* vert;
 };
 #endif
