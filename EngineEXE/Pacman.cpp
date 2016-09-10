@@ -12,11 +12,11 @@ bool Pacman::init(Renderer& rkRenderer){
 	float cube = 25;
 
 	Vertex OurVertices[8];
-	OurVertices[0].x = -cube;	OurVertices[0].y = cube;	OurVertices[0].z = -cube;	OurVertices[0].color = D3DCOLOR_XRGB(100, 0, 100);    // vertex 0
-	OurVertices[1].x = cube;	OurVertices[1].y = cube;	OurVertices[1].z = -cube;	OurVertices[1].color = D3DCOLOR_XRGB(0, 200, 0);    // vertex 1
-	OurVertices[2].x = -cube;	OurVertices[2].y = -cube;	OurVertices[2].z = -cube;	OurVertices[2].color = D3DCOLOR_XRGB(100, 0, 100);	 // 2
-	OurVertices[3].x = cube;	OurVertices[3].y = -cube;	OurVertices[3].z = -cube;	OurVertices[3].color = D3DCOLOR_XRGB(0, 200, 0);  // 3
-	OurVertices[4].x = -cube;	OurVertices[4].y = cube;	OurVertices[4].z = cube;	OurVertices[4].color = D3DCOLOR_XRGB(100, 0, 100);    // ...
+	OurVertices[0].x = -cube;	OurVertices[0].y = cube;	OurVertices[0].z = -cube;	OurVertices[0].color = D3DCOLOR_XRGB(100, 0, 100);
+	OurVertices[1].x = cube;	OurVertices[1].y = cube;	OurVertices[1].z = -cube;	OurVertices[1].color = D3DCOLOR_XRGB(0, 200, 0);
+	OurVertices[2].x = -cube;	OurVertices[2].y = -cube;	OurVertices[2].z = -cube;	OurVertices[2].color = D3DCOLOR_XRGB(100, 0, 100);
+	OurVertices[3].x = cube;	OurVertices[3].y = -cube;	OurVertices[3].z = -cube;	OurVertices[3].color = D3DCOLOR_XRGB(0, 200, 0);
+	OurVertices[4].x = -cube;	OurVertices[4].y = cube;	OurVertices[4].z = cube;	OurVertices[4].color = D3DCOLOR_XRGB(100, 0, 100);
 	OurVertices[5].x = cube;	OurVertices[5].y = cube;	OurVertices[5].z = cube;	OurVertices[5].color = D3DCOLOR_XRGB(0, 200, 0);
 	OurVertices[6].x = -cube;	OurVertices[6].y = -cube;	OurVertices[6].z = cube;	OurVertices[6].color = D3DCOLOR_XRGB(100, 0, 100);
 	OurVertices[7].x = cube;	OurVertices[7].y = -cube;	OurVertices[7].z = cube;	OurVertices[7].color = D3DCOLOR_XRGB(0, 200, 0);
@@ -38,10 +38,19 @@ bool Pacman::init(Renderer& rkRenderer){
 	};
 
 	mesh = new Mesh(rkRenderer);
-	int verticesSize = ARRAYSIZE(OurVertices);
-	int indicesSize = ARRAYSIZE(indices);
+	mesh->setMeshData(OurVertices, Primitive::TriangleList, ARRAYSIZE(OurVertices), indices, ARRAYSIZE(indices));
 
-	mesh->setMeshData(OurVertices, Primitive::TriangleList, verticesSize, indices, indicesSize);
+	OurVertices[0].z = -cube + 50;
+	OurVertices[1].z = -cube + 50;
+	OurVertices[2].z = -cube + 50;
+	OurVertices[3].z = -cube + 50;
+	OurVertices[4].z = cube + 50;
+	OurVertices[5].z = cube + 50;
+	OurVertices[6].z = cube + 50;
+	OurVertices[7].z = cube + 50;
+
+	mesh2 = new Mesh(rkRenderer);
+	mesh2->setMeshData(OurVertices, Primitive::TriangleList, ARRAYSIZE(OurVertices), indices, ARRAYSIZE(indices));
 
 	return true;
 }
@@ -50,6 +59,7 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 
 	mesh->draw();
+	mesh2->draw();
 }
 
 void Pacman::deinit(){
