@@ -57,6 +57,8 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	d3dpp.Windowed = TRUE;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = hWnd;
+	d3dpp.EnableAutoDepthStencil = TRUE;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 
 	hr = m_pkD3D->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
@@ -80,6 +82,9 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 	//v_buffer = new VertexBuffer(m_pkDevice, sizeof(Vertex), CUSTOMFVF);
 	//t_buffer = new VertexBuffer(m_pkDevice, sizeof(TexturedVertex), TEXTUREFVF);
 
+	// Enable Z-Buffer
+	m_pkDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+
 	// Apagar Luces
 	m_pkDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pkDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -94,7 +99,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 }
 
 void Renderer::beginFrame(){
-	m_pkDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	m_pkDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	m_pkDevice->BeginScene();
 }
 
