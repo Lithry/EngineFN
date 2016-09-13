@@ -6,10 +6,7 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(10);
 
-
-	mesh = new Mesh(rkRenderer);
-
-	float cube = 25;
+	float cube = 5;
 
 	Vertex OurVertices[8];
 	OurVertices[0].x = -cube;	OurVertices[0].y = cube;	OurVertices[0].z = -cube;	OurVertices[0].color = D3DCOLOR_XRGB(100, 0, 100);
@@ -39,24 +36,24 @@ bool Pacman::init(Renderer& rkRenderer){
 
 	mesh = new Mesh(rkRenderer);
 	mesh->setMeshData(OurVertices, Primitive::TriangleList, ARRAYSIZE(OurVertices), indices, ARRAYSIZE(indices));
-
-	OurVertices[0].z = -cube + 50;
-	OurVertices[1].z = -cube + 50;
-	OurVertices[2].z = -cube + 50;
-	OurVertices[3].z = -cube + 50;
-	OurVertices[4].z = cube + 50;
-	OurVertices[5].z = cube + 50;
-	OurVertices[6].z = cube + 50;
-	OurVertices[7].z = cube + 50;
+	mesh->setPos(0, 0, 1000);
+	mesh->setScale(50, 50, 50);
 
 	mesh2 = new Mesh(rkRenderer);
 	mesh2->setMeshData(OurVertices, Primitive::TriangleList, ARRAYSIZE(OurVertices), indices, ARRAYSIZE(indices));
+	mesh2->setPos(0, 0, 2500);
+	mesh2->setScale(100, 100, 100);
 
 	return true;
 }
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
+	static float speedY = 1;
+	static float speedX = 0.5;
+
+	mesh2->setRotationY(mesh2->rotationY() + speedY);
+	mesh2->setRotationX(mesh2->rotationX() + speedX);
 
 	mesh->draw();
 	mesh2->draw();

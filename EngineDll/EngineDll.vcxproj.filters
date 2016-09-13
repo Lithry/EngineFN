@@ -112,6 +112,9 @@
       <Filter>Mesh\VertexBuffer</Filter>
     </ClInclude>
     <ClInclude Include="VertexAndPrimitives.h" />
+    <ClInclude Include="Entity3D.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="pg2_vertexbuffer.cpp">
       <Filter>Mesh\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity3D.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

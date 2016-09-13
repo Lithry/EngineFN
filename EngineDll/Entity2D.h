@@ -7,8 +7,6 @@
 
 #define DllExport __declspec( dllexport )
 
-
-
 class DllExport Entity2D{
 public:
 	enum CollisionResult

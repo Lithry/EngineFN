@@ -4,6 +4,7 @@
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 #include <vector>
+#include "Entity3D.h"
 #include "VertexAndPrimitives.h"
 
 class Renderer;
@@ -12,7 +13,7 @@ class IndexBuffer;
 
 #define DllExport __declspec( dllexport )
 
-class DllExport Mesh{
+class DllExport Mesh : public Entity3D{
 public:
 	Mesh(Renderer& rkRenderer);
 	~Mesh();

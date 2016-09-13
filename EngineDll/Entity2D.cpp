@@ -1,6 +1,6 @@
 #include "Entity2D.h"
 
-#include <algorithm>
+//#include <algorithm>
 
 #include <d3dx9.h>
 #pragma comment (lib, "d3dx9.lib")
@@ -151,7 +151,6 @@ float Entity2D::scaleY() const{
 }
 
 void Entity2D::updateLocalTransformation(){
-
 	D3DXMATRIX traslatrionMat;
 	D3DXMatrixTranslation(&traslatrionMat, _posX, _posY, _posZ);
 
