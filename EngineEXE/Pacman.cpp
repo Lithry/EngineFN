@@ -18,6 +18,16 @@ bool Pacman::init(Renderer& rkRenderer){
 	OurVertices[6].x = -cube;	OurVertices[6].y = -cube;	OurVertices[6].z = cube;	OurVertices[6].color = D3DCOLOR_XRGB(100, 0, 100);
 	OurVertices[7].x = cube;	OurVertices[7].y = -cube;	OurVertices[7].z = cube;	OurVertices[7].color = D3DCOLOR_XRGB(0, 200, 0);
 
+	/*TexturedVertex OurVertices[8];
+	OurVertices[0].x = -cube;	OurVertices[0].y = cube;	OurVertices[0].z = -cube;	OurVertices[0].u = 0; OurVertices[0].v = 0;
+	OurVertices[1].x = cube;	OurVertices[1].y = cube;	OurVertices[1].z = -cube;	OurVertices[1].u = 1; OurVertices[1].v = 0;
+	OurVertices[2].x = -cube;	OurVertices[2].y = -cube;	OurVertices[2].z = -cube;	OurVertices[2].u = 0; OurVertices[2].v = 1;
+	OurVertices[3].x = cube;	OurVertices[3].y = -cube;	OurVertices[3].z = -cube;	OurVertices[3].u = 1; OurVertices[3].v = 1;
+	OurVertices[4].x = -cube;	OurVertices[4].y = cube;	OurVertices[4].z = cube;	OurVertices[4].u = 0; OurVertices[4].v = 0;
+	OurVertices[5].x = cube;	OurVertices[5].y = cube;	OurVertices[5].z = cube;	OurVertices[5].u = 1; OurVertices[5].v = 0;
+	OurVertices[6].x = -cube;	OurVertices[6].y = -cube;	OurVertices[6].z = cube;	OurVertices[6].u = 0; OurVertices[6].v = 1;
+	OurVertices[7].x = cube;	OurVertices[7].y = -cube;	OurVertices[7].z = cube;	OurVertices[7].u = 1; OurVertices[7].v = 1;*/
+
 	unsigned short indices[] =
 	{
 		0, 1, 2,    // side 1

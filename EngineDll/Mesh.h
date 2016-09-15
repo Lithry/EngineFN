@@ -24,6 +24,7 @@ public:
 	void draw();
 	void setTextureId(int iTextureId);
 
+	bool importObj(const std::string& objName);
 private:
 	Renderer& render;
 	VertexBuffer3D* vertexBuffer;

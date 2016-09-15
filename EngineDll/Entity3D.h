@@ -42,6 +42,8 @@ protected:
 
 	Matrix _transformationMatrix;
 
+	Texture _texture;
+
 	void updateLocalTransformation();
 };
 #endif

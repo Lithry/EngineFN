@@ -4,6 +4,8 @@
 #include "pg2_vertexbuffer.h"
 #include "pg2_indexbuffer.h"
 
+#include "AssImp\Importer.hpp"
+
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 #define TEXTUREFVF (D3DFVF_XYZ | D3DFVF_TEX1)
 
@@ -49,4 +51,8 @@ void Mesh::draw(){
 
 void Mesh::setTextureId(int iTextureId){
 
+}
+
+bool Mesh::importObj(const std::string& objName){
+	return false;
 }

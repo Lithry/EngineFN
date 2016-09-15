@@ -115,6 +115,7 @@
     <ClInclude Include="Entity3D.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Importer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -197,5 +198,6 @@
     <ClCompile Include="Entity3D.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Importer.cpp" />
   </ItemGroup>
 </Project>
