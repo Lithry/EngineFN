@@ -46,6 +46,9 @@
     <Filter Include="Mesh\VertexBuffer">
       <UniqueIdentifier>{f93d985d-c5bc-43da-812e-947f00d1f0ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh\Importer">
+      <UniqueIdentifier>{8c08a141-6d88-4414-b5ea-4a1f563c67d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -115,7 +118,12 @@
     <ClInclude Include="Entity3D.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Importer.h" />
+    <ClInclude Include="Sound.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Importer.h">
+      <Filter>Mesh\Importer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -198,6 +206,11 @@
     <ClCompile Include="Entity3D.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Importer.cpp" />
+    <ClCompile Include="Sound.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Importer.cpp">
+      <Filter>Mesh\Importer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

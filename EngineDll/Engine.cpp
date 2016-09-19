@@ -11,7 +11,12 @@ Engine::Engine(HINSTANCE hinst, unsigned int uiW, unsigned int uiH)
 	hinstance(hinst),
 	uiWidth(uiW),
 	uiHeight(uiH)
-{}
+{
+	AllocConsole();
+	freopen("CONIN$", "r", stdin);
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+}
 
 Engine::~Engine(){
 	delete t;
