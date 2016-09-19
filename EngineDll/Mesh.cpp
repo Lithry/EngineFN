@@ -3,8 +3,7 @@
 #include "Renderer.h"
 #include "pg2_vertexbuffer.h"
 #include "pg2_indexbuffer.h"
-
-#include "AssImp\Importer.hpp"
+#include "Importer.h"
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 #define TEXTUREFVF (D3DFVF_XYZ | D3DFVF_TEX1)
@@ -54,5 +53,18 @@ void Mesh::setTextureId(int iTextureId){
 }
 
 bool Mesh::importObj(const std::string& objName){
-	return false;
+	Importer* import = new Importer();
+	
+	if (import->importMesh(objName, *this))
+		return false;
+
+	return true;
+}
+
+VertexBuffer3D* Mesh::getVertexBuffer(){
+	return vertexBuffer;
+}
+
+IndexBuffer* Mesh::getIndexBuffer(){
+	return indexBuffer;
 }

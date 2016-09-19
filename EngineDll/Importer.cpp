@@ -1,38 +1,57 @@
 #include "Importer.h"
 
+#include <vector>
+#include "VertexAndPrimitives.h"
+#include "Mesh.h"
 #include "AssImp\Importer.hpp"
 #include "AssImp\scene.h"
 #include "AssImp\postprocess.h"
 
-Importer::Importer(){
+#pragma comment(lib, "assimp.lib") 
 
-}
+Importer::Importer()
+{}
 
 Importer::~Importer(){
 
 }
 
-bool Importer::importMesh(const std::string& rkFilename, Mesh& orkMesh){
-	// Create an instance of the Importer class
+bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	Assimp::Importer importer;
-	// And have it read the given file with some example postprocessing
-	// Usually - if speed is not the most important aspect for you - you'll 
-	// propably to request more postprocessing than we do in this example.
+
 	const aiScene* scene = importer.ReadFile(rkFilename,
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices |
-		aiProcess_SortByPType);
+		aiProcess_JoinIdenticalVertices);
 
-
-
-	// If the import failed, report it
 	if (!scene)
 	{
 		const char* errors = importer.GetErrorString();
 		return false;
 	}
-	// Now we can access the file's contents. 
-	// We're done. Everything will be cleaned up by the importer destructor
+
+	aiMesh* meshs = *scene->mMeshes;
+
+	Vertex* vert = new Vertex[meshs->mNumVertices];
+
+	for (int i = 0; i< meshs->mNumVertices; i++)
+	{
+		vert[i].x = meshs->mVertices[i].x;
+		vert[i].y = meshs->mVertices[i].y;
+		vert[i].z = meshs->mVertices[i].z;
+		vert[i].color = D3DCOLOR_XRGB(100, 100, 100);
+	}
+	
+	int indexCount = meshs->mNumFaces * 3;
+	unsigned short* indices = new unsigned short[indexCount];
+	for (unsigned int i = 0; i< meshs->mNumFaces; i++)
+	{
+		indices[i * 3 + 0] = meshs->mFaces[i].mIndices[0];
+		indices[i * 3 + 1] = meshs->mFaces[i].mIndices[1];
+		indices[i * 3 + 2] = meshs->mFaces[i].mIndices[2];
+	}
+
+	mesher.setMeshData(vert, Primitive::TriangleList, meshs->mNumVertices, indices, indexCount);
+	
 	return true;
 }

@@ -9,6 +9,7 @@
 #include "ScreenText.h"
 #include "Camera.h"
 #include "Mesh.h"
+#include "Importer.h"
 
 class Pacman : public Game{
 public:
@@ -31,6 +32,5 @@ private:
 	std::string score;
 
 	Mesh* mesh;
-	Mesh* mesh2;
 };
 #endif

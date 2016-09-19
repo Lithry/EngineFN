@@ -25,6 +25,9 @@ public:
 	void setTextureId(int iTextureId);
 
 	bool importObj(const std::string& objName);
+
+	VertexBuffer3D* getVertexBuffer();
+	IndexBuffer* getIndexBuffer();
 private:
 	Renderer& render;
 	VertexBuffer3D* vertexBuffer;

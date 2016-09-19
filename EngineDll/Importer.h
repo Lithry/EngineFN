@@ -11,6 +11,7 @@ class DllExport Importer{
 public:
 	Importer();
 	~Importer();
-	bool importMesh(const std::string& rkFilename, Mesh& orkMesh);
+	bool importMesh(const std::string& rkFilename, Mesh& mesher);
+private:
 };
 #endif
