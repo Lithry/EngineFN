@@ -44,6 +44,8 @@ void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 }
 
 void Mesh::draw(){
+	render.setCurrentVertexBuffer(vertexBuffer);
+	render.setCurrentIndexBuffer(indexBuffer);
 	render.setMatrix(_transformationMatrix);
 	render.drawCurrentBuffers(_primitiv);
 }

@@ -32,5 +32,7 @@ private:
 	std::string score;
 
 	Mesh* mesh;
+	Mesh* mesh2;
+	Mesh* mesh3;
 };
 #endif

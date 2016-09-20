@@ -15,7 +15,9 @@ Entity3D::Entity3D()
 	_scaleX(0),
 	_scaleY(0),
 	_scaleZ(0)
-{}
+{
+	updateLocalTransformation();
+}
 
 Entity3D::~Entity3D(){
 
