@@ -23,12 +23,16 @@ Camera::Camera(Renderer& rend)
 Camera::~Camera(){
 	delete _eye;
 	_eye = NULL;
+	delete _forward;
+	_forward = NULL;
 	delete _lookAt;
 	_lookAt = NULL;
 	delete _up;
 	_up = NULL;
 	delete _rigth;
 	_rigth = NULL;
+	delete _left;
+	_left = NULL;
 }
 
 bool Camera::init(){
@@ -119,8 +123,8 @@ void Camera::controls(Input& rkInput){
 		strafe(cameraSpeed);
 	}
 
-	yaw(rkInput.mouseRelPosX() / 8);
-	pitch(rkInput.mouseRelPosY() / 8);
+	yaw(float(rkInput.mouseRelPosX() / 8));
+	pitch(float(rkInput.mouseRelPosY() / 8));
 }
 
 void Camera::setCameraSpeed(float speed){

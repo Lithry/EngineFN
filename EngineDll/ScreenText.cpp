@@ -1,6 +1,9 @@
 #include "ScreenText.h"
 //=================================================
-ScreenText::ScreenText():
+ScreenText::ScreenText()
+	:
+	_textFont(new std::string),
+	_text(new std::string),
 	_font(NULL),
 	_width(0),
 	_height(0),
@@ -11,6 +14,10 @@ ScreenText::ScreenText():
 {}
 //=================================================
 ScreenText::~ScreenText(){
+	delete _textFont;
+	_textFont = NULL;
+	delete _text;
+	_text = NULL;
 }
 //=================================================
 void ScreenText::create(int x, int y, 
@@ -22,14 +29,14 @@ void ScreenText::create(int x, int y,
 {
 	_font = renderer.createFont(charSize, textFont, italic);
 	_rect = renderer.createRect(x, y, width, height);
-	_text = text;
+	*_text = text;
 }
 //=================================================
 void ScreenText::display(Renderer& renderer){
-	renderer.displayText(_font, _rect, _text);
+	renderer.displayText(_font, _rect, *_text);
 }
 //=================================================
 void ScreenText::setText(std::string text){
-	_text = text;
+	*_text = text;
 }
 //=================================================

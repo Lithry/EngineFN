@@ -17,7 +17,7 @@ public:
 	bool init(HINSTANCE hInst, unsigned int uiWidth, unsigned int uiHeight);
 	void Window::setTitle(std::string title);
 	HWND hWnd; //Handler de la ventana
-	std::string title;
+	std::string* title;
 private:
 };
 #endif

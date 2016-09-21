@@ -25,7 +25,6 @@ public:
 private:
 	std::vector<Tile> tiles;
 	std::vector<Tile**> _tileMapGrid;
-	//Tile** _tileMapGrid;
 	Texture _texture;
 	unsigned int _width;
 	unsigned int _height;
@@ -33,7 +32,7 @@ private:
 	float _tileHeight;
 	float _imageWidth;
 	float _imageHeight;
-	std::string _imagePath;
+	std::string* _imagePath;
 };
 #endif
 

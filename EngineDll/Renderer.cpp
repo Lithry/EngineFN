@@ -26,6 +26,11 @@ Renderer::~Renderer(){
 	m_pkD3D->Release();
 	m_pkD3D = NULL;
 
+	delete v3D_buffer;
+	v3D_buffer = NULL;
+	delete i3D_buffer;
+	i3D_buffer = NULL;
+
 	std::vector<Texture>::iterator iter;
 	for (iter = _textureList.begin(); iter != _textureList.end(); iter++){
 		(*iter)->Release();

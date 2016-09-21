@@ -36,4 +36,13 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 }
 
 void Pacman::deinit(){
+	delete cam;
+	cam = NULL;
+
+	/*delete mesh;
+	mesh = NULL;
+	delete mesh2;
+	mesh2 = NULL;
+	delete mesh3;
+	mesh3 = NULL;*/
 }

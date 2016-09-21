@@ -1,15 +1,18 @@
 #include "Window.h"
 
 Window::Window(){
+	title = new std::string;
 }
 
 Window::~Window(){
+	delete title;
+	title = NULL;
 }
 
 bool Window::init(HINSTANCE hInst, unsigned int uiWidth, unsigned int uiHeight){
 	static TCHAR szWindowClass[] = _T("engine_fn");
 	static TCHAR szTitle[] = _T("EngineFN");
-	title = szTitle;
+	*title = szTitle;
 
 	SetConsoleTitle(_T("Some title"));
 

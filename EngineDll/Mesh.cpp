@@ -21,9 +21,10 @@ Mesh::Mesh(Renderer& rkRenderer)
 Mesh::~Mesh(){
 	delete vertexBuffer;
 	vertexBuffer = NULL;
-
 	delete indexBuffer;
 	indexBuffer = NULL;
+	delete vert;
+	vert = NULL;
 }
 
 void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,

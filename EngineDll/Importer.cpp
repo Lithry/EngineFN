@@ -34,7 +34,7 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 
 	Vertex* vert = new Vertex[meshs->mNumVertices];
 
-	for (int i = 0; i< meshs->mNumVertices; i++)
+	for (size_t i = 0; i< meshs->mNumVertices; i++)
 	{
 		vert[i].x = meshs->mVertices[i].x;
 		vert[i].y = meshs->mVertices[i].y;

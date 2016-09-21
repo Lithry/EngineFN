@@ -27,9 +27,9 @@ private:
 	int _charSize;
 	int _x, _y;
 	bool _italic;
-	std::string _textFont;
+	std::string* _textFont;
 	RECT _rect;
-	std::string _text;
+	std::string* _text;
 };
 //===================================================================
 #endif
