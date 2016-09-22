@@ -27,6 +27,7 @@ bool Pacman::init(Renderer& rkRenderer){
 	mesh4->setPos(0, -20, -20);
 	mesh4->setScale(10, 10, 10);
 
+
 	return true;
 }
 
