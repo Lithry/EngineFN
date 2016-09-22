@@ -237,5 +237,5 @@ void Renderer::drawCurrentBuffers(Primitive ePrimitive){
 	}
 	
 	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
-		i3D_buffer->indexCount(), 0, iPrimitiveCount);
+		v3D_buffer->vertexCount(), 0, iPrimitiveCount);
 }

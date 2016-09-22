@@ -34,5 +34,6 @@ private:
 	Mesh* mesh;
 	Mesh* mesh2;
 	Mesh* mesh3;
+	Mesh* mesh4;
 };
 #endif

@@ -7,8 +7,9 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam->setCameraSpeed(2);
 
 	mesh = new Mesh(rkRenderer);
-	mesh->importObj("Assets/Valla.obj");
+	mesh->importObj("Assets/sword.obj");
 	mesh->setPos(0, -10, 50);
+	mesh->setRotationX(75);
 	mesh->setScale(10, 10, 10);
 
 	mesh2 = new Mesh(rkRenderer);
@@ -21,6 +22,11 @@ bool Pacman::init(Renderer& rkRenderer){
 	mesh3->setPos(50, -10, 100);
 	mesh3->setScale(1, 1, 1);
 
+	mesh4 = new Mesh(rkRenderer);
+	mesh4->importObj("Assets/Valla.obj");
+	mesh4->setPos(0, -20, -20);
+	mesh4->setScale(10, 10, 10);
+
 	return true;
 }
 
@@ -29,20 +35,12 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	static float speedY = 1;
 	static float speedX = 0.5;
 
-	mesh->setRotationY(mesh->rotationY() + speedY);
+	mesh->setRotationZ(mesh->rotationZ() + speedY);
 	mesh->draw();
 	mesh2->draw();
 	mesh3->draw();
+	mesh4->draw();
 }
 
 void Pacman::deinit(){
-	delete cam;
-	cam = NULL;
-
-	/*delete mesh;
-	mesh = NULL;
-	delete mesh2;
-	mesh2 = NULL;
-	delete mesh3;
-	mesh3 = NULL;*/
 }
