@@ -4,7 +4,8 @@
 #include <string>
 #include "Renderer.h"
 //===================================================================
-#define DllExport __declspec(dllexport)
+#include "Export.h"
+//#define DllExport __declspec(dllexport)
 //===================================================================
 class DllExport ScreenText{
 public:

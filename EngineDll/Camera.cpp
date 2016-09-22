@@ -41,29 +41,38 @@ bool Camera::init(){
 }
 
 void Camera::roll(float angl){
-	D3DXMATRIX rollMat;
-	D3DXMatrixRotationAxis(&rollMat, &*_forward, D3DXToRadian(angl));
-	D3DXVec3TransformCoord(&*_rigth, &*_rigth, &rollMat);
-	D3DXVec3TransformCoord(&*_up, &*_up, &rollMat);
+	D3DXMATRIX* rollMat = new D3DXMATRIX();
+	D3DXMatrixRotationAxis(rollMat, _forward, D3DXToRadian(angl));
+	D3DXVec3TransformCoord(_rigth, _rigth, rollMat);
+	D3DXVec3TransformCoord(_up, _up, rollMat);
 
 	update();
+
+	delete rollMat;
+	rollMat = NULL;
 }
 
 void Camera::pitch(float angl){
-	D3DXMATRIX pitchMat;
-	D3DXMatrixRotationAxis(&pitchMat, &*_rigth, D3DXToRadian(angl));
-	D3DXVec3TransformCoord(&*_forward, &*_forward, &pitchMat);
+	D3DXMATRIX* pitchMat = new D3DXMATRIX();
+	D3DXMatrixRotationAxis(pitchMat, _rigth, D3DXToRadian(angl));
+	D3DXVec3TransformCoord(_forward, _forward, pitchMat);
 
 	update();
+
+	delete pitchMat;
+	pitchMat = NULL;
 }
 
 void Camera::yaw(float angl){
-	D3DXMATRIX yawMat;
-	D3DXMatrixRotationAxis(&yawMat, &*_up, D3DXToRadian(angl));
-	D3DXVec3TransformCoord(&*_forward, &*_forward, &yawMat);
-	D3DXVec3TransformCoord(&*_rigth, &*_rigth, &yawMat);
+	D3DXMATRIX* yawMat = new D3DXMATRIX();
+	D3DXMatrixRotationAxis(yawMat, _up, D3DXToRadian(angl));
+	D3DXVec3TransformCoord(_forward, _forward, yawMat);
+	D3DXVec3TransformCoord(_rigth, _rigth, yawMat);
 
 	update();
+
+	delete yawMat;
+	yawMat = NULL;
 }
 
 void Camera::walk(float dist){
@@ -87,10 +96,10 @@ void Camera::fly(float dist){
 void Camera::update(){
 	*_lookAt = *_eye + *_forward;
 
-	D3DXMatrixLookAtLH(&*_view,
-		&*_eye,
-		&*_lookAt,
-		&*_up);
+	D3DXMatrixLookAtLH(_view,
+		_eye,
+		_lookAt,
+		_up);
 
 	_renderer.setViewMatrix(*_view);
 }
@@ -123,8 +132,8 @@ void Camera::controls(Input& rkInput){
 		strafe(cameraSpeed);
 	}
 
-	yaw(float(rkInput.mouseRelPosX() / 8));
-	pitch(float(rkInput.mouseRelPosY() / 8));
+	yaw(float(rkInput.mouseRelPosX()) / 8.0f);
+	pitch(float(rkInput.mouseRelPosY()) / 8.0f);
 }
 
 void Camera::setCameraSpeed(float speed){

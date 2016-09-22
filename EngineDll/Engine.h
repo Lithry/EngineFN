@@ -8,7 +8,8 @@
 #include "directinput.h"
 #include "timer.h"
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 using namespace std;
 

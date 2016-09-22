@@ -12,7 +12,8 @@
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 //---------------------------------------------------------------------------
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 //---------------------------------------------------------------------------
 class DllExport DirectInput : public Input{
 public:

@@ -1,7 +1,8 @@
 #ifndef QUAD_H
 #define QUAD_H
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 #include "Entity2D.h"
 

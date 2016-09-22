@@ -3,7 +3,8 @@
 
 #include "Renderer.h"
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class DllExport Entity3D{
 public:

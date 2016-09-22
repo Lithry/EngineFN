@@ -2,8 +2,8 @@
 #define VERTEXANDPRIMITIVES_H
 
 #include <windows.h>
-
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class DllExport Vertex{
 public:

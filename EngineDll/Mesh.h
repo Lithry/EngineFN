@@ -11,7 +11,8 @@ class Renderer;
 class VertexBuffer3D;
 class IndexBuffer;
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class DllExport Mesh : public Entity3D{
 public:

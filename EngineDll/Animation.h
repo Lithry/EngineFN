@@ -5,7 +5,8 @@
 #include "Frame.h"
 #include "timer.h"
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class DllExport Animation{
 public:

@@ -5,7 +5,8 @@
 #include <tchar.h>
 #include <string>
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 

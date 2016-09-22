@@ -3,7 +3,8 @@
 
 #include <windows.h>
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class Renderer;
 class Input;

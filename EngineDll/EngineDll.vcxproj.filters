@@ -124,6 +124,7 @@
     <ClInclude Include="Importer.h">
       <Filter>Mesh\Importer</Filter>
     </ClInclude>
+    <ClInclude Include="Export.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">

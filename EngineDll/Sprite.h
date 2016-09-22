@@ -5,7 +5,8 @@
 #include "Animation.h"
 #include "timer.h"
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class DllExport Sprite : public Entity2D{
 public:

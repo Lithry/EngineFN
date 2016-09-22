@@ -5,7 +5,8 @@ struct uvTexture{
 	float u, v;
 };
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 class DllExport Frame{
 public:

@@ -5,7 +5,8 @@
 #include <vector>
 #include "vertexbuffer.h"
 
-#define DllExport __declspec( dllexport )
+#include "Export.h"
+//#define DllExport __declspec( dllexport )
 
 struct D3DXMATRIX;
 typedef D3DXMATRIX* Matrix;

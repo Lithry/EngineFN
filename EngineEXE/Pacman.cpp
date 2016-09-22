@@ -7,23 +7,23 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam->setCameraSpeed(2);
 
 	mesh = new Mesh(rkRenderer);
-	mesh->importObj("Assets/sword.obj");
+	mesh->importObj("Assets/obj/sword2.obj");
 	mesh->setPos(0, -10, 50);
 	mesh->setRotationX(75);
-	mesh->setScale(10, 10, 10);
+	mesh->setScale(3, 3, 3);
 
 	mesh2 = new Mesh(rkRenderer);
-	mesh2->importObj("Assets/taurus.obj");
+	mesh2->importObj("Assets/obj/taurus.obj");
 	mesh2->setPos(-50, -10, 100);
 	mesh2->setScale(10, 10, 10);
 
 	mesh3 = new Mesh(rkRenderer);
-	mesh3->importObj("Assets/teapot.obj");
+	mesh3->importObj("Assets/obj/teapot.obj");
 	mesh3->setPos(50, -10, 100);
 	mesh3->setScale(1, 1, 1);
 
 	mesh4 = new Mesh(rkRenderer);
-	mesh4->importObj("Assets/Valla.obj");
+	mesh4->importObj("Assets/obj/Valla.obj");
 	mesh4->setPos(0, -20, -20);
 	mesh4->setScale(10, 10, 10);
 

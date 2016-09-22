@@ -78,7 +78,7 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 
 	D3DXMatrixPerspectiveFovLH(&matProjection,
 		(D3DX_PI*0.25),
-		uiW / uiH,
+		float(uiW) / float(uiH),
 		1.0f,
 		10000.0f);
 
