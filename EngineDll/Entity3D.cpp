@@ -1,11 +1,14 @@
 #include "Entity3D.h"
+#include "Node.h"
 
 #include <d3dx9.h>
 #pragma comment (lib, "d3dx9.lib")
 
 Entity3D::Entity3D()
 	:
-	_transformationMatrix(new D3DXMATRIX()),
+	_localTransformationMatrix(new D3DXMATRIX()),
+	_worldTransformationMatrix(new D3DXMATRIX()),
+	_parent(NULL),
 	_posX(0),
 	_posY(0),
 	_posZ(0),
@@ -145,10 +148,29 @@ void Entity3D::updateLocalTransformation(){
 	D3DXMATRIX scaleMat;
 	D3DXMatrixScaling(&scaleMat, _scaleX, _scaleY, _scaleZ);
 
-	D3DXMatrixIdentity(_transformationMatrix);
-	D3DXMatrixMultiply(_transformationMatrix, &traslatrionMat, _transformationMatrix);
-	D3DXMatrixMultiply(_transformationMatrix, &rotationXMat, _transformationMatrix);
-	D3DXMatrixMultiply(_transformationMatrix, &rotationYMat, _transformationMatrix);
-	D3DXMatrixMultiply(_transformationMatrix, &rotationZMat, _transformationMatrix);
-	D3DXMatrixMultiply(_transformationMatrix, &scaleMat, _transformationMatrix);
+	D3DXMatrixIdentity(_localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &traslatrionMat, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &rotationXMat, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &rotationYMat, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &rotationZMat, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &scaleMat, _localTransformationMatrix);
+
+	updateTransformation();
+}
+
+const Matrix& Entity3D::worldMatrix() const{
+	return _worldTransformationMatrix;
+}
+
+void Entity3D::updateTransformation(){
+	if (_parent){
+		D3DXMatrixMultiply(_worldTransformationMatrix, _parent->_localTransformationMatrix, _localTransformationMatrix);
+	}
+	else{
+		_worldTransformationMatrix = _localTransformationMatrix;
+	}
+}
+
+void Entity3D::setParent(Node* pkParent){
+	_parent = pkParent;
 }

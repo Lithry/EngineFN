@@ -49,6 +49,9 @@
     <Filter Include="Mesh\Importer">
       <UniqueIdentifier>{8c08a141-6d88-4414-b5ea-4a1f563c67d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Node">
+      <UniqueIdentifier>{7da17705-84b8-4860-ad3d-c110f15b9243}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -125,6 +128,9 @@
       <Filter>Mesh\Importer</Filter>
     </ClInclude>
     <ClInclude Include="Export.h" />
+    <ClInclude Include="Node.h">
+      <Filter>Node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -212,6 +218,9 @@
     </ClCompile>
     <ClCompile Include="Importer.cpp">
       <Filter>Mesh\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Node</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

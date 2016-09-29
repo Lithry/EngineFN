@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Importer.h"
+#include "Node.h"
 
 class Pacman : public Game{
 public:
@@ -35,5 +36,8 @@ private:
 	Mesh* mesh2;
 	Mesh* mesh3;
 	Mesh* mesh4;
+
+	Node* node1;
+	Node* node2;
 };
 #endif

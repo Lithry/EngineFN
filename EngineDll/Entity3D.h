@@ -4,7 +4,8 @@
 #include "Renderer.h"
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
+
+class Node;
 
 class DllExport Entity3D{
 public:
@@ -30,6 +31,13 @@ public:
 	float scaleX() const;
 	float scaleY() const;
 	float scaleZ() const;
+
+	const Matrix& worldMatrix() const;
+	virtual void updateTransformation();
+	void setParent(Node* pkParent);
+	virtual void draw() = 0;
+private:
+	Node* _parent;
 protected:
 	float _posX;
 	float _posY;
@@ -41,7 +49,8 @@ protected:
 	float _scaleY;
 	float _scaleZ;
 
-	Matrix _transformationMatrix;
+	Matrix _localTransformationMatrix;
+	Matrix _worldTransformationMatrix;
 
 	Texture _texture;
 

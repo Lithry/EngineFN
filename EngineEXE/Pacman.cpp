@@ -27,6 +27,10 @@ bool Pacman::init(Renderer& rkRenderer){
 	mesh4->setPos(0, -20, -20);
 	mesh4->setScale(10, 10, 10);
 
+	node1 = new Node();
+	node1->setPos(0, 0, 0);
+	node1->addChild(mesh);
+	node1->addChild(mesh2);
 
 	return true;
 }
@@ -36,9 +40,12 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	static float speedY = 1;
 	static float speedX = 0.5;
 
-	mesh->setRotationZ(mesh->rotationZ() + speedY);
-	mesh->draw();
-	mesh2->draw();
+	node1->setRotationZ(node1->rotationZ() + speedY);
+	//mesh->draw();
+	//mesh2->draw();
+	node1->updateTransformation();
+	node1->draw();
+
 	mesh3->draw();
 	mesh4->draw();
 }
