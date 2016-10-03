@@ -29,7 +29,8 @@ void Node::draw(){
 }
 
 void Node::updateTransformation(){
-	updateLocalTransformation();
+	Entity3D::updateTransformation();
+
 	for (size_t i = 0; i < _childs.size(); i++){
 		_childs[i]->updateTransformation();
 	}

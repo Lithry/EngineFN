@@ -155,7 +155,7 @@ void Entity3D::updateLocalTransformation(){
 	D3DXMatrixMultiply(_localTransformationMatrix, &rotationZMat, _localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &scaleMat, _localTransformationMatrix);
 
-	updateTransformation();
+	//updateTransformation();
 }
 
 const Matrix& Entity3D::worldMatrix() const{
@@ -164,7 +164,7 @@ const Matrix& Entity3D::worldMatrix() const{
 
 void Entity3D::updateTransformation(){
 	if (_parent){
-		D3DXMatrixMultiply(_worldTransformationMatrix, _parent->_localTransformationMatrix, _localTransformationMatrix);
+		D3DXMatrixMultiply(_worldTransformationMatrix, _localTransformationMatrix, _parent->_localTransformationMatrix);
 	}
 	else{
 		_worldTransformationMatrix = _localTransformationMatrix;
