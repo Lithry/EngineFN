@@ -2,6 +2,8 @@
 #include "input.h"
 #include "Camera.h"
 
+#include <iostream>
+
 bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(2);
@@ -54,6 +56,10 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	
 	node1->updateTransformation();
 	node1->draw();
+
+	std::cout << "node1: X - " << node1->posX() << " | Y - " << node1->posY() << " | Z - " << node1->posZ() << std::endl;
+	std::cout << "node2: X - " << node2->posX() << " | Y - " << node2->posY() << " | Z - " << node2->posZ() << std::endl;
+	std::cout << "mesh3: X - " << mesh3->posX() << " | Y - " << mesh3->posY() << " | Z - " << mesh3->posZ() << std::endl;
 }
 
 void Pacman::deinit(){

@@ -18,7 +18,11 @@ D3DPRIMITIVETYPE Primitives[Primitive::PrimitiveCount] = { D3DPT_POINTLIST,
 															D3DPT_TRIANGLESTRIP,
 															D3DPT_TRIANGLEFAN };
 
-Renderer::Renderer(){}
+Renderer::Renderer()
+	:
+	font(new Font),
+	rect(new RECT)
+{}
 
 Renderer::~Renderer(){
 	m_pkDevice->Release();
@@ -38,6 +42,12 @@ Renderer::~Renderer(){
 	}
 
 	_textureList.clear();
+
+	delete font;
+	font = NULL;
+
+	delete rect;
+	rect = NULL;
 }
 
 bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
@@ -119,7 +129,6 @@ void Renderer::draw(TexturedVertex* gameVertex, int vertexCount){
 }
 
 Font& Renderer::createFont(int charSize, std::string textFont, bool italic){
-	Font font;
 	D3DXCreateFont(m_pkDevice, 
 				   charSize, 
 				   0, 
@@ -130,16 +139,15 @@ Font& Renderer::createFont(int charSize, std::string textFont, bool italic){
 				   ANTIALIASED_QUALITY, 
 				   FF_DONTCARE,
 				   textFont.c_str(),
-				   &font);
+				   font);
 
-	return font;
+	return *font;
 }
 
 RECT& Renderer::createRect(int x, int y, int width, int height){
-	RECT rect;
-	SetRect(&rect, x, y, width, height);
+	SetRect(rect, x, y, width, height);
 
-	return rect;
+	return *rect;
 }
 
 void Renderer::displayText(Font& font, RECT& rect, std::string text){
@@ -215,27 +223,6 @@ void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
 void Renderer::drawCurrentBuffers(Primitive ePrimitive){
 	i3D_buffer->bind();
 	v3D_buffer->bind();
-	/*int iPrimitiveCount = 0;
-
-	if (Primitives[ePrimitive] == D3DPT_POINTLIST){
-		iPrimitiveCount = i3D_buffer->indexCount();
-	}
-	else if (Primitives[ePrimitive] == D3DPT_LINELIST){
-		iPrimitiveCount = i3D_buffer->indexCount() / 2;
-	}
-	else if (Primitives[ePrimitive] == D3DPT_LINESTRIP){
-		iPrimitiveCount = i3D_buffer->indexCount() - 1;
-	}
-	else if (Primitives[ePrimitive] == D3DPT_TRIANGLELIST){
-		iPrimitiveCount = i3D_buffer->indexCount() / 3;
-	}
-	else if (Primitives[ePrimitive] == D3DPT_TRIANGLESTRIP){
-		iPrimitiveCount = i3D_buffer->indexCount() - 2;
-	}
-	else if (Primitives[ePrimitive] == D3DPT_TRIANGLEFAN){
-		iPrimitiveCount = i3D_buffer->indexCount() - 2;
-	}*/
 	
-	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
-		v3D_buffer->vertexCount(), 0, i3D_buffer->indexCount() / 3);
+	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0, v3D_buffer->vertexCount(), 0, i3D_buffer->indexCount() / 3);
 }

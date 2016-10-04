@@ -62,5 +62,8 @@ private:
 
 	VertexBuffer3D* v3D_buffer;
 	IndexBuffer* i3D_buffer;
+
+	Font* font;
+	RECT* rect;
 };
 #endif

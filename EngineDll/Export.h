@@ -1,6 +1,8 @@
 #ifndef EXPORT_H
 #define EXPORT_H
 
+#pragma warning(disable:4251)
+
 #ifdef DLL_EXPORTS
 #define DllExport __declspec(dllexport)
 #else

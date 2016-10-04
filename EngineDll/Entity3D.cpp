@@ -6,18 +6,18 @@
 
 Entity3D::Entity3D()
 	:
-	_localTransformationMatrix(new D3DXMATRIX()),
 	_worldTransformationMatrix(new D3DXMATRIX()),
-	_parent(NULL),
-	_posX(0),
-	_posY(0),
-	_posZ(0),
-	_rotationX(0),
-	_rotationY(0),
-	_rotationZ(0),
-	_scaleX(1),
-	_scaleY(1),
-	_scaleZ(1)
+	_localTransformationMatrix(new D3DXMATRIX()),
+	_posX(0.0f),
+	_posY(0.0f),
+	_posZ(0.0f),
+	_rotationX(0.0f),
+	_rotationY(0.0f),
+	_rotationZ(0.0f),
+	_scaleX(1.0f),
+	_scaleY(1.0f),
+	_scaleZ(1.0f),
+	_parent(NULL)
 {
 	updateLocalTransformation();
 }

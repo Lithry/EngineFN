@@ -12,26 +12,20 @@ Mesh::Mesh(Renderer& rkRenderer)
 	:
 	vertexBuffer(NULL),
 	indexBuffer(NULL),
-	render(rkRenderer),
-	vert(new Vertex())
-{
-
-}
+	render(rkRenderer)
+{}
 
 Mesh::~Mesh(){
 	delete vertexBuffer;
 	vertexBuffer = NULL;
 	delete indexBuffer;
 	indexBuffer = NULL;
-	delete vert;
-	vert = NULL;
 }
 
 void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 	size_t uiVertexCount, const unsigned short* pusIndices,
 	size_t uiIndexCount){
 
-	*vert = *pakVertices;
 	vertexBuffer = render.createVertexBuffer(sizeof(Vertex), CUSTOMFVF);
 	indexBuffer = render.createIndexBuffer();
 

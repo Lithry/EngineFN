@@ -19,10 +19,13 @@ Importer::~Importer(){
 bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	Assimp::Importer importer;
 
-	const aiScene* scene = importer.ReadFile(rkFilename,
+	/*const aiScene* scene = importer.ReadFile(rkFilename,
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices);
+		aiProcess_JoinIdenticalVertices);*/
+
+	const aiScene* scene = importer.ReadFile(rkFilename,
+		aiProcess_Triangulate);
 
 	if (!scene)
 	{

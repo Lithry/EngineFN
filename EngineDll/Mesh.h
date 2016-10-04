@@ -33,7 +33,5 @@ private:
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
 	Primitive _primitiv;
-
-	Vertex* vert;
 };
 #endif
