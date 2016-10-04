@@ -6,13 +6,6 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(2);
 
-	node1 = new Node();
-	node1->setPos(0, 0, 0);
-	node1->setScale(1, 1, 1);
-	node2 = new Node();
-	node2->setPos(0, 0, 0);
-	node2->setScale(1, 1, 1);
-
 	mesh = new Mesh(rkRenderer);
 	mesh->importObj("Assets/obj/sword2.obj");
 	mesh->setPos(0, 0, 0);
@@ -29,8 +22,9 @@ bool Pacman::init(Renderer& rkRenderer){
 	mesh3->setPos(50, -10, 100);
 	mesh3->setScale(1, 1, 1);
 
+	node1 = new Node();
+	node2 = new Node();
 	
-
 	node1->addChild(node2);
 	node2->addChild(mesh);
 	node2->addChild(mesh2);
@@ -44,25 +38,22 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	static float speedY = 1;
 	static float speedX = 1;
 
-	if (rkInput.keyDown(Input::KEY_7)){
+	if (rkInput.keyDown(Input::KEY_K)){
 		node1->setRotationY(node1->rotationY() - speedX);
 	}
-	else if (rkInput.keyDown(Input::KEY_9)){
+	else if (rkInput.keyDown(Input::KEY_L)){
 		node1->setRotationY(node1->rotationY() + speedX);
 	}
 
-	if (rkInput.keyDown(Input::KEY_8)){
-		node1->setPosY(node1->posY() + speedX);
+	if (rkInput.keyDown(Input::KEY_UP)){
+		node1->setPos(node1->posX(), node1->posY() + speedX, node1->posZ());
 	}
-	else if (rkInput.keyDown(Input::KEY_5)){
+	else if (rkInput.keyDown(Input::KEY_DOWN)){
 		node1->setPosY(node1->posY() - speedX);
 	}
 	
 	node1->updateTransformation();
 	node1->draw();
-	//node2->draw();
-	//mesh3->draw();
-	//mesh4->draw();
 }
 
 void Pacman::deinit(){

@@ -12,27 +12,30 @@ void Node::addChild(Entity3D* pkChild){
 }
 
 void Node::removeChild(Entity3D* pkChild){
-	//////////////////////////////////////////////////////
-	for (size_t i = 0; i < _childs.size(); i++){	////// Mirar
-		if (_childs[i] == pkChild)					////// 
-			_childs.erase(_childs.begin() + i);		////// 
-	}												////// 
-	//////////////////////////////////////////////////////
+	_childs.erase(find(_childs.begin(), _childs.end(), pkChild));
 }
 
 void Node::draw(){
-	if (!_childs.empty()){
+	/*if (!_childs.empty()){
 		for (size_t i = 0; i < _childs.size(); i++){
 			_childs[i]->draw();
 		}
+	}*/
+
+	for (std::vector<Entity3D*>::iterator it = _childs.begin(); it != _childs.end(); it++){
+		(*it)->draw();
 	}
 }
 
 void Node::updateTransformation(){
 	Entity3D::updateTransformation();
 
-	for (size_t i = 0; i < _childs.size(); i++){
+	/*for (size_t i = 0; i < _childs.size(); i++){
 		_childs[i]->updateTransformation();
+	}*/
+
+	for (std::vector<Entity3D*>::iterator it = _childs.begin(); it != _childs.end(); it++){
+		(*it)->updateTransformation();
 	}
 }
 

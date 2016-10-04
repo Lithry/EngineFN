@@ -15,8 +15,10 @@ public:
 	void addChild(Entity3D* pkChild);
 	void removeChild(Entity3D* pkChild);
 	void updateTransformation();
-	void draw();
-	const std::vector<Entity3D*>& childs() const;
+	void draw();
+
+	const std::vector<Entity3D*>& childs() const;
+
 private:
 	std::vector<Entity3D*> _childs;
 };

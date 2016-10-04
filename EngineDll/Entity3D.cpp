@@ -15,15 +15,18 @@ Entity3D::Entity3D()
 	_rotationX(0),
 	_rotationY(0),
 	_rotationZ(0),
-	_scaleX(0),
-	_scaleY(0),
-	_scaleZ(0)
+	_scaleX(1),
+	_scaleY(1),
+	_scaleZ(1)
 {
 	updateLocalTransformation();
 }
 
 Entity3D::~Entity3D(){
-
+	delete _localTransformationMatrix;
+	_localTransformationMatrix = NULL;
+	delete _worldTransformationMatrix;
+	_worldTransformationMatrix = NULL;
 }
 
 void Entity3D::setPos(float fPosX, float fPosY, float fPosZ){
@@ -136,26 +139,24 @@ void Entity3D::updateLocalTransformation(){
 	D3DXMATRIX traslatrionMat;
 	D3DXMatrixTranslation(&traslatrionMat, _posX, _posY, _posZ);
 
-	D3DXMATRIX rotationXMat;
-	D3DXMatrixRotationX(&rotationXMat, D3DXToRadian(_rotationX));
-	
-	D3DXMATRIX rotationYMat;
-	D3DXMatrixRotationY(&rotationYMat, D3DXToRadian(_rotationY));
-	
-	D3DXMATRIX rotationZMat;
-	D3DXMatrixRotationZ(&rotationZMat, D3DXToRadian(_rotationZ));
+	D3DXMATRIX rotationMatX;
+	D3DXMatrixRotationX(&rotationMatX, D3DXToRadian(_rotationX));
+
+	D3DXMATRIX rotationMatY;
+	D3DXMatrixRotationY(&rotationMatY, D3DXToRadian(_rotationY));
+
+	D3DXMATRIX rotationMatZ;
+	D3DXMatrixRotationZ(&rotationMatZ, D3DXToRadian(_rotationZ));
 
 	D3DXMATRIX scaleMat;
 	D3DXMatrixScaling(&scaleMat, _scaleX, _scaleY, _scaleZ);
 
 	D3DXMatrixIdentity(_localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &traslatrionMat, _localTransformationMatrix);
-	D3DXMatrixMultiply(_localTransformationMatrix, &rotationXMat, _localTransformationMatrix);
-	D3DXMatrixMultiply(_localTransformationMatrix, &rotationYMat, _localTransformationMatrix);
-	D3DXMatrixMultiply(_localTransformationMatrix, &rotationZMat, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatX, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatY, _localTransformationMatrix);
+	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatZ, _localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &scaleMat, _localTransformationMatrix);
-
-	//updateTransformation();
 }
 
 const Matrix& Entity3D::worldMatrix() const{
@@ -163,12 +164,10 @@ const Matrix& Entity3D::worldMatrix() const{
 }
 
 void Entity3D::updateTransformation(){
-	if (_parent){
+	if (_parent)
 		D3DXMatrixMultiply(_worldTransformationMatrix, _localTransformationMatrix, _parent->_localTransformationMatrix);
-	}
-	else{
+	else
 		_worldTransformationMatrix = _localTransformationMatrix;
-	}
 }
 
 void Entity3D::setParent(Node* pkParent){

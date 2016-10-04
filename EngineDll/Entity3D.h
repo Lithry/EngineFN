@@ -36,7 +36,7 @@ public:
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
 	virtual void draw() = 0;
-private:
+
 	Node* _parent;
 protected:
 	float _posX;

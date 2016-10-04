@@ -215,7 +215,7 @@ void Renderer::setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer){
 void Renderer::drawCurrentBuffers(Primitive ePrimitive){
 	i3D_buffer->bind();
 	v3D_buffer->bind();
-	int iPrimitiveCount = 0;
+	/*int iPrimitiveCount = 0;
 
 	if (Primitives[ePrimitive] == D3DPT_POINTLIST){
 		iPrimitiveCount = i3D_buffer->indexCount();
@@ -234,8 +234,8 @@ void Renderer::drawCurrentBuffers(Primitive ePrimitive){
 	}
 	else if (Primitives[ePrimitive] == D3DPT_TRIANGLEFAN){
 		iPrimitiveCount = i3D_buffer->indexCount() - 2;
-	}
+	}*/
 	
 	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0,
-		v3D_buffer->vertexCount(), 0, iPrimitiveCount);
+		v3D_buffer->vertexCount(), 0, i3D_buffer->indexCount() / 3);
 }
