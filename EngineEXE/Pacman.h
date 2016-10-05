@@ -40,5 +40,7 @@ private:
 	Node* node1;
 	Node* node2;
 	Node* node3;
+
+	Importer* import;
 };
 #endif

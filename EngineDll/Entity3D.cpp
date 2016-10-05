@@ -165,7 +165,7 @@ const Matrix& Entity3D::worldMatrix() const{
 
 void Entity3D::updateTransformation(){
 	if (_parent)
-		D3DXMatrixMultiply(_worldTransformationMatrix, _localTransformationMatrix, _parent->_localTransformationMatrix);
+		D3DXMatrixMultiply(_worldTransformationMatrix, _localTransformationMatrix, _parent->worldMatrix());
 	else
 		_worldTransformationMatrix = _localTransformationMatrix;
 }

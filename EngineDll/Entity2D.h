@@ -6,7 +6,6 @@
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 class DllExport Entity2D{
 public:

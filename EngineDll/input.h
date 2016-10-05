@@ -6,7 +6,6 @@
 #include "Game.h"
 //---------------------------------------------------------------------------
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 //---------------------------------------------------------------------------
 class DllExport Input{
 public:

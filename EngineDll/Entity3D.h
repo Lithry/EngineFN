@@ -3,9 +3,9 @@
 
 #include "Renderer.h"
 
-#include "Export.h"
-
 class Node;
+
+#include "Export.h"
 
 class DllExport Entity3D{
 public:

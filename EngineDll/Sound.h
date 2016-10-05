@@ -1,9 +1,9 @@
 #ifndef SOUND_H
 #define SOUND_H
+
 #include <string>
 
 #include "Export.h"
-//#define DLLexport __declspec(dllexport)
 
 using namespace std;
 

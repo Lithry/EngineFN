@@ -6,7 +6,6 @@
 #include <string>
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 

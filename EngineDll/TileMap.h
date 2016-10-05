@@ -4,6 +4,8 @@
 #include "Tile.h"
 #include <string>
 
+#include "Export.h"
+
 class DllExport TileMap{
 public:
 	TileMap();

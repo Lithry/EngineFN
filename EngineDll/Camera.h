@@ -8,7 +8,6 @@ struct D3DXVECTOR3;
 typedef D3DXVECTOR3* Vector3;
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 class DllExport Camera{
 public:

@@ -1,10 +1,9 @@
 #ifndef QUAD_H
 #define QUAD_H
 
-#include "Export.h"
-//#define DllExport __declspec( dllexport )
-
 #include "Entity2D.h"
+
+#include "Export.h"
 
 class DllExport Quad : public Entity2D{
 public:

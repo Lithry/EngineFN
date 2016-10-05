@@ -16,26 +16,18 @@ void Node::removeChild(Entity3D* pkChild){
 }
 
 void Node::draw(){
-	/*if (!_childs.empty()){
+	if (!_childs.empty()){
 		for (size_t i = 0; i < _childs.size(); i++){
 			_childs[i]->draw();
 		}
-	}*/
-
-	for (std::vector<Entity3D*>::iterator it = _childs.begin(); it != _childs.end(); it++){
-		(*it)->draw();
 	}
 }
 
 void Node::updateTransformation(){
 	Entity3D::updateTransformation();
 
-	/*for (size_t i = 0; i < _childs.size(); i++){
+	for (size_t i = 0; i < _childs.size(); i++){
 		_childs[i]->updateTransformation();
-	}*/
-
-	for (std::vector<Entity3D*>::iterator it = _childs.begin(); it != _childs.end(); it++){
-		(*it)->updateTransformation();
 	}
 }
 

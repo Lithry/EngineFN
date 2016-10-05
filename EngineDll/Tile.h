@@ -3,6 +3,8 @@
 
 #include "Sprite.h"
 
+#include "Export.h"
+
 class DllExport Tile : public Sprite{
 public:
 	Tile();

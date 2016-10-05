@@ -9,7 +9,6 @@
 #include "timer.h"
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 using namespace std;
 

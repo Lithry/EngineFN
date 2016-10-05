@@ -4,7 +4,6 @@
 #include <windows.h>
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 class Renderer;
 class Input;

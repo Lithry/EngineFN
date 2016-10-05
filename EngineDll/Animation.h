@@ -6,7 +6,6 @@
 #include "timer.h"
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 class DllExport Animation{
 public:

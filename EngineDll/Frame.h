@@ -6,7 +6,6 @@ struct uvTexture{
 };
 
 #include "Export.h"
-//#define DllExport __declspec( dllexport )
 
 class DllExport Frame{
 public:
