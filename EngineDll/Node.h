@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Entity3D.h"
+#include "Importer.h"
 
 class Mesh;
 
@@ -19,6 +20,7 @@ public:
 
 	const std::vector<Entity3D*>& childs() const;
 
+	bool importScene(const std::string& rkFilename);
 private:
 	std::vector<Entity3D*> _childs;
 };

@@ -62,3 +62,5 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	
 	return true;
 }
+
+bool importScene(const std::string& rkFilename, Node& orkSceneRoot){	return true;}

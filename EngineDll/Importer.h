@@ -12,6 +12,8 @@ public:
 	Importer();
 	~Importer();
 	bool importMesh(const std::string& rkFilename, Mesh& mesher);
+
+	bool importScene(const std::string& rkFilename, Node& orkSceneRoot);
 private:
 };
 #endif

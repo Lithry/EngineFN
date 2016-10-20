@@ -34,3 +34,8 @@ void Node::updateTransformation(){
 const std::vector<Entity3D*>& Node::childs() const{
 	return _childs;
 }
+
+bool Node::importScene(const std::string& rkFilename){
+	Importer* import = new Importer();
+	return import->importScene(rkFilename, *this);
+}

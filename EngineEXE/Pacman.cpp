@@ -89,10 +89,11 @@ bool Pacman::init(Renderer& rkRenderer){
 	
 	Texture a = rkRenderer.loadTexture("Assets/wood.jpg", D3DCOLOR_XRGB(255, 255, 255));
 	Texture b = rkRenderer.loadTexture("Assets/treasureMap1.png", D3DCOLOR_XRGB(255, 255, 255));
+	Texture c = rkRenderer.loadTexture("Assets/sword2.png", D3DCOLOR_XRGB(255, 255, 255));
 	
 	mesh = new Mesh(rkRenderer);
 	mesh->importObj("Assets/obj/sword2.obj");
-	mesh->setTexture(a);
+	mesh->setTexture(c);
 	mesh->setPos(0, 0, 0);
 	mesh->setRotationY(75);
 	mesh->setScale(3, 3, 3);

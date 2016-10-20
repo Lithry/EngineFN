@@ -50,13 +50,9 @@ void Mesh::setTextureId(int iTextureId){
 
 }
 
-bool Mesh::importObj(const std::string& objName/*, const std::string& textureName*/){
+bool Mesh::importObj(const std::string& objName){
 	Importer* import = new Importer();
-	
-	if (import->importMesh(objName, *this))
-		return false;
-
-	return true;
+	return import->importMesh(objName, *this);
 }
 
 VertexBuffer3D* Mesh::getVertexBuffer(){
