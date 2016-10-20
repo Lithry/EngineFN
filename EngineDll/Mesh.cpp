@@ -22,16 +22,16 @@ Mesh::~Mesh(){
 	indexBuffer = NULL;
 }
 
-void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
+void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 	size_t uiVertexCount, const unsigned short* pusIndices,
 	size_t uiIndexCount){
 
-	vertexBuffer = render.createVertexBuffer(sizeof(Vertex), CUSTOMFVF);
+	vertexBuffer = render.createVertexBuffer(sizeof(TexturedVertex), TEXTUREFVF);
 	indexBuffer = render.createIndexBuffer();
 
 	vertexBuffer->setVertexData(pakVertices, uiVertexCount);
 	indexBuffer->setIndexData(pusIndices, uiIndexCount);
-	
+
 	render.setCurrentVertexBuffer(vertexBuffer);
 	render.setCurrentIndexBuffer(indexBuffer);
 
@@ -39,6 +39,7 @@ void Mesh::setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
 }
 
 void Mesh::draw(){
+	render.setCurrentTexture(_texture);
 	render.setCurrentVertexBuffer(vertexBuffer);
 	render.setCurrentIndexBuffer(indexBuffer);
 	render.setMatrix(_worldTransformationMatrix);
@@ -49,7 +50,7 @@ void Mesh::setTextureId(int iTextureId){
 
 }
 
-bool Mesh::importObj(const std::string& objName){
+bool Mesh::importObj(const std::string& objName/*, const std::string& textureName*/){
 	Importer* import = new Importer();
 	
 	if (import->importMesh(objName, *this))
@@ -64,4 +65,8 @@ VertexBuffer3D* Mesh::getVertexBuffer(){
 
 IndexBuffer* Mesh::getIndexBuffer(){
 	return indexBuffer;
+}
+
+void Mesh::setTexture(const Texture& texture){
+	_texture = texture;
 }

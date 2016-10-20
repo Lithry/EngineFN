@@ -182,7 +182,7 @@ const Texture Renderer::loadTexture(const std::string& textureName, D3DCOLOR iCo
 	}
 
 	else{
-		MessageBox(_hwnd, "No Texture", "No Texture", MB_OK);
+		MessageBox(_hwnd, "No Texture Found", "No Texture", MB_OK);
 		return NULL;
 	}
 }

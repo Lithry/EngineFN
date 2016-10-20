@@ -18,13 +18,16 @@ public:
 	Mesh(Renderer& rkRenderer);
 	~Mesh();
 
-	void setMeshData(const Vertex* pakVertices, Primitive ePrimitive,
+	void setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 		size_t uiVertexCount, const unsigned short* pusIndices,
 		size_t uiIndexCount);
+
 	void draw();
 	void setTextureId(int iTextureId);
 
-	bool importObj(const std::string& objName);
+	void setTexture(const Texture& texture);
+
+	bool importObj(const std::string& objName/*, const std::string& textureName*/);
 
 	VertexBuffer3D* getVertexBuffer();
 	IndexBuffer* getIndexBuffer();

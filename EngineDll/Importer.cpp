@@ -35,14 +35,16 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 
 	aiMesh* meshs = *scene->mMeshes;
 
-	Vertex* vert = new Vertex[meshs->mNumVertices];
+	TexturedVertex* vert = new TexturedVertex[meshs->mNumVertices];
 
 	for (size_t i = 0; i< meshs->mNumVertices; i++)
 	{
 		vert[i].x = meshs->mVertices[i].x;
 		vert[i].y = meshs->mVertices[i].y;
 		vert[i].z = meshs->mVertices[i].z;
-		vert[i].color = D3DCOLOR_XRGB(100, 100, 100);
+		
+		vert[i].u = 0;
+		vert[i].v = 1;
 	}
 	
 	int indexCount = meshs->mNumFaces * 3;

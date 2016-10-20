@@ -17,7 +17,8 @@ Entity3D::Entity3D()
 	_scaleX(1.0f),
 	_scaleY(1.0f),
 	_scaleZ(1.0f),
-	_parent(NULL)
+	_parent(NULL),
+	_texture(NULL)
 {
 	updateLocalTransformation();
 }
