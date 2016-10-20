@@ -87,7 +87,8 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(2);
 	
-	Texture a = rkRenderer.loadTexture("Assets/NullTexture.png", D3DCOLOR_XRGB(255, 255, 255));
+	Texture a = rkRenderer.loadTexture("Assets/wood.jpg", D3DCOLOR_XRGB(255, 255, 255));
+	Texture b = rkRenderer.loadTexture("Assets/treasureMap1.png", D3DCOLOR_XRGB(255, 255, 255));
 	
 	mesh = new Mesh(rkRenderer);
 	mesh->importObj("Assets/obj/sword2.obj");
@@ -98,7 +99,7 @@ bool Pacman::init(Renderer& rkRenderer){
 
 	mesh2 = new Mesh(rkRenderer);
 	mesh2->importObj("Assets/obj/teapot.obj");
-	mesh2->setTexture(a);
+	mesh2->setTexture(b);
 	mesh2->setPos(-50, -10, 100);
 	mesh2->setScale(1, 1, 1);
 

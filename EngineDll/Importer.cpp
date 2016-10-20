@@ -43,8 +43,10 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 		vert[i].y = meshs->mVertices[i].y;
 		vert[i].z = meshs->mVertices[i].z;
 		
-		vert[i].u = 0;
-		vert[i].v = 1;
+		if (meshs->HasTextureCoords(0)){
+			vert[i].u = meshs->mTextureCoords[0][i].x;
+			vert[i].v = meshs->mTextureCoords[0][i].y;
+		}
 	}
 	
 	int indexCount = meshs->mNumFaces * 3;
