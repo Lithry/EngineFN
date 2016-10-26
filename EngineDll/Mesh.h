@@ -27,8 +27,6 @@ public:
 
 	void setTexture(const Texture& texture);
 
-	bool importObj(const std::string& objName/*, const std::string& textureName*/);
-
 	VertexBuffer3D* getVertexBuffer();
 	IndexBuffer* getIndexBuffer();
 private:

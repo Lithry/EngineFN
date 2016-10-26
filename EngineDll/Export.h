@@ -9,6 +9,4 @@
 #define DllExport __declspec(dllimport)
 #endif
 
-//#define DllExport __declspec( dllexport )
-
 #endif

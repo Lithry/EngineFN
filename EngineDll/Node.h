@@ -19,8 +19,6 @@ public:
 	void draw();
 
 	const std::vector<Entity3D*>& childs() const;
-
-	bool importScene(const std::string& rkFilename);
 private:
 	std::vector<Entity3D*> _childs;
 };

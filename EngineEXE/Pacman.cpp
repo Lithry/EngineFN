@@ -85,38 +85,11 @@ void upDownController9and0(Entity3D* object, Input& rkInput){
 
 bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
-	cam->setCameraSpeed(2);
-	
-	Texture a = rkRenderer.loadTexture("Assets/wood.jpg", D3DCOLOR_XRGB(255, 255, 255));
-	Texture b = rkRenderer.loadTexture("Assets/treasureMap1.png", D3DCOLOR_XRGB(255, 255, 255));
-	Texture c = rkRenderer.loadTexture("Assets/sword2.png", D3DCOLOR_XRGB(255, 255, 255));
-	
-	mesh = new Mesh(rkRenderer);
-	mesh->importObj("Assets/obj/sword2.obj");
-	mesh->setTexture(c);
-	mesh->setPos(0, 0, 0);
-	mesh->setRotationY(75);
-	mesh->setScale(3, 3, 3);
-
-	mesh2 = new Mesh(rkRenderer);
-	mesh2->importObj("Assets/obj/teapot.obj");
-	mesh2->setTexture(b);
-	mesh2->setPos(-50, -10, 100);
-	mesh2->setScale(1, 1, 1);
-
-	mesh3 = new Mesh(rkRenderer);
-	mesh3->importObj("Assets/obj/taurus.obj");
-	mesh3->setTexture(a);
-	mesh3->setPos(50, -10, 100);
-	mesh3->setScale(10, 10, 10);
+	cam->setCameraSpeed(1);
 
 	node1 = new Node();
-	node2 = new Node();
-	
-	node1->addChild(node2);
-	node2->addChild(mesh);
-	node2->addChild(mesh2);
-	node1->addChild(mesh3);
+	Importer* importer = new Importer(rkRenderer);
+	importer->importScene("Assets/obj/Scene1.obj", *node1);
 
 	return true;
 }
@@ -125,8 +98,6 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 	
 	numpadController(node1, rkInput);
-	keyController(node2, rkInput);
-	upDownController9and0(mesh, rkInput);
 
 	node1->updateTransformation();
 	node1->draw();
