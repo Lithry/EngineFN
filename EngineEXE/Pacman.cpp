@@ -89,7 +89,10 @@ bool Pacman::init(Renderer& rkRenderer){
 
 	node1 = new Node();
 	Importer* importer = new Importer(rkRenderer);
-	importer->importScene("Assets/obj/Scene3.dae", *node1);
+	importer->importScene("Assets/Scene/SceneTexture.dae", *node1);
+
+	child1 = node1->childs()[0];
+	child2 = node1->childs()[1];
 
 	return true;
 }
@@ -97,7 +100,10 @@ bool Pacman::init(Renderer& rkRenderer){
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 	
-	numpadController(node1, rkInput);
+	numpadController(child1, rkInput);
+
+	
+	
 
 	node1->updateTransformation();
 	node1->draw();

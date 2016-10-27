@@ -32,14 +32,11 @@ private:
 	ScreenText text3;
 	std::string score;
 
-	Mesh* mesh;
-	Mesh* mesh2;
-	Mesh* mesh3;
-	Mesh* mesh4;
-
 	Node* node1;
-	Node* node2;
-	Node* node3;
+
+	Entity3D* child1;
+	Entity3D* child2;
+
 
 	Importer* import;
 };
