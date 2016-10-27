@@ -85,11 +85,11 @@ void upDownController9and0(Entity3D* object, Input& rkInput){
 
 bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
-	cam->setCameraSpeed(1);
+	cam->setCameraSpeed(0.2f);
 
 	node1 = new Node();
 	Importer* importer = new Importer(rkRenderer);
-	importer->importScene("Assets/obj/Scene1.obj", *node1);
+	importer->importScene("Assets/obj/Scene3.dae", *node1);
 
 	return true;
 }
