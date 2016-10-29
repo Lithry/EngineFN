@@ -31,6 +31,15 @@ void Node::updateTransformation(){
 	}
 }
 
+Entity3D& Node::findChild(std::string name){
+	for (size_t i = 0; i < _childs.size(); i++){
+		if (_childs[i]->name() == name){
+			return *_childs[i];
+		}
+		//_childs[i]->findChild(name);
+	}
+}
+
 const std::vector<Entity3D*>& Node::childs() const{
 	return _childs;
 }

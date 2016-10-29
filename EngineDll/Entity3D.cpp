@@ -56,6 +56,14 @@ void Entity3D::setPosZ(float fPosZ){
 	updateLocalTransformation();
 }
 
+void Entity3D::setRotation(float fRotationX, float fRotationY, float fRotationZ){
+	_rotationX = fRotationX;
+	_rotationY = fRotationY;
+	_rotationZ = fRotationZ;
+
+	updateLocalTransformation();
+}
+
 void Entity3D::setRotationX(float fRotationX){
 	_rotationX = fRotationX;
 
@@ -134,6 +142,14 @@ float Entity3D::scaleY() const{
 
 float Entity3D::scaleZ() const{
 	return _scaleZ;
+}
+
+void Entity3D::setName(std::string name){
+	_name = name;
+}
+
+const std::string Entity3D::name(){
+	return _name;
 }
 
 void Entity3D::updateLocalTransformation(){

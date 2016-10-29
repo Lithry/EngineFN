@@ -15,6 +15,7 @@ public:
 	void setPosX(float fPosX);
 	void setPosY(float fPosY);
 	void setPosZ(float fPosZ);
+	void setRotation(float fRotationX, float fRotationY, float fRotationZ);
 	void setRotationX(float fRotationX);
 	void setRotationY(float fRotationY);
 	void setRotationZ(float fRotationZ);
@@ -32,6 +33,9 @@ public:
 	float scaleY() const;
 	float scaleZ() const;
 
+	void setName(std::string name);
+	const std::string name();
+
 	const Matrix& worldMatrix() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
@@ -48,6 +52,8 @@ protected:
 	float _scaleX;
 	float _scaleY;
 	float _scaleZ;
+
+	std::string _name;
 
 	Matrix _localTransformationMatrix;
 	Matrix _worldTransformationMatrix;

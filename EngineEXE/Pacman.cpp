@@ -3,7 +3,7 @@
 #include "Camera.h"
 
 void numpadController(Entity3D* object, Input& rkInput){
-	static float speed = 1;
+	static float speed = 0.1;
 
 	if (rkInput.keyDown(Input::KEY_NUMPAD8)){
 		object->setPosZ(object->posZ() + speed);
@@ -24,21 +24,21 @@ void numpadController(Entity3D* object, Input& rkInput){
 		object->setPosY(object->posY() - speed);
 	}
 	if (rkInput.keyDown(Input::KEY_NUMPAD9)){
-		object->setRotationY(object->rotationY() + speed);
+		object->setRotationY(object->rotationY() + speed * 10);
 	}
 	else if (rkInput.keyDown(Input::KEY_NUMPAD7)){
-		object->setRotationY(object->rotationY() - speed);
+		object->setRotationY(object->rotationY() - speed * 10);
 	}
 	if (rkInput.keyDown(Input::KEY_NUMPAD1)){
-		object->setRotationZ(object->rotationZ() + speed);
+		object->setRotationZ(object->rotationZ() + speed * 10);
 	}
 	else if (rkInput.keyDown(Input::KEY_NUMPAD3)){
-		object->setRotationZ(object->rotationZ() - speed);
+		object->setRotationZ(object->rotationZ() - speed * 10);
 	}
 }
 
 void keyController(Entity3D* object, Input& rkInput){
-	static float speed = 1;
+	static float speed = 0.1;
 
 	if (rkInput.keyDown(Input::KEY_U)){
 		object->setPosZ(object->posZ() + speed);
@@ -59,21 +59,21 @@ void keyController(Entity3D* object, Input& rkInput){
 		object->setPosY(object->posY() - speed);
 	}
 	if (rkInput.keyDown(Input::KEY_I)){
-		object->setRotationY(object->rotationY() + speed);
+		object->setRotationY(object->rotationY() + speed * 10);
 	}
 	else if (rkInput.keyDown(Input::KEY_Y)){
-		object->setRotationY(object->rotationY() - speed);
+		object->setRotationY(object->rotationY() - speed * 10);
 	}
 	if (rkInput.keyDown(Input::KEY_N)){
-		object->setRotationZ(object->rotationZ() + speed);
+		object->setRotationZ(object->rotationZ() + speed * 10);
 	}
 	else if (rkInput.keyDown(Input::KEY_M)){
-		object->setRotationZ(object->rotationZ() - speed);
+		object->setRotationZ(object->rotationZ() - speed * 10);
 	}
 }
 
 void upDownController9and0(Entity3D* object, Input& rkInput){
-	static float speed = 1;
+	static float speed = 0.1;
 
 	if (rkInput.keyDown(Input::KEY_0)){
 		object->setPosY(object->posY() + speed);
@@ -89,7 +89,7 @@ bool Pacman::init(Renderer& rkRenderer){
 
 	node1 = new Node();
 	Importer* importer = new Importer(rkRenderer);
-	importer->importScene("Assets/Scene/SceneTexture.dae", *node1);
+	importer->importScene("Assets/Scene/testAxisY.dae", *node1);
 
 	child1 = node1->childs()[0];
 	child2 = node1->childs()[1];
@@ -100,7 +100,10 @@ bool Pacman::init(Renderer& rkRenderer){
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 	
-	numpadController(child1, rkInput);
+
+	
+
+	numpadController(child2, rkInput);
 
 	
 	

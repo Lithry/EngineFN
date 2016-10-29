@@ -37,19 +37,19 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{61f86655-7b57-4eb5-825a-d250ec7194ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\IndexBuffer">
-      <UniqueIdentifier>{60263fab-9e0b-4d0c-ac34-b9199101a6e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\VertexBuffer">
-      <UniqueIdentifier>{f93d985d-c5bc-43da-812e-947f00d1f0ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\Importer">
+    <Filter Include="Importer">
       <UniqueIdentifier>{8c08a141-6d88-4414-b5ea-4a1f563c67d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Node">
+    <Filter Include="Importer\Mesh">
+      <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Importer\Mesh\IndexBuffer">
+      <UniqueIdentifier>{60263fab-9e0b-4d0c-ac34-b9199101a6e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Importer\Mesh\VertexBuffer">
+      <UniqueIdentifier>{f93d985d-c5bc-43da-812e-947f00d1f0ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Importer\Node">
       <UniqueIdentifier>{7da17705-84b8-4860-ad3d-c110f15b9243}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -109,13 +109,13 @@
       <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Mesh</Filter>
+      <Filter>Importer\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="pg2_indexbuffer.h">
-      <Filter>Mesh\IndexBuffer</Filter>
+      <Filter>Importer\Mesh\IndexBuffer</Filter>
     </ClInclude>
     <ClInclude Include="pg2_vertexbuffer.h">
-      <Filter>Mesh\VertexBuffer</Filter>
+      <Filter>Importer\Mesh\VertexBuffer</Filter>
     </ClInclude>
     <ClInclude Include="VertexAndPrimitives.h" />
     <ClInclude Include="Entity3D.h">
@@ -125,11 +125,11 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Importer.h">
-      <Filter>Mesh\Importer</Filter>
+      <Filter>Importer</Filter>
     </ClInclude>
     <ClInclude Include="Export.h" />
     <ClInclude Include="Node.h">
-      <Filter>Node</Filter>
+      <Filter>Importer\Node</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,10 +140,10 @@
       <Filter>Timer</Filter>
     </None>
     <None Include="pg2_indexbuffer.inl">
-      <Filter>Mesh\IndexBuffer</Filter>
+      <Filter>Importer\Mesh\IndexBuffer</Filter>
     </None>
     <None Include="pg2_vertexbuffer.inl">
-      <Filter>Mesh\VertexBuffer</Filter>
+      <Filter>Importer\Mesh\VertexBuffer</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -202,13 +202,13 @@
       <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>Importer\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="pg2_indexbuffer.cpp">
-      <Filter>Mesh\IndexBuffer</Filter>
+      <Filter>Importer\Mesh\IndexBuffer</Filter>
     </ClCompile>
     <ClCompile Include="pg2_vertexbuffer.cpp">
-      <Filter>Mesh\VertexBuffer</Filter>
+      <Filter>Importer\Mesh\VertexBuffer</Filter>
     </ClCompile>
     <ClCompile Include="Entity3D.cpp">
       <Filter>Entities</Filter>
@@ -217,10 +217,10 @@
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Importer.cpp">
-      <Filter>Mesh\Importer</Filter>
+      <Filter>Importer</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Node</Filter>
+      <Filter>Importer\Node</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

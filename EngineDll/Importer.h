@@ -22,7 +22,6 @@ public:
 
 	bool importScene(const std::string& rkFilename, Node& orkSceneRoot);
 
-	void loadScene(aiNode* aiNode, Node& node, const aiScene* scene);
 	void loadNode(aiNode* root, Node& node, const aiScene* scene);
 	void loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material);
 private:

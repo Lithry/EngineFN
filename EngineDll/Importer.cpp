@@ -45,7 +45,7 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 
 		if (meshs->HasTextureCoords(0)){
 			vert[i].u = meshs->mTextureCoords[0][i].x;
-			vert[i].v = meshs->mTextureCoords[0][i].y;
+			vert[i].v = - meshs->mTextureCoords[0][i].y;
 		}
 	}
 
@@ -78,24 +78,29 @@ bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot){
 	}
 
 	aiNode* root = scene->mRootNode;
-	loadScene(root, orkSceneRoot, scene);
 	loadNode(root, orkSceneRoot, scene);
 
 	return true;
 }
 
-void Importer::loadScene(aiNode* aiNode, Node& node, const aiScene* scene){
-	
-}
-
 void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
+	node.setName(root->mName.C_Str());
 
+	aiVector3t<float> pos;
+	aiVector3t<float> scale;
+	aiQuaterniont<float> rotation;
+	root->mTransformation.Decompose(scale, rotation, pos);
+
+	node.setPos(pos.x, pos.y, pos.z);
+	node.setScale(scale.x, scale.y, scale.z);
+	node.setRotation(rotation.x, rotation.y, rotation.z);
+	
 	for (size_t i = 0; i < root->mNumMeshes; i++)
 	{
 		Mesh* newMesh = new Mesh(_render);
 		node.addChild(newMesh);
 		aiMesh* aiMesh = scene->mMeshes[root->mMeshes[i]];
-		aiMaterial* pMaterial = scene->mMaterials[root->mMeshes[i]];
+		aiMaterial* pMaterial = scene->mMaterials[aiMesh->mMaterialIndex];
 
 		loadMesh(aiMesh, newMesh, pMaterial);
 	}
@@ -111,6 +116,8 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
 }
 
 void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
+	mesh->setName(aiMesh->mName.C_Str());
+	
 	TexturedVertex* vert = new TexturedVertex[aiMesh->mNumVertices];
 
 	for (size_t i = 0; i < aiMesh->mNumVertices; i++)
@@ -121,7 +128,7 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
 
 		if (aiMesh->HasTextureCoords(0)){
 			vert[i].u = aiMesh->mTextureCoords[0][i].x;
-			vert[i].v = aiMesh->mTextureCoords[0][i].y;
+			vert[i].v = - aiMesh->mTextureCoords[0][i].y;
 		}
 	}
 
