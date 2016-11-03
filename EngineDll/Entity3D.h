@@ -34,15 +34,20 @@ public:
 	float scaleZ() const;
 
 	void setName(std::string name);
-	const std::string name();
+	void setTexture(Texture texture);
 
+	const std::string getName();
+
+	const Matrix& localMatrix() const;
 	const Matrix& worldMatrix() const;
+	const Texture& texture() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
 	virtual void draw() = 0;
+	virtual Entity3D* findWithName(std::string name) = 0;
 
 	Node* _parent;
-protected:
+private:
 	float _posX;
 	float _posY;
 	float _posZ;

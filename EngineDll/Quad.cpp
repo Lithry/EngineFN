@@ -26,6 +26,6 @@ Quad::~Quad(){
 
 void Quad::draw(Renderer& rkRenderer){
 	rkRenderer.setCurrentTexture(NULL);
-	rkRenderer.setMatrix(_transformationMatrix);
+	rkRenderer.setMatrix(transformationMatrix());
 	rkRenderer.draw(Vert);
 }

@@ -144,11 +144,15 @@ float Entity3D::scaleZ() const{
 	return _scaleZ;
 }
 
+void Entity3D::setTexture(Texture texture){
+	_texture = texture;
+}
+
 void Entity3D::setName(std::string name){
 	_name = name;
 }
 
-const std::string Entity3D::name(){
+const std::string Entity3D::getName(){
 	return _name;
 }
 
@@ -176,8 +180,16 @@ void Entity3D::updateLocalTransformation(){
 	D3DXMatrixMultiply(_localTransformationMatrix, &scaleMat, _localTransformationMatrix);
 }
 
+const Matrix& Entity3D::localMatrix() const{
+	return _localTransformationMatrix;
+}
+
 const Matrix& Entity3D::worldMatrix() const{
 	return _worldTransformationMatrix;
+}
+
+const Texture& Entity3D::texture() const{
+	return _texture;
 }
 
 void Entity3D::updateTransformation(){

@@ -17,12 +17,11 @@ public:
 	void removeChild(Entity3D* pkChild);
 	void updateTransformation();
 	void draw();
-	Entity3D& findChild(std::string name);
+	Entity3D* findWithName(std::string name);
 
 	const std::vector<Entity3D*>& childs() const;
 
 private:
-	std::string _name;
 	std::vector<Entity3D*> _childs;
 };
 #endif

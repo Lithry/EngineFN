@@ -150,6 +150,10 @@ float Entity2D::scaleY() const{
 	return _scaleY;
 }
 
+const Matrix& Entity2D::transformationMatrix() const{
+	return _transformationMatrix;
+}
+
 void Entity2D::updateLocalTransformation(){
 	D3DXMATRIX traslatrionMat;
 	D3DXMatrixTranslation(&traslatrionMat, _posX, _posY, _posZ);

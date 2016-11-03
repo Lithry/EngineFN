@@ -16,6 +16,8 @@ void Node::removeChild(Entity3D* pkChild){
 }
 
 void Node::draw(){
+	updateTransformation();
+
 	if (!_childs.empty()){
 		for (size_t i = 0; i < _childs.size(); i++){
 			_childs[i]->draw();
@@ -31,12 +33,18 @@ void Node::updateTransformation(){
 	}
 }
 
-Entity3D& Node::findChild(std::string name){
-	for (size_t i = 0; i < _childs.size(); i++){
-		if (_childs[i]->name() == name){
-			return *_childs[i];
+Entity3D* Node::findWithName(std::string name){
+	if (getName() == name){
+		return this;
+	}
+	else{
+		for (size_t i = 0; i < _childs.size(); i++){
+			Entity3D* find = _childs[i]->findWithName(name);
+			if (find != NULL) {
+				return find;
+			}
 		}
-		//_childs[i]->findChild(name);
+		return NULL;
 	}
 }
 

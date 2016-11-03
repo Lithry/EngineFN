@@ -33,7 +33,7 @@ void Sprite::setTexture(const Texture& texture){
 
 void Sprite::draw(Renderer& rkRenderer){
 	rkRenderer.setCurrentTexture(_texture);
-	rkRenderer.setMatrix(_transformationMatrix);
+	rkRenderer.setMatrix(transformationMatrix());
 	rkRenderer.draw(_texturedVertex, ARRAY_SIZE(_texturedVertex));
 }
 

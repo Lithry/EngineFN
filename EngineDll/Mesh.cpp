@@ -39,10 +39,10 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 }
 
 void Mesh::draw(){
-	render.setCurrentTexture(_texture);
+	render.setCurrentTexture(texture());
 	render.setCurrentVertexBuffer(vertexBuffer);
 	render.setCurrentIndexBuffer(indexBuffer);
-	render.setMatrix(_worldTransformationMatrix);
+	render.setMatrix(worldMatrix());
 	render.drawCurrentBuffers(_primitiv);
 }
 
@@ -59,5 +59,13 @@ IndexBuffer* Mesh::getIndexBuffer(){
 }
 
 void Mesh::setTexture(const Texture& texture){
-	_texture = texture;
+	Entity3D::setTexture(texture);
+}
+
+Entity3D* Mesh::findWithName(std::string name){
+	if (getName() == name){
+		return this;
+	}
+	else
+		return NULL;
 }

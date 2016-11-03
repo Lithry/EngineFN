@@ -40,8 +40,11 @@ public:
 	float scaleY() const;
 	bool _enCollisionX;
 	bool _enCollisionY;
+
+	const Matrix& transformationMatrix() const;
 protected:
 	void updateLocalTransformation();
+private:
 	float _posX;
 	float _posY;
 	float _posZ;

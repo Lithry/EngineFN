@@ -27,6 +27,8 @@ public:
 
 	void setTexture(const Texture& texture);
 
+	Entity3D* findWithName(std::string name);
+
 	VertexBuffer3D* getVertexBuffer();
 	IndexBuffer* getIndexBuffer();
 private:
