@@ -21,6 +21,8 @@ Entity3D::Entity3D()
 	_texture(NULL),
 	bBox(new AABB())
 {
+	bBox->max.x = bBox->max.y = bBox->max.z = bBox->min.x = bBox->min.y = bBox->min.z = 0;
+
 	updateLocalTransformation();
 }
 
@@ -204,4 +206,33 @@ void Entity3D::updateTransformation(){
 
 void Entity3D::setParent(Node* pkParent){
 	_parent = pkParent;
+}
+
+// AABB
+
+const AABB* Entity3D::boundingBox() const{
+	return bBox;
+}
+void Entity3D::setBoundingBoxMinX(float fMinX){
+	bBox->min.x = fMinX;
+}
+
+void Entity3D::setBoundingBoxMaxX(float fMaxX){
+	bBox->max.x = fMaxX;
+}
+
+void Entity3D::setBoundingBoxMinY(float fMinY){
+	bBox->min.y = fMinY;
+}
+
+void Entity3D::setBoundingBoxMaxY(float fMaxY){
+	bBox->max.y = fMaxY;
+}
+
+void Entity3D::setBoundingBoxMinZ(float fMinZ){
+	bBox->min.z = fMinZ;
+}
+
+void Entity3D::setBoundingBoxMaxZ(float fMaxZ){
+	bBox->max.z = fMaxZ;
 }

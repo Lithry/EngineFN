@@ -34,14 +34,34 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	}
 
 	aiMesh* meshs = *scene->mMeshes;
-
 	TexturedVertex* vert = new TexturedVertex[meshs->mNumVertices];
 
 	for (size_t i = 0; i < meshs->mNumVertices; i++)
 	{
-		vert[i].x = meshs->mVertices[i].x;
-		vert[i].y = meshs->mVertices[i].y;
-		vert[i].z = meshs->mVertices[i].z;
+		vert[i].x = meshs->mVertices[i].x; // Set X Vert
+		// Set X AABB
+		if (mesher.boundingBox()->max.x < vert[i].x){ // MAX
+			mesher.setBoundingBoxMaxX(vert[i].x);
+		}
+		else if (mesher.boundingBox()->min.x > vert[i].x){ // MIN
+			mesher.setBoundingBoxMinX(vert[i].x);
+		}
+		vert[i].y = meshs->mVertices[i].y; // Set Y Vert
+		// Set Y AABB
+		if (mesher.boundingBox()->max.y < vert[i].y){ // MAX
+			mesher.setBoundingBoxMaxY(vert[i].y);
+		}
+		else if (mesher.boundingBox()->min.y > vert[i].y){ // MIN
+			mesher.setBoundingBoxMinY(vert[i].y);
+		}
+		vert[i].z = meshs->mVertices[i].z; // Set Z Vert
+		// Set Z AABB
+		if (mesher.boundingBox()->max.z < vert[i].z){ // MAX
+			mesher.setBoundingBoxMaxZ(vert[i].z);
+		}
+		else if (mesher.boundingBox()->min.z > vert[i].z){ // MIN
+			mesher.setBoundingBoxMinZ(vert[i].z);
+		}
 
 		if (meshs->HasTextureCoords(0)){
 			vert[i].u = meshs->mTextureCoords[0][i].x;

@@ -54,6 +54,14 @@ public:
 	virtual Entity3D* findWithName(std::string name) = 0;
 
 	Node* _parent;
+
+	const AABB* boundingBox() const;
+	void setBoundingBoxMinX(float fMinX);
+	void setBoundingBoxMaxX(float fMaxX);
+	void setBoundingBoxMinY(float fMinY);
+	void setBoundingBoxMaxY(float fMaxY);
+	void setBoundingBoxMinZ(float fMinZ);
+	void setBoundingBoxMaxZ(float fMaxZ);
 private:
 	float _posX;
 	float _posY;

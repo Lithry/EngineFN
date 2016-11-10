@@ -39,5 +39,7 @@ private:
 
 
 	Importer* import;
+
+	Mesh* mesh;
 };
 #endif
