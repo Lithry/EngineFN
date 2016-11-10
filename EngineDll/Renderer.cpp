@@ -21,7 +21,8 @@ D3DPRIMITIVETYPE Primitives[Primitive::PrimitiveCount] = { D3DPT_POINTLIST,
 Renderer::Renderer()
 	:
 	font(new Font),
-	rect(new RECT)
+	rect(new RECT),
+	matProjection(new D3DXMATRIX())
 {}
 
 Renderer::~Renderer(){
@@ -84,15 +85,13 @@ bool Renderer::init(HWND hWnd, unsigned int uiW, unsigned int uiH){
 
 	if (hr != D3D_OK) return false;
 
-	D3DXMATRIX matProjection;
-
-	D3DXMatrixPerspectiveFovLH(&matProjection,
+	D3DXMatrixPerspectiveFovLH(matProjection,
 		(D3DX_PI*0.25),
 		float(uiW) / float(uiH),
 		1.0f,
 		10000.0f);
 
-	m_pkDevice->SetTransform(D3DTS_PROJECTION, &matProjection);
+	m_pkDevice->SetTransform(D3DTS_PROJECTION, matProjection);
 
 	//v_buffer = new VertexBuffer(m_pkDevice, sizeof(Vertex), CUSTOMFVF);
 	//t_buffer = new VertexBuffer(m_pkDevice, sizeof(TexturedVertex), TEXTUREFVF);
@@ -225,4 +224,8 @@ void Renderer::drawCurrentBuffers(Primitive ePrimitive){
 	v3D_buffer->bind();
 	
 	m_pkDevice->DrawIndexedPrimitive(Primitives[ePrimitive], 0, 0, v3D_buffer->vertexCount(), 0, i3D_buffer->indexCount() / 3);
+}
+
+const Matrix Renderer::projectionMatrix() const{
+	return matProjection;
 }

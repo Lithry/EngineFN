@@ -2,10 +2,17 @@
 #define ENTITY3D_H
 
 #include "Renderer.h"
+#include "VertexAndPrimitives.h"
 
 class Node;
 
 #include "Export.h"
+
+// http://www.miguelcasillas.com/?mcportfolio=collision-detection-c
+
+struct AABB{
+	Vec3 min, max;
+};
 
 class DllExport Entity3D{
 public:
@@ -57,6 +64,8 @@ private:
 	float _scaleX;
 	float _scaleY;
 	float _scaleZ;
+
+	AABB* bBox;
 
 	std::string _name;
 

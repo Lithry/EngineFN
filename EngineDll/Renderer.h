@@ -23,6 +23,8 @@ struct IDirect3DDevice9;
 class VertexBuffer3D;
 class IndexBuffer;
 
+typedef D3DXMATRIX* Matrix;
+
 //Se encarga de la comunicacion con el Direct3D
 class DllExport Renderer{
 public:
@@ -51,6 +53,8 @@ public:
 	void setCurrentVertexBuffer(VertexBuffer3D* pkVertexBuffer);
 
 	void drawCurrentBuffers(Primitive ePrimitive);
+
+	const Matrix projectionMatrix() const;
 private:
 	HWND _hwnd;
 	unsigned int uiWidth;
@@ -64,5 +68,9 @@ private:
 
 	Font* font;
 	RECT* rect;
+
+
+	Matrix matProjection;
+
 };
 #endif

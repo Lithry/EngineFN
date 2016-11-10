@@ -15,6 +15,10 @@ public:
 	float u, v;
 };
 
+struct DllExport Vec3{
+	float x, y, z;
+};
+
 enum Primitive{
 	PointList = 0,
 	LineList,

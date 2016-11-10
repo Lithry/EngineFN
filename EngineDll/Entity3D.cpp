@@ -18,7 +18,8 @@ Entity3D::Entity3D()
 	_scaleY(1.0f),
 	_scaleZ(1.0f),
 	_parent(NULL),
-	_texture(NULL)
+	_texture(NULL),
+	bBox(new AABB())
 {
 	updateLocalTransformation();
 }
@@ -28,6 +29,8 @@ Entity3D::~Entity3D(){
 	_localTransformationMatrix = NULL;
 	delete _worldTransformationMatrix;
 	_worldTransformationMatrix = NULL;
+	delete bBox;
+	bBox = NULL;
 }
 
 void Entity3D::setPos(float fPosX, float fPosY, float fPosZ){

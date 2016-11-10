@@ -6,6 +6,8 @@
 
 struct D3DXVECTOR3;
 typedef D3DXVECTOR3* Vector3;
+struct D3DXPLANE;
+typedef D3DXPLANE* Plane;
 
 #include "Export.h"
 
@@ -38,5 +40,7 @@ private:
 	Vector3 _left;
 	Matrix _view;
 	float cameraSpeed;
+
+	Plane frustum[6];
 };
 #endif
