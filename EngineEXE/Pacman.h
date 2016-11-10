@@ -18,28 +18,10 @@ public:
 	void frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer);
 	void deinit();
 private:
-	TileMap tileMap;
-	std::vector<Quad*> obstacle;
-	Sprite background;
-	Sprite player;
-	Animation nada;
-	Animation walk;
-
 	Camera* cam;
-
-	ScreenText text;
-	ScreenText text2;
-	ScreenText text3;
-	std::string score;
-
-	Node* node1;
-
-	Entity3D* child1;
-	Entity3D* child2;
-
-
 	Importer* import;
-
 	Mesh* mesh;
+	Mesh* min;
+	Mesh* max;
 };
 #endif

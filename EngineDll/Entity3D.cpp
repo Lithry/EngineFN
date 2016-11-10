@@ -183,6 +183,18 @@ void Entity3D::updateLocalTransformation(){
 	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatY, _localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatZ, _localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &scaleMat, _localTransformationMatrix);
+
+	// AABB
+	// X
+	bBox->actualMin.x = (bBox->min.x + _posX) * _scaleX;
+	bBox->actualMax.x = (bBox->max.x + _posX) * _scaleX;
+	// Y
+	bBox->actualMin.y = (bBox->min.y + _posY) * _scaleY;
+	bBox->actualMax.y = (bBox->max.y + _posY) * _scaleY;
+
+	// Z
+	bBox->actualMin.z = (bBox->min.z + _posZ) * _scaleZ;
+	bBox->actualMax.z = (bBox->max.z + _posZ) * _scaleZ;
 }
 
 const Matrix& Entity3D::localMatrix() const{
@@ -209,7 +221,6 @@ void Entity3D::setParent(Node* pkParent){
 }
 
 // AABB
-
 const AABB* Entity3D::boundingBox() const{
 	return bBox;
 }

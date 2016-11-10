@@ -12,32 +12,48 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(0.2f);
 
-	//node1 = new Node();
 	mesh = new Mesh(rkRenderer);
+	min = new Mesh(rkRenderer);
+	max = new Mesh(rkRenderer);
+
 	Importer* importer = new Importer(rkRenderer);
-	importer->importMesh("Assets/obj/cube.obj", *mesh);
+	importer->importMesh("Assets/Obj/Cube.obj", *mesh);
+	Texture wood = rkRenderer.loadTexture("Assets/Texture/Wood.JPG", D3DCOLOR_XRGB(255, 255, 255));
+	mesh->setTexture(wood);
+	mesh->updateTransformation();
+
+	importer->importMesh("Assets/Obj/Ball.obj", *min);
+	importer->importMesh("Assets/Obj/Ball.obj", *max);
+
+	Texture red = rkRenderer.loadTexture("Assets/Texture/Red.png", D3DCOLOR_XRGB(255, 255, 255));
+	min->setTexture(red);
+	Texture blue = rkRenderer.loadTexture("Assets/Texture/Blue.png", D3DCOLOR_XRGB(255, 255, 255));
+	max->setTexture(blue);
 
 	return true;
 }
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
-	
-	/*OPController(node1, rkInput);
-	KLController(node1->findWithName("group1"), rkInput);
-	NMController(node1->findWithName("pTorus1"), rkInput);
 
-	node1->draw();*/
 	OPController(mesh, rkInput);
 	KLController(mesh, rkInput);
+	NMController(mesh, rkInput);
+
+	max->setPos(mesh->boundingBox()->actualMax.x, mesh->boundingBox()->actualMax.y, mesh->boundingBox()->actualMax.z);
+	min->setPos(mesh->boundingBox()->actualMin.x, mesh->boundingBox()->actualMin.y, mesh->boundingBox()->actualMin.z);
 
 	mesh->draw();
-
+	min->draw();
+	max->draw();
 
 	// DEBUG
 	if (rkInput.keyDown(Input::KEY_Z)){
-		std::cout << "MAX\nX: " << mesh->boundingBox()->max.x << " | Y: " << mesh->boundingBox()->max.y << " | Z: " << mesh->boundingBox()->max.z << std::endl;
-		std::cout << "MIN\nX: " << mesh->boundingBox()->min.x << " | Y: " << mesh->boundingBox()->min.y << " | Z: " << mesh->boundingBox()->min.z << std::endl;
+		std::cout << "MAX\nX: " << mesh->boundingBox()->actualMax.x << " | Y: " << mesh->boundingBox()->actualMax.y << " | Z: " << mesh->boundingBox()->actualMax.z << std::endl;
+		std::cout << "MIN\nX: " << mesh->boundingBox()->actualMin.x << " | Y: " << mesh->boundingBox()->actualMin.y << " | Z: " << mesh->boundingBox()->actualMin.z << std::endl;
+		std::cout << "-----------------------------------------------------------" << std::endl;
+		std::cout << "CUBE POS\nX: " << mesh->posX() << " | Y: " << mesh->posY() << " | Z: " << mesh->posZ() << std::endl;
+		std::cout << "CUBE SCALE\nX: " << mesh->scaleX() << " | Y: " << mesh->scaleY() << " | Z: " << mesh->scaleZ() << std::endl;
 		std::cout << "===========================================================" << std::endl;
 	}
 }
@@ -71,9 +87,9 @@ void NMController(Entity3D* object, Input& rkInput){
 	static float speed = 1;
 
 	if (rkInput.keyDown(Input::KEY_N)){
-		object->setRotationX(object->rotationX() + speed);
+		object->setPosZ(object->posZ() + speed);
 	}
 	else if (rkInput.keyDown(Input::KEY_M)){
-		object->setRotationX(object->rotationX() - speed);
+		object->setPosZ(object->posZ() - speed);
 	}
 }

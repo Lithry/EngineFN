@@ -11,7 +11,8 @@ class Node;
 // http://www.miguelcasillas.com/?mcportfolio=collision-detection-c
 
 struct AABB{
-	Vec3 min, max;
+	Vec3 min, max, actualMin, actualMax;
+	Matrix scaleMatrix;
 };
 
 class DllExport Entity3D{
