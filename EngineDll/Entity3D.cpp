@@ -191,10 +191,26 @@ void Entity3D::updateLocalTransformation(){
 	// Y
 	bBox->actualMin.y = (bBox->min.y + _posY) * _scaleY;
 	bBox->actualMax.y = (bBox->max.y + _posY) * _scaleY;
-
 	// Z
 	bBox->actualMin.z = (bBox->min.z + _posZ) * _scaleZ;
 	bBox->actualMax.z = (bBox->max.z + _posZ) * _scaleZ;
+
+	// Check Escala Negativa
+	if (bBox->actualMin.x > bBox->actualMax.x){
+		float a = bBox->actualMin.x;
+		bBox->actualMin.x = bBox->actualMax.x;
+		bBox->actualMax.x = a;
+	}
+	if (bBox->actualMin.y > bBox->actualMax.y){
+		float a = bBox->actualMin.y;
+		bBox->actualMin.y = bBox->actualMax.y;
+		bBox->actualMax.y = a;
+	}
+	if (bBox->actualMin.z > bBox->actualMax.z){
+		float a = bBox->actualMin.z;
+		bBox->actualMin.z = bBox->actualMax.z;
+		bBox->actualMax.z = a;
+	}
 }
 
 const Matrix& Entity3D::localMatrix() const{

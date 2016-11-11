@@ -13,14 +13,19 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam->setCameraSpeed(0.2f);
 
 	mesh = new Mesh(rkRenderer);
-	min = new Mesh(rkRenderer);
-	max = new Mesh(rkRenderer);
+	
 
 	Importer* importer = new Importer(rkRenderer);
 	importer->importMesh("Assets/Obj/Cube.obj", *mesh);
 	Texture wood = rkRenderer.loadTexture("Assets/Texture/Wood.JPG", D3DCOLOR_XRGB(255, 255, 255));
 	mesh->setTexture(wood);
 	mesh->updateTransformation();
+
+	min = new Mesh(rkRenderer);
+	max = new Mesh(rkRenderer);
+
+	min->setScale(0.2, 0.2, 0.2);
+	max->setScale(0.2, 0.2, 0.2);
 
 	importer->importMesh("Assets/Obj/Ball.obj", *min);
 	importer->importMesh("Assets/Obj/Ball.obj", *max);
