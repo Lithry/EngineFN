@@ -183,34 +183,6 @@ void Entity3D::updateLocalTransformation(){
 	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatY, _localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &rotationMatZ, _localTransformationMatrix);
 	D3DXMatrixMultiply(_localTransformationMatrix, &scaleMat, _localTransformationMatrix);
-
-	// AABB
-	// X
-	bBox->actualMin.x = (bBox->min.x + _posX) * _scaleX;
-	bBox->actualMax.x = (bBox->max.x + _posX) * _scaleX;
-	// Y
-	bBox->actualMin.y = (bBox->min.y + _posY) * _scaleY;
-	bBox->actualMax.y = (bBox->max.y + _posY) * _scaleY;
-	// Z
-	bBox->actualMin.z = (bBox->min.z + _posZ) * _scaleZ;
-	bBox->actualMax.z = (bBox->max.z + _posZ) * _scaleZ;
-
-	// Check Escala Negativa
-	if (bBox->actualMin.x > bBox->actualMax.x){
-		float a = bBox->actualMin.x;
-		bBox->actualMin.x = bBox->actualMax.x;
-		bBox->actualMax.x = a;
-	}
-	if (bBox->actualMin.y > bBox->actualMax.y){
-		float a = bBox->actualMin.y;
-		bBox->actualMin.y = bBox->actualMax.y;
-		bBox->actualMax.y = a;
-	}
-	if (bBox->actualMin.z > bBox->actualMax.z){
-		float a = bBox->actualMin.z;
-		bBox->actualMin.z = bBox->actualMax.z;
-		bBox->actualMax.z = a;
-	}
 }
 
 const Matrix& Entity3D::localMatrix() const{
@@ -237,9 +209,10 @@ void Entity3D::setParent(Node* pkParent){
 }
 
 // AABB
-const AABB* Entity3D::boundingBox() const{
-	return bBox;
+const AABB& Entity3D::getAABB() const{
+	return *bBox;
 }
+
 void Entity3D::setBoundingBoxMinX(float fMinX){
 	bBox->min.x = fMinX;
 }
@@ -262,4 +235,28 @@ void Entity3D::setBoundingBoxMinZ(float fMinZ){
 
 void Entity3D::setBoundingBoxMaxZ(float fMaxZ){
 	bBox->max.z = fMaxZ;
+}
+
+void Entity3D::setActualBoundingBoxMinX(float fMinX){
+	bBox->actualMin.x = fMinX;
+}
+
+void Entity3D::setActualBoundingBoxMaxX(float fMaxX){
+	bBox->actualMax.x = fMaxX;
+}
+
+void Entity3D::setActualBoundingBoxMinY(float fMinY){
+	bBox->actualMin.y = fMinY;
+}
+
+void Entity3D::setActualBoundingBoxMaxY(float fMaxY){
+	bBox->actualMax.y = fMaxY;
+}
+
+void Entity3D::setActualBoundingBoxMinZ(float fMinZ){
+	bBox->actualMin.z = fMinZ;
+}
+
+void Entity3D::setActualBoundingBoxMaxZ(float fMaxZ){
+	bBox->actualMax.z = fMaxZ;
 }

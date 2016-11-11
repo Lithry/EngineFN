@@ -40,6 +40,7 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 
 void Mesh::draw(){
 	updateTransformation();
+	updateBV();
 
 	render.setCurrentTexture(texture());
 	render.setCurrentVertexBuffer(vertexBuffer);
@@ -70,4 +71,32 @@ Entity3D* Mesh::findWithName(std::string name){
 	}
 	else
 		return NULL;
+}
+
+void Mesh::updateBV(){
+	setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
+	setActualBoundingBoxMaxX((getAABB().max.x + posX()) * scaleX());
+
+	setActualBoundingBoxMinY((getAABB().min.y + posY()) * scaleY());
+	setActualBoundingBoxMaxY((getAABB().max.y + posY()) * scaleY());
+
+	setActualBoundingBoxMinZ((getAABB().min.z + posZ()) * scaleZ());
+	setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());
+
+	// Check Escala Negativa
+	if (getAABB().actualMin.x > getAABB().actualMax.x){
+		float a = getAABB().actualMin.x;
+		setActualBoundingBoxMinX(getAABB().actualMax.x);
+		setActualBoundingBoxMaxX(a);
+	}
+	if (getAABB().actualMin.y > getAABB().actualMax.y){
+		float a = getAABB().actualMin.y;
+		setActualBoundingBoxMinY(getAABB().actualMax.y);
+		setActualBoundingBoxMaxY(a);
+	}
+	if (getAABB().actualMin.z > getAABB().actualMax.z){
+		float a = getAABB().actualMin.z;
+		setActualBoundingBoxMinZ(getAABB().actualMax.z);
+		setActualBoundingBoxMaxZ(a);
+	}
 }

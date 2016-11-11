@@ -26,6 +26,7 @@ public:
 	void setTextureId(int iTextureId);
 
 	void setTexture(const Texture& texture);
+	void updateBV();
 
 	Entity3D* findWithName(std::string name);
 

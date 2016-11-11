@@ -20,7 +20,7 @@ public:
 private:
 	Camera* cam;
 	Importer* import;
-	Mesh* mesh;
+	Node* mesh;
 	Mesh* min;
 	Mesh* max;
 };

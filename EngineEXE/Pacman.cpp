@@ -12,20 +12,20 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(0.2f);
 
-	mesh = new Mesh(rkRenderer);
+	mesh = new Node();
 	
 
 	Importer* importer = new Importer(rkRenderer);
-	importer->importMesh("Assets/Obj/Cube.obj", *mesh);
-	Texture wood = rkRenderer.loadTexture("Assets/Texture/Wood.JPG", D3DCOLOR_XRGB(255, 255, 255));
-	mesh->setTexture(wood);
+	importer->importScene("Assets/Scene/2ObjScene.dae", *mesh);
+	//Texture wood = rkRenderer.loadTexture("Assets/Texture/Wood.JPG", D3DCOLOR_XRGB(255, 255, 255));
+	//mesh->setTexture(wood);
 	mesh->updateTransformation();
 
 	min = new Mesh(rkRenderer);
 	max = new Mesh(rkRenderer);
 
-	min->setScale(0.2, 0.2, 0.2);
-	max->setScale(0.2, 0.2, 0.2);
+	min->setScale(0.2f, 0.2f, 0.2f);
+	max->setScale(0.2f, 0.2f, 0.2f);
 
 	importer->importMesh("Assets/Obj/Ball.obj", *min);
 	importer->importMesh("Assets/Obj/Ball.obj", *max);
@@ -45,8 +45,8 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	KLController(mesh, rkInput);
 	NMController(mesh, rkInput);
 
-	max->setPos(mesh->boundingBox()->actualMax.x, mesh->boundingBox()->actualMax.y, mesh->boundingBox()->actualMax.z);
-	min->setPos(mesh->boundingBox()->actualMin.x, mesh->boundingBox()->actualMin.y, mesh->boundingBox()->actualMin.z);
+	max->setPos(mesh->getAABB().actualMax.x, mesh->getAABB().actualMax.y, mesh->getAABB().actualMax.z);
+	min->setPos(mesh->getAABB().actualMin.x, mesh->getAABB().actualMin.y, mesh->getAABB().actualMin.z);
 
 	mesh->draw();
 	min->draw();
@@ -54,8 +54,8 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 
 	// DEBUG
 	if (rkInput.keyDown(Input::KEY_Z)){
-		std::cout << "MAX\nX: " << mesh->boundingBox()->actualMax.x << " | Y: " << mesh->boundingBox()->actualMax.y << " | Z: " << mesh->boundingBox()->actualMax.z << std::endl;
-		std::cout << "MIN\nX: " << mesh->boundingBox()->actualMin.x << " | Y: " << mesh->boundingBox()->actualMin.y << " | Z: " << mesh->boundingBox()->actualMin.z << std::endl;
+		std::cout << "MAX\nX: " << mesh->getAABB().actualMax.x << " | Y: " << mesh->getAABB().actualMax.y << " | Z: " << mesh->getAABB().actualMax.z << std::endl;
+		std::cout << "MIN\nX: " << mesh->getAABB().actualMin.x << " | Y: " << mesh->getAABB().actualMin.y << " | Z: " << mesh->getAABB().actualMin.z << std::endl;
 		std::cout << "-----------------------------------------------------------" << std::endl;
 		std::cout << "CUBE POS\nX: " << mesh->posX() << " | Y: " << mesh->posY() << " | Z: " << mesh->posZ() << std::endl;
 		std::cout << "CUBE SCALE\nX: " << mesh->scaleX() << " | Y: " << mesh->scaleY() << " | Z: " << mesh->scaleZ() << std::endl;
@@ -70,10 +70,10 @@ void OPController(Entity3D* object, Input& rkInput){
 	static float speed = 1;
 
 	if (rkInput.keyDown(Input::KEY_O)){
-		object->setPosX(object->posX() + speed);
+		object->setRotationY(object->rotationY() + speed);
 	}
 	else if (rkInput.keyDown(Input::KEY_P)){
-		object->setPosX(object->posX() - speed);
+		object->setRotationY(object->rotationY() - speed);
 	}
 }
 

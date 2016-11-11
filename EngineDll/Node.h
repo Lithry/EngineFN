@@ -21,6 +21,7 @@ public:
 
 	const std::vector<Entity3D*>& childs() const;
 
+	void updateBV();
 private:
 	std::vector<Entity3D*> _childs;
 };

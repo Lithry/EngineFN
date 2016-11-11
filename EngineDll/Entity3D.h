@@ -56,13 +56,22 @@ public:
 
 	Node* _parent;
 
-	const AABB* boundingBox() const;
+	const AABB& getAABB() const;
 	void setBoundingBoxMinX(float fMinX);
 	void setBoundingBoxMaxX(float fMaxX);
 	void setBoundingBoxMinY(float fMinY);
 	void setBoundingBoxMaxY(float fMaxY);
 	void setBoundingBoxMinZ(float fMinZ);
 	void setBoundingBoxMaxZ(float fMaxZ);
+
+	void setActualBoundingBoxMinX(float fMinX);
+	void setActualBoundingBoxMaxX(float fMaxX);
+	void setActualBoundingBoxMinY(float fMinY);
+	void setActualBoundingBoxMaxY(float fMaxY);
+	void setActualBoundingBoxMinZ(float fMinZ);
+	void setActualBoundingBoxMaxZ(float fMaxZ);
+
+	virtual void updateBV() = 0;
 private:
 	float _posX;
 	float _posY;
