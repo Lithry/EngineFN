@@ -1,6 +1,6 @@
 #include "Node.h"
 
-#include "Mesh.h"
+#include "StructsAndEnums.h"
 
 Node::Node(){}
 
@@ -15,14 +15,24 @@ void Node::removeChild(Entity3D* pkChild){
 	_childs.erase(find(_childs.begin(), _childs.end(), pkChild));
 }
 
-void Node::draw(){
+void Node::draw(const Frustum& rkFrustum){
+	draw(AABBFrustumCollision::AllInside, rkFrustum);
+}
+
+void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
 	updateBV();
-
-	if (!_childs.empty()){
-		for (size_t i = 0; i < _childs.size(); i++){
-			_childs[i]->draw();
+	
+	if (pCollision == AABBFrustumCollision::AllInside){
+		if (!_childs.empty()){
+			for (size_t i = 0; i < _childs.size(); i++){
+				_childs[i]->draw(pCollision, rkFrustum);
+			}
 		}
+	}
+	else if (pCollision == AABBFrustumCollision::PartialInside){
+		// Check con frustum
+		// si no es AllOutside draw();
 	}
 }
 
@@ -103,4 +113,8 @@ void Node::updateBV(){
 			setActualBoundingBoxMaxZ(a);
 		}
 	}
+}
+
+AABBFrustumCollision Node::checkAABBtoFrustum(){
+	return AABBFrustumCollision::AllInside;
 }

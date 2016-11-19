@@ -40,12 +40,6 @@
     <Filter Include="Importer">
       <UniqueIdentifier>{8c08a141-6d88-4414-b5ea-4a1f563c67d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities\Mesh">
-      <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entities\Node">
-      <UniqueIdentifier>{7da17705-84b8-4860-ad3d-c110f15b9243}</UniqueIdentifier>
-    </Filter>
     <Filter Include="VertexBuffer3D">
       <UniqueIdentifier>{f93d985d-c5bc-43da-812e-947f00d1f0ed}</UniqueIdentifier>
     </Filter>
@@ -58,17 +52,23 @@
     <Filter Include="Entities\Entity3D">
       <UniqueIdentifier>{3a757ee6-ec65-4666-bb7c-25e9e19db7d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities\Quad">
-      <UniqueIdentifier>{e726e298-119d-4ba9-aa94-e90af1161043}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entities\ScreenText">
       <UniqueIdentifier>{c2a6a807-6930-43dc-8457-972395769d36}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entities\Sound">
       <UniqueIdentifier>{626c3740-6002-4217-b467-5cfbda4b5256}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities\Sprite">
+    <Filter Include="Entities\Entity2D\Sprite">
       <UniqueIdentifier>{17d24b28-3e2e-4aaa-8ffd-66bebb8ed725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Entity2D\Quad">
+      <UniqueIdentifier>{e726e298-119d-4ba9-aa94-e90af1161043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Entity3D\Node">
+      <UniqueIdentifier>{7da17705-84b8-4860-ad3d-c110f15b9243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Entity3D\Mesh">
+      <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +115,7 @@
       <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Entities\Mesh</Filter>
+      <Filter>Entities\Entity3D\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="pg2_indexbuffer.h">
       <Filter>IndexBuffer3D</Filter>
@@ -123,13 +123,12 @@
     <ClInclude Include="pg2_vertexbuffer.h">
       <Filter>VertexBuffer3D</Filter>
     </ClInclude>
-    <ClInclude Include="VertexAndPrimitives.h" />
     <ClInclude Include="Importer.h">
       <Filter>Importer</Filter>
     </ClInclude>
     <ClInclude Include="Export.h" />
     <ClInclude Include="Node.h">
-      <Filter>Entities\Node</Filter>
+      <Filter>Entities\Entity3D\Node</Filter>
     </ClInclude>
     <ClInclude Include="Entity2D.h">
       <Filter>Entities\Entity2D</Filter>
@@ -138,7 +137,7 @@
       <Filter>Entities\Entity3D</Filter>
     </ClInclude>
     <ClInclude Include="Quad.h">
-      <Filter>Entities\Quad</Filter>
+      <Filter>Entities\Entity2D\Quad</Filter>
     </ClInclude>
     <ClInclude Include="ScreenText.h">
       <Filter>Entities\ScreenText</Filter>
@@ -147,8 +146,9 @@
       <Filter>Entities\Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Entities\Sprite</Filter>
+      <Filter>Entities\Entity2D\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="StructsAndEnums.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -208,7 +208,7 @@
       <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Entities\Mesh</Filter>
+      <Filter>Entities\Entity3D\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="pg2_indexbuffer.cpp">
       <Filter>IndexBuffer3D</Filter>
@@ -220,7 +220,7 @@
       <Filter>Importer</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Entities\Node</Filter>
+      <Filter>Entities\Entity3D\Node</Filter>
     </ClCompile>
     <ClCompile Include="Entity2D.cpp">
       <Filter>Entities\Entity2D</Filter>
@@ -229,7 +229,7 @@
       <Filter>Entities\Entity3D</Filter>
     </ClCompile>
     <ClCompile Include="Quad.cpp">
-      <Filter>Entities\Quad</Filter>
+      <Filter>Entities\Entity2D\Quad</Filter>
     </ClCompile>
     <ClCompile Include="ScreenText.cpp">
       <Filter>Entities\ScreenText</Filter>
@@ -238,7 +238,7 @@
       <Filter>Entities\Sound</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Entities\Sprite</Filter>
+      <Filter>Entities\Entity2D\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

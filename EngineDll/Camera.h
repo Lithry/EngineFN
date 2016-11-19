@@ -4,10 +4,7 @@
 #include "Renderer.h"
 #include "input.h"
 
-struct D3DXVECTOR3;
-typedef D3DXVECTOR3* Vector3;
-struct D3DXPLANE;
-typedef D3DXPLANE* Plane;
+
 
 #include "Export.h"
 
@@ -27,6 +24,8 @@ public:
 	void fly(float dist);
 
 	void update();
+	void updateFrustum();
+	const Frustum& getFrustum() const;
 
 	void controls(Input& rkInput);
 	void setCameraSpeed(float speed);
@@ -41,6 +40,6 @@ private:
 	Matrix _view;
 	float cameraSpeed;
 
-	Plane frustum[6];
+	Frustum frustum;
 };
 #endif

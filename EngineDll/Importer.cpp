@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Renderer.h"
-#include "VertexAndPrimitives.h"
+#include "StructsAndEnums.h"
 #include "Mesh.h"
 #include "Node.h"
 #include "AssImp\Importer.hpp"

@@ -16,12 +16,16 @@ public:
 	void addChild(Entity3D* pkChild);
 	void removeChild(Entity3D* pkChild);
 	void updateTransformation();
-	void draw();
+	
+	void draw(const Frustum& rkFrustum);
+	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum);
+	
 	Entity3D* findWithName(std::string name);
 
 	const std::vector<Entity3D*>& childs() const;
 
 	void updateBV();
+	AABBFrustumCollision checkAABBtoFrustum();
 private:
 	std::vector<Entity3D*> _childs;
 };

@@ -17,9 +17,12 @@ Camera::Camera(Renderer& rend)
 	_view(new D3DXMATRIX),
 	cameraSpeed(1.0f)
 {
-	for (size_t i = 0; i < 6; i++){
-		frustum[i] = new D3DXPLANE();
-	}
+	frustum.nearPlane = new D3DXPLANE();
+	frustum.farPlane = new D3DXPLANE();
+	frustum.rightPlane = new D3DXPLANE();
+	frustum.leftPlane = new D3DXPLANE();
+	frustum.topPlane = new D3DXPLANE();
+	frustum.bottomPlane = new D3DXPLANE();
 
 	update();
 }
@@ -38,10 +41,18 @@ Camera::~Camera(){
 	delete _left;
 	_left = NULL;
 	
-	for (size_t i = 0; i < 6; i++){
-	delete frustum[i];
-	frustum[i] = NULL;
-	}
+	delete frustum.nearPlane;
+	frustum.nearPlane = NULL;
+	delete frustum.farPlane;
+	frustum.farPlane = NULL;
+	delete frustum.rightPlane;
+	frustum.rightPlane = NULL;
+	delete frustum.leftPlane;
+	frustum.leftPlane = NULL;
+	delete frustum.topPlane;
+	frustum.topPlane = NULL;
+	delete frustum.bottomPlane;
+	frustum.bottomPlane = NULL;
 }
 
 bool Camera::init(){
@@ -112,51 +123,60 @@ void Camera::update(){
 
 	_renderer.setViewMatrix(*_view);
 
+	updateFrustum();
+}
+
+void Camera::updateFrustum(){
 	// http://www.rastertek.com/dx10tut16.html
 	// Create the frustum matrix from the view matrix and updated projection matrix.
 	D3DXMATRIX matrix;
 	D3DXMatrixMultiply(&matrix, _view, _renderer.projectionMatrix());
 
-	frustum[0]->a = matrix._14 + matrix._13;
-	frustum[0]->b = matrix._24 + matrix._23;
-	frustum[0]->c = matrix._34 + matrix._33;
-	frustum[0]->d = matrix._44 + matrix._43;
-	D3DXPlaneNormalize(frustum[0], frustum[0]);
+	// Calculate near plane of frustum.
+	frustum.nearPlane->a = matrix._14 + matrix._13;
+	frustum.nearPlane->b = matrix._24 + matrix._23;
+	frustum.nearPlane->c = matrix._34 + matrix._33;
+	frustum.nearPlane->d = matrix._44 + matrix._43;
+	D3DXPlaneNormalize(frustum.nearPlane, frustum.nearPlane);
 
 	// Calculate far plane of frustum.
-	frustum[1]->a = matrix._14 - matrix._13;
-	frustum[1]->b = matrix._24 - matrix._23;
-	frustum[1]->c = matrix._34 - matrix._33;
-	frustum[1]->d = matrix._44 - matrix._43;
-	D3DXPlaneNormalize(frustum[1], frustum[1]);
+	frustum.farPlane->a = matrix._14 - matrix._13;
+	frustum.farPlane->b = matrix._24 - matrix._23;
+	frustum.farPlane->c = matrix._34 - matrix._33;
+	frustum.farPlane->d = matrix._44 - matrix._43;
+	D3DXPlaneNormalize(frustum.farPlane, frustum.farPlane);
 
 	// Calculate left plane of frustum.
-	frustum[2]->a = matrix._14 + matrix._11;
-	frustum[2]->b = matrix._24 + matrix._21;
-	frustum[2]->c = matrix._34 + matrix._31;
-	frustum[2]->d = matrix._44 + matrix._41;
-	D3DXPlaneNormalize(frustum[2], frustum[2]);
+	frustum.leftPlane->a = matrix._14 + matrix._11;
+	frustum.leftPlane->b = matrix._24 + matrix._21;
+	frustum.leftPlane->c = matrix._34 + matrix._31;
+	frustum.leftPlane->d = matrix._44 + matrix._41;
+	D3DXPlaneNormalize(frustum.leftPlane, frustum.leftPlane);
 
 	// Calculate right plane of frustum.
-	frustum[3]->a = matrix._14 - matrix._11;
-	frustum[3]->b = matrix._24 - matrix._21;
-	frustum[3]->c = matrix._34 - matrix._31;
-	frustum[3]->d = matrix._44 - matrix._41;
-	D3DXPlaneNormalize(frustum[3], frustum[3]);
+	frustum.rightPlane->a = matrix._14 - matrix._11;
+	frustum.rightPlane->b = matrix._24 - matrix._21;
+	frustum.rightPlane->c = matrix._34 - matrix._31;
+	frustum.rightPlane->d = matrix._44 - matrix._41;
+	D3DXPlaneNormalize(frustum.rightPlane, frustum.rightPlane);
 
 	// Calculate top plane of frustum.
-	frustum[4]->a = matrix._14 - matrix._12;
-	frustum[4]->b = matrix._24 - matrix._22;
-	frustum[4]->c = matrix._34 - matrix._32;
-	frustum[4]->d = matrix._44 - matrix._42;
-	D3DXPlaneNormalize(frustum[4], frustum[4]);
+	frustum.topPlane->a = matrix._14 - matrix._12;
+	frustum.topPlane->b = matrix._24 - matrix._22;
+	frustum.topPlane->c = matrix._34 - matrix._32;
+	frustum.topPlane->d = matrix._44 - matrix._42;
+	D3DXPlaneNormalize(frustum.topPlane, frustum.topPlane);
 
 	// Calculate bottom plane of frustum.
-	frustum[5]->a = matrix._14 + matrix._12;
-	frustum[5]->b = matrix._24 + matrix._22;
-	frustum[5]->c = matrix._34 + matrix._32;
-	frustum[5]->d = matrix._44 + matrix._42;
-	D3DXPlaneNormalize(frustum[5], frustum[5]);
+	frustum.bottomPlane->a = matrix._14 + matrix._12;
+	frustum.bottomPlane->b = matrix._24 + matrix._22;
+	frustum.bottomPlane->c = matrix._34 + matrix._32;
+	frustum.bottomPlane->d = matrix._44 + matrix._42;
+	D3DXPlaneNormalize(frustum.bottomPlane, frustum.bottomPlane);
+}
+
+const Frustum& Camera::getFrustum() const{
+	return frustum;
 }
 
 void Camera::controls(Input& rkInput){

@@ -1,29 +1,10 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "VertexAndPrimitives.h"
-#include <vector>
+#include "StructsAndEnums.h"
 #include "vertexbuffer.h"
 
 #include "Export.h"
-
-struct D3DXMATRIX;
-typedef D3DXMATRIX* Matrix;
-struct IDirect3DTexture9;
-typedef IDirect3DTexture9* Texture;
-#define NoTexture NULL
-
-typedef interface ID3DXFont ID3DXFont;
-typedef interface ID3DXFont *LPD3DXFONT;
-typedef ID3DXFont* Font;
-
-struct IDirect3D9;
-struct IDirect3DDevice9;
-
-class VertexBuffer3D;
-class IndexBuffer;
-
-typedef D3DXMATRIX* Matrix;
 
 //Se encarga de la comunicacion con el Direct3D
 class DllExport Renderer{

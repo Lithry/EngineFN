@@ -38,15 +38,24 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 	_primitiv = ePrimitive;
 }
 
-void Mesh::draw(){
+void Mesh::draw(const Frustum& rkFrustum){
+	draw(AABBFrustumCollision::AllInside, rkFrustum);
+}
+
+void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
 	updateBV();
-
-	render.setCurrentTexture(texture());
-	render.setCurrentVertexBuffer(vertexBuffer);
-	render.setCurrentIndexBuffer(indexBuffer);
-	render.setMatrix(worldMatrix());
-	render.drawCurrentBuffers(_primitiv);
+	if (pCollision == AABBFrustumCollision::AllInside){
+		render.setCurrentTexture(texture());
+		render.setCurrentVertexBuffer(vertexBuffer);
+		render.setCurrentIndexBuffer(indexBuffer);
+		render.setMatrix(worldMatrix());
+		render.drawCurrentBuffers(_primitiv);
+	}
+	else if (pCollision == AABBFrustumCollision::PartialInside){
+		// Check con frustum
+		// si no es AllOutside draw();
+	}
 }
 
 void Mesh::setTextureId(int iTextureId){
@@ -99,4 +108,8 @@ void Mesh::updateBV(){
 		setActualBoundingBoxMinZ(getAABB().actualMax.z);
 		setActualBoundingBoxMaxZ(a);
 	}
+}
+
+AABBFrustumCollision Mesh::checkAABBtoFrustum(){
+	return AABBFrustumCollision::AllInside;
 }

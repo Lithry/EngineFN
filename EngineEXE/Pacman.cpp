@@ -48,9 +48,9 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	max->setPos(mesh->getAABB().actualMax.x, mesh->getAABB().actualMax.y, mesh->getAABB().actualMax.z);
 	min->setPos(mesh->getAABB().actualMin.x, mesh->getAABB().actualMin.y, mesh->getAABB().actualMin.z);
 
-	mesh->draw();
-	min->draw();
-	max->draw();
+	mesh->draw(cam->getFrustum());
+	min->draw(cam->getFrustum());
+	max->draw(cam->getFrustum());
 
 	// DEBUG
 	if (rkInput.keyDown(Input::KEY_Z)){

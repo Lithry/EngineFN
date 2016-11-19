@@ -2,18 +2,11 @@
 #define ENTITY3D_H
 
 #include "Renderer.h"
-#include "VertexAndPrimitives.h"
+#include "StructsAndEnums.h"
 
 class Node;
 
 #include "Export.h"
-
-// http://www.miguelcasillas.com/?mcportfolio=collision-detection-c
-
-struct AABB{
-	Vec3 min, max, actualMin, actualMax;
-	Matrix scaleMatrix;
-};
 
 class DllExport Entity3D{
 public:
@@ -51,7 +44,7 @@ public:
 	const Texture& texture() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
-	virtual void draw() = 0;
+	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;
 	virtual Entity3D* findWithName(std::string name) = 0;
 
 	Node* _parent;
@@ -63,15 +56,15 @@ public:
 	void setBoundingBoxMaxY(float fMaxY);
 	void setBoundingBoxMinZ(float fMinZ);
 	void setBoundingBoxMaxZ(float fMaxZ);
-
 	void setActualBoundingBoxMinX(float fMinX);
 	void setActualBoundingBoxMaxX(float fMaxX);
 	void setActualBoundingBoxMinY(float fMinY);
 	void setActualBoundingBoxMaxY(float fMaxY);
 	void setActualBoundingBoxMinZ(float fMinZ);
 	void setActualBoundingBoxMaxZ(float fMaxZ);
-
 	virtual void updateBV() = 0;
+
+	virtual AABBFrustumCollision checkAABBtoFrustum() = 0;
 private:
 	float _posX;
 	float _posY;

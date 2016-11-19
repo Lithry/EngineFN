@@ -101,11 +101,11 @@
     <ClInclude Include="ScreenText.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StructsAndEnums.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="tinyxml2.h" />
-    <ClInclude Include="VertexAndPrimitives.h" />
     <ClInclude Include="vertexbuffer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

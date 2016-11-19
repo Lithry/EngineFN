@@ -5,7 +5,7 @@
 
 #include <vector>
 #include "Entity3D.h"
-#include "VertexAndPrimitives.h"
+#include "StructsAndEnums.h"
 
 class Renderer;
 class VertexBuffer3D;
@@ -22,11 +22,14 @@ public:
 		size_t uiVertexCount, const unsigned short* pusIndices,
 		size_t uiIndexCount);
 
-	void draw();
+	void draw(const Frustum& rkFrustum);
+	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum);
 	void setTextureId(int iTextureId);
 
 	void setTexture(const Texture& texture);
 	void updateBV();
+
+	AABBFrustumCollision checkAABBtoFrustum();
 
 	Entity3D* findWithName(std::string name);
 
