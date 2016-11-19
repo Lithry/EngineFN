@@ -1,5 +1,7 @@
 #include "Entity3D.h"
 #include "Node.h"
+//#include <limits>
+//#include <cstddef>
 
 #include <d3dx9.h>
 #pragma comment (lib, "d3dx9.lib")
@@ -21,7 +23,8 @@ Entity3D::Entity3D()
 	_texture(NULL),
 	bBox(new AABB())
 {
-	bBox->max.x = bBox->max.y = bBox->max.z = bBox->min.x = bBox->min.y = bBox->min.z = 0;
+	bBox->max.x = bBox->max.y = bBox->max.z = FLT_MIN;
+	bBox->min.x = bBox->min.y = bBox->min.z = FLT_MAX;
 
 	updateLocalTransformation();
 }

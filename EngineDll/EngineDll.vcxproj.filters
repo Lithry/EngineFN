@@ -40,31 +40,40 @@
     <Filter Include="Importer">
       <UniqueIdentifier>{8c08a141-6d88-4414-b5ea-4a1f563c67d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Importer\Mesh">
+    <Filter Include="Entities\Mesh">
       <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Importer\Mesh\IndexBuffer">
-      <UniqueIdentifier>{60263fab-9e0b-4d0c-ac34-b9199101a6e2}</UniqueIdentifier>
+    <Filter Include="Entities\Node">
+      <UniqueIdentifier>{7da17705-84b8-4860-ad3d-c110f15b9243}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Importer\Mesh\VertexBuffer">
+    <Filter Include="VertexBuffer3D">
       <UniqueIdentifier>{f93d985d-c5bc-43da-812e-947f00d1f0ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Importer\Node">
-      <UniqueIdentifier>{7da17705-84b8-4860-ad3d-c110f15b9243}</UniqueIdentifier>
+    <Filter Include="IndexBuffer3D">
+      <UniqueIdentifier>{60263fab-9e0b-4d0c-ac34-b9199101a6e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Entity2D">
+      <UniqueIdentifier>{0d8e0468-ade3-433b-98ac-0a9ebcf51bb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Entity3D">
+      <UniqueIdentifier>{3a757ee6-ec65-4666-bb7c-25e9e19db7d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Quad">
+      <UniqueIdentifier>{e726e298-119d-4ba9-aa94-e90af1161043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\ScreenText">
+      <UniqueIdentifier>{c2a6a807-6930-43dc-8457-972395769d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Sound">
+      <UniqueIdentifier>{626c3740-6002-4217-b467-5cfbda4b5256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Sprite">
+      <UniqueIdentifier>{17d24b28-3e2e-4aaa-8ffd-66bebb8ed725}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity2D.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Animation</Filter>
@@ -74,9 +83,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenText.h">
-      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Renderer</Filter>
@@ -109,27 +115,39 @@
       <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Importer\Mesh</Filter>
+      <Filter>Entities\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="pg2_indexbuffer.h">
-      <Filter>Importer\Mesh\IndexBuffer</Filter>
+      <Filter>IndexBuffer3D</Filter>
     </ClInclude>
     <ClInclude Include="pg2_vertexbuffer.h">
-      <Filter>Importer\Mesh\VertexBuffer</Filter>
+      <Filter>VertexBuffer3D</Filter>
     </ClInclude>
     <ClInclude Include="VertexAndPrimitives.h" />
-    <ClInclude Include="Entity3D.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Importer.h">
       <Filter>Importer</Filter>
     </ClInclude>
     <ClInclude Include="Export.h" />
     <ClInclude Include="Node.h">
-      <Filter>Importer\Node</Filter>
+      <Filter>Entities\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity2D.h">
+      <Filter>Entities\Entity2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity3D.h">
+      <Filter>Entities\Entity3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>Entities\Quad</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenText.h">
+      <Filter>Entities\ScreenText</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Entities\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Entities\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,24 +158,15 @@
       <Filter>Timer</Filter>
     </None>
     <None Include="pg2_indexbuffer.inl">
-      <Filter>Importer\Mesh\IndexBuffer</Filter>
+      <Filter>IndexBuffer3D</Filter>
     </None>
     <None Include="pg2_vertexbuffer.inl">
-      <Filter>Importer\Mesh\VertexBuffer</Filter>
+      <Filter>VertexBuffer3D</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Quad.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity2D.cpp">
-      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Animation</Filter>
@@ -167,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenText.cpp">
-      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Renderer</Filter>
@@ -202,25 +208,37 @@
       <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Importer\Mesh</Filter>
+      <Filter>Entities\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="pg2_indexbuffer.cpp">
-      <Filter>Importer\Mesh\IndexBuffer</Filter>
+      <Filter>IndexBuffer3D</Filter>
     </ClCompile>
     <ClCompile Include="pg2_vertexbuffer.cpp">
-      <Filter>Importer\Mesh\VertexBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity3D.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Entities</Filter>
+      <Filter>VertexBuffer3D</Filter>
     </ClCompile>
     <ClCompile Include="Importer.cpp">
       <Filter>Importer</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Importer\Node</Filter>
+      <Filter>Entities\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity2D.cpp">
+      <Filter>Entities\Entity2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity3D.cpp">
+      <Filter>Entities\Entity3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>Entities\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenText.cpp">
+      <Filter>Entities\ScreenText</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Entities\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Entities\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
