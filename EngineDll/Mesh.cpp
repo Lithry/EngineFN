@@ -39,22 +39,23 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 }
 
 void Mesh::draw(const Frustum& rkFrustum){
-	draw(AABBFrustumCollision::AllInside, rkFrustum);
+	draw(AABBFrustumCollision::PartialInside, rkFrustum);
 }
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
-	updateBV();
-	if (pCollision == AABBFrustumCollision::AllInside){
+
+	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
+		updateBV();
+		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
+	}
+
+	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
 		render.setCurrentTexture(texture());
 		render.setCurrentVertexBuffer(vertexBuffer);
 		render.setCurrentIndexBuffer(indexBuffer);
 		render.setMatrix(worldMatrix());
 		render.drawCurrentBuffers(_primitiv);
-	}
-	else if (pCollision == AABBFrustumCollision::PartialInside){
-		// Check con frustum
-		// si no es AllOutside draw();
 	}
 }
 
@@ -110,6 +111,43 @@ void Mesh::updateBV(){
 	}
 }
 
-AABBFrustumCollision Mesh::checkAABBtoFrustum(){
-	return AABBFrustumCollision::AllInside;
+AABBFrustumCollision Mesh::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){
+	int count = 0;
+
+	for (size_t i = 0; i < 6; i++)
+	{
+
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, min.y, min.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, min.y, max.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, max.y, min.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, max.y, max.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, max.y, max.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, max.y, min.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, min.y, max.z)) > 0.0f){
+			count++;
+		}
+		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, min.y, min.z)) > 0.0f){
+			count++;
+		}
+
+	}
+
+	if (count == 48)
+		return AABBFrustumCollision::AllInside;
+	else if (count == 0)
+		return AABBFrustumCollision::AllOutside;
+	else
+		return AABBFrustumCollision::PartialInside;
 }

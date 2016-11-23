@@ -44,6 +44,7 @@ public:
 	const Texture& texture() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
+	
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;
 	virtual Entity3D* findWithName(std::string name) = 0;
 
@@ -64,7 +65,7 @@ public:
 	void setActualBoundingBoxMaxZ(float fMaxZ);
 	virtual void updateBV() = 0;
 
-	virtual AABBFrustumCollision checkAABBtoFrustum() = 0;
+	virtual AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max) = 0;
 private:
 	float _posX;
 	float _posY;

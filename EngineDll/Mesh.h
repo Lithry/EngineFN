@@ -29,7 +29,7 @@ public:
 	void setTexture(const Texture& texture);
 	void updateBV();
 
-	AABBFrustumCollision checkAABBtoFrustum();
+	AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max);
 
 	Entity3D* findWithName(std::string name);
 

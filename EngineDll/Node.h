@@ -25,7 +25,7 @@ public:
 	const std::vector<Entity3D*>& childs() const;
 
 	void updateBV();
-	AABBFrustumCollision checkAABBtoFrustum();
+	AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max);
 private:
 	std::vector<Entity3D*> _childs;
 };

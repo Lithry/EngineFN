@@ -21,7 +21,5 @@ private:
 	Camera* cam;
 	Importer* import;
 	Node* mesh;
-	Mesh* min;
-	Mesh* max;
 };
 #endif
