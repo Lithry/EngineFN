@@ -91,14 +91,23 @@ void Node::updateBV(){
 			setBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
 		}
 
-		setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
+		/*setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
 		setActualBoundingBoxMaxX((getAABB().max.x + posX()) * scaleX());
 
 		setActualBoundingBoxMinY((getAABB().min.y + posY()) * scaleY());
 		setActualBoundingBoxMaxY((getAABB().max.y + posY()) * scaleY());
 
 		setActualBoundingBoxMinZ((getAABB().min.z + posZ()) * scaleZ());
-		setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());
+		setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());*/
+
+		setActualBoundingBoxMinX((getAABB().min.x * scaleX()) + posX());
+		setActualBoundingBoxMaxX((getAABB().max.x * scaleX()) + posX());
+
+		setActualBoundingBoxMinY((getAABB().min.y * scaleY()) + posY());
+		setActualBoundingBoxMaxY((getAABB().max.y * scaleY()) + posY());
+
+		setActualBoundingBoxMinZ((getAABB().min.z * scaleZ()) + posZ());
+		setActualBoundingBoxMaxZ((getAABB().max.z * scaleZ()) + posZ());
 
 		// Check Escala Negativa
 		if (getAABB().actualMin.x > getAABB().actualMax.x){
@@ -121,38 +130,29 @@ void Node::updateBV(){
 
 AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){
 	int count = 0;
+	Vec3 toCheck[8];
 
-	for (size_t i = 0; i < 6; i++)
+	toCheck[0].x = min.x; toCheck[1].x = min.x; toCheck[2].x = min.x; toCheck[3].x = min.x;
+	toCheck[0].y = min.y; toCheck[1].y = min.y;	toCheck[2].y = max.y; toCheck[3].y = max.y;
+	toCheck[0].z = min.z; toCheck[1].z = max.z;	toCheck[2].z = min.z; toCheck[3].z = max.z;
+
+	toCheck[4].x = max.x; toCheck[5].x = max.x; toCheck[6].x = max.x; toCheck[7].x = max.x;
+	toCheck[4].y = max.y; toCheck[5].y = max.y;	toCheck[6].y = min.y; toCheck[7].y = min.y;
+	toCheck[4].z = max.z; toCheck[5].z = min.z;	toCheck[6].z = max.z; toCheck[7].z = min.z;
+
+	for (size_t i = 0; i < 8; i++)
 	{
-
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, min.y, min.z)) > 0.0f){
+		if (D3DXPlaneDotCoord(frustum.nearPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
+			D3DXPlaneDotCoord(frustum.farPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
+			D3DXPlaneDotCoord(frustum.leftPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
+			D3DXPlaneDotCoord(frustum.rightPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
+			D3DXPlaneDotCoord(frustum.topPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
+			D3DXPlaneDotCoord(frustum.bottomPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0){
 			count++;
 		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, min.y, max.z)) > 0.0f){
-			count++;
-		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, max.y, min.z)) > 0.0f){
-			count++;
-		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(min.x, max.y, max.z)) > 0.0f){
-			count++;
-		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, max.y, max.z)) > 0.0f){
-			count++;
-		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, max.y, min.z)) > 0.0f){
-			count++;
-		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, min.y, max.z)) > 0.0f){
-			count++;
-		}
-		if (D3DXPlaneDotCoord(frustum.frustum[i], &D3DXVECTOR3(max.x, min.y, min.z)) > 0.0f){
-			count++;
-		}
-
 	}
 
-	if (count == 48)
+	if (count == 8)
 		return AABBFrustumCollision::AllInside;
 	else if (count == 0)
 		return AABBFrustumCollision::AllOutside;

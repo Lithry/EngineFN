@@ -12,10 +12,13 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(0.2f);
 
+	debug = new ScreenText();
+	debug->create(0, 0, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
+
 	mesh = new Node();
 
 	Importer* importer = new Importer(rkRenderer);
-	importer->importScene("Assets/Scene/2ObjScene.dae", *mesh);
+	importer->importScene("Assets/Scene/TP8Scene.dae", *mesh);
 
 	mesh->updateTransformation();
 
@@ -30,11 +33,9 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	NMController(mesh, rkInput);
 	
 	mesh->draw(cam->getFrustum());
-
-	// DEBUG
-	if (rkInput.keyDown(Input::KEY_Z)){
-
-	}
+	
+	debug->setText("DEBUG\t Actual/Total\nNodes: \nMeshs:");
+	debug->display(rkRenderer);
 }
 
 void Pacman::deinit(){

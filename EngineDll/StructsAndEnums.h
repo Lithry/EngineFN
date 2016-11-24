@@ -67,6 +67,11 @@ struct D3DXPLANE;
 typedef D3DXPLANE* Plane;
 
 struct DllExport Frustum{
-	Plane frustum[6];
+	Plane nearPlane;
+	Plane farPlane;
+	Plane leftPlane;
+	Plane rightPlane;
+	Plane topPlane;
+	Plane bottomPlane;
 };
 #endif

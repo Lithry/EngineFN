@@ -21,5 +21,6 @@ private:
 	Camera* cam;
 	Importer* import;
 	Node* mesh;
+	ScreenText* debug;
 };
 #endif
