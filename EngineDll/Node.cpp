@@ -26,12 +26,13 @@ void Node::draw(const Frustum& rkFrustum){
 
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
-	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
-		updateBV();
+	updateBV();
+	
+	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision != AABBFrustumCollision::AllOutside){
 		if (!_childs.empty()){
 			for (size_t i = 0; i < _childs.size(); i++){
 				_childs[i]->draw(pCollision, rkFrustum);
@@ -42,16 +43,17 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
 	updateTransformation();
-	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
-		updateBV();
+	updateBV();
+	
+	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision != AABBFrustumCollision::AllOutside){
 		if (pCollision == AABBFrustumCollision::AllInside)
-			text = text + getName() + " (AllInside)\n";
+			text = text + "NODE: " + getName() + " (AllInside)\n";
 		else
-			text = text + getName() + " (PartialInside)\n";
+			text = text + "NODE: " + getName() + " (PartialInside)\n";
 		
 		if (!_childs.empty()){
 			for (size_t i = 0; i < _childs.size(); i++){
@@ -63,12 +65,13 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
 	updateTransformation();
-	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
-		updateBV();
+	updateBV();
+	
+	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision != AABBFrustumCollision::AllOutside){
 		
 		numNodes++;
 
@@ -108,6 +111,13 @@ const std::vector<Entity3D*>& Node::childs() const{
 }
 
 void Node::updateBV(){
+	setBoundingBoxMaxX(FLT_MIN);
+	setBoundingBoxMaxY(FLT_MIN);
+	setBoundingBoxMaxZ(FLT_MIN);
+	setBoundingBoxMinX(FLT_MAX);
+	setBoundingBoxMinY(FLT_MAX);
+	setBoundingBoxMinZ(FLT_MAX);
+
 	for (size_t i = 0; i < _childs.size(); i++){
 		_childs[i]->updateBV();
 
@@ -131,23 +141,18 @@ void Node::updateBV(){
 			setBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
 		}
 
-		setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
-		setActualBoundingBoxMaxX((getAABB().max.x + posX()) * scaleX());
+		D3DXVECTOR3 pos;
+		D3DXQUATERNION rot;
+		D3DXVECTOR3 scale;
+		D3DXMatrixDecompose(&scale, &rot, &pos, worldMatrix());
 
-		setActualBoundingBoxMinY((getAABB().min.y + posY()) * scaleY());
-		setActualBoundingBoxMaxY((getAABB().max.y + posY()) * scaleY());
+		setActualBoundingBoxMinX((getAABB().min.x * scale.x) + pos.x);
+		setActualBoundingBoxMinY((getAABB().min.y * scale.y) + pos.y);
+		setActualBoundingBoxMinZ((getAABB().min.z * scale.z) + pos.z);
 
-		setActualBoundingBoxMinZ((getAABB().min.z + posZ()) * scaleZ());
-		setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());
-
-		/*setActualBoundingBoxMinX((getAABB().min.x * scaleX()) + posX());
-		setActualBoundingBoxMaxX((getAABB().max.x * scaleX()) + posX());
-
-		setActualBoundingBoxMinY((getAABB().min.y * scaleY()) + posY());
-		setActualBoundingBoxMaxY((getAABB().max.y * scaleY()) + posY());
-
-		setActualBoundingBoxMinZ((getAABB().min.z * scaleZ()) + posZ());
-		setActualBoundingBoxMaxZ((getAABB().max.z * scaleZ()) + posZ());*/
+		setActualBoundingBoxMaxX((getAABB().max.x * scale.x) + pos.x);
+		setActualBoundingBoxMaxY((getAABB().max.y * scale.y) + pos.y);
+		setActualBoundingBoxMaxZ((getAABB().max.z * scale.z) + pos.z);
 
 		// Check Escala Negativa
 		if (getAABB().actualMin.x > getAABB().actualMax.x){

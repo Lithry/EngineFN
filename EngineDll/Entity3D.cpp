@@ -23,6 +23,8 @@ Entity3D::Entity3D()
 	_texture(NULL),
 	bBox(new AABB())
 {
+	bBox->localTransformMatrix = new D3DXMATRIX();
+	
 	bBox->max.x = bBox->max.y = bBox->max.z = FLT_MIN;
 	bBox->min.x = bBox->min.y = bBox->min.z = FLT_MAX;
 

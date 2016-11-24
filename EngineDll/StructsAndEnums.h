@@ -52,6 +52,7 @@ enum Primitive{
 // http://www.miguelcasillas.com/?mcportfolio=collision-detection-c
 struct DllExport AABB{
 	Vec3 min, max, actualMin, actualMax;
+	Matrix localTransformMatrix;
 };
 enum AABBFrustumCollision{
 	AllInside = 0,

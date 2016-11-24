@@ -44,13 +44,13 @@ void Mesh::draw(const Frustum& rkFrustum){
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
+	updateBV();
 
-	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
-		updateBV();
+	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision != AABBFrustumCollision::AllOutside){
 		render.setCurrentTexture(texture());
 		render.setCurrentVertexBuffer(vertexBuffer);
 		render.setCurrentIndexBuffer(indexBuffer);
@@ -61,13 +61,13 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
 	updateTransformation();
+	updateBV();
 
-	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
-		updateBV();
+	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision != AABBFrustumCollision::AllOutside){
 
 		if (pCollision == AABBFrustumCollision::AllInside)
 			text = text + "    MESH " + getName() + " (AllInside)\n";
@@ -84,13 +84,13 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
 	updateTransformation();
+	updateBV();
 
-	if (pCollision != AABBFrustumCollision::AllInside && pCollision != AABBFrustumCollision::AllOutside){
-		updateBV();
+	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision == AABBFrustumCollision::AllInside || pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision != AABBFrustumCollision::AllOutside){
 
 		numMeshes++;
 
@@ -127,14 +127,27 @@ Entity3D* Mesh::findWithName(std::string name){
 }
 
 void Mesh::updateBV(){
-	setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
+	D3DXVECTOR3 pos;
+	D3DXQUATERNION rot;
+	D3DXVECTOR3 scale;
+	D3DXMatrixDecompose(&scale, &rot, &pos, worldMatrix());
+
+	setActualBoundingBoxMinX((getAABB().min.x * scale.x) + pos.x);
+	setActualBoundingBoxMinY((getAABB().min.y * scale.y) + pos.y);
+	setActualBoundingBoxMinZ((getAABB().min.z * scale.z) + pos.z);
+
+	setActualBoundingBoxMaxX((getAABB().max.x * scale.x) + pos.x);
+	setActualBoundingBoxMaxY((getAABB().max.y * scale.y) + pos.y);
+	setActualBoundingBoxMaxZ((getAABB().max.z * scale.z) + pos.z);
+
+	/*setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
 	setActualBoundingBoxMaxX((getAABB().max.x + posX()) * scaleX());
 
 	setActualBoundingBoxMinY((getAABB().min.y + posY()) * scaleY());
 	setActualBoundingBoxMaxY((getAABB().max.y + posY()) * scaleY());
 
 	setActualBoundingBoxMinZ((getAABB().min.z + posZ()) * scaleZ());
-	setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());
+	setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());*/
 	
 	/*setActualBoundingBoxMinX((getAABB().min.x * scaleX()) + posX());
 	setActualBoundingBoxMaxX((getAABB().max.x * scaleX()) + posX());

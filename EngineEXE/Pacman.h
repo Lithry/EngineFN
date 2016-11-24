@@ -20,8 +20,11 @@ public:
 private:
 	Camera* cam;
 	Importer* import;
-	Node* mesh;
+	Node* root;
 	ScreenText* debug1;
 	ScreenText* debug2;
+
+	Mesh* min;
+	Mesh* max;
 };
 #endif

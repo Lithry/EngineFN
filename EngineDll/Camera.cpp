@@ -180,33 +180,32 @@ const Frustum& Camera::getFrustum() const{
 }
 
 void Camera::controls(Input& rkInput){
-	if (rkInput.keyDown(Input::KEY_Q)){
-		roll(cameraSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_E)){
-		roll(-cameraSpeed);
-	}
+		if (rkInput.keyDown(Input::KEY_NUMPAD7)){
+			roll(cameraSpeed);
+		}
+		else if (rkInput.keyDown(Input::KEY_NUMPAD9)){
+			roll(-cameraSpeed);
+		}
 
-	if (rkInput.keyDown(Input::KEY_SPACE)){
-		fly(cameraSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_LCONTROL)){
-		fly(-cameraSpeed);
-	}
+		if (rkInput.keyDown(Input::KEY_NUMPAD1)){
+			fly(cameraSpeed);
+		}
+		else if (rkInput.keyDown(Input::KEY_NUMPAD3)){
+			fly(-cameraSpeed);
+		}
 
-	if (rkInput.keyDown(Input::KEY_W)){
-		walk(cameraSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_S)){
-		walk(-cameraSpeed);
-	}
-	if (rkInput.keyDown(Input::KEY_A)){
-		strafe(-cameraSpeed);
-	}
-	else if (rkInput.keyDown(Input::KEY_D)){
-		strafe(cameraSpeed);
-	}
-
+		if (rkInput.keyDown(Input::KEY_NUMPAD8)){
+			walk(cameraSpeed);
+		}
+		else if (rkInput.keyDown(Input::KEY_NUMPAD5)){
+			walk(-cameraSpeed);
+		}
+		if (rkInput.keyDown(Input::KEY_NUMPAD4)){
+			strafe(-cameraSpeed);
+		}
+		else if (rkInput.keyDown(Input::KEY_NUMPAD6)){
+			strafe(cameraSpeed);
+		}
 	yaw(float(rkInput.mouseRelPosX()) / 8.0f);
 	pitch(float(rkInput.mouseRelPosY()) / 8.0f);
 }
