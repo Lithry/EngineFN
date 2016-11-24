@@ -45,7 +45,10 @@ public:
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
 	
+	virtual void draw(const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;
+	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) = 0;
+	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes) = 0;
 	virtual Entity3D* findWithName(std::string name) = 0;
 
 	Node* _parent;

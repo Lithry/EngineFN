@@ -24,6 +24,9 @@ public:
 
 	void draw(const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum);
+	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text);
+	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes);
+
 	void setTextureId(int iTextureId);
 
 	void setTexture(const Texture& texture);

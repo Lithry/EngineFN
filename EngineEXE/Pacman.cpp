@@ -12,8 +12,10 @@ bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(0.2f);
 
-	debug = new ScreenText();
-	debug->create(0, 0, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
+	debug1 = new ScreenText();
+	debug1->create(0, 0, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
+	debug2 = new ScreenText();
+	debug2->create(0, 60, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
 
 	mesh = new Node();
 
@@ -32,10 +34,19 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	KLController(mesh, rkInput);
 	NMController(mesh, rkInput);
 	
-	mesh->draw(cam->getFrustum());
+	int numNodes = 0;
+	int numMeshes = 0;
+	std::string text = "";
+
+	mesh->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text);
 	
-	debug->setText("DEBUG\t Actual/Total\nNodes: \nMeshs:");
-	debug->display(rkRenderer);
+	debug1->setText(text);
+	debug1->display(rkRenderer);
+	
+	/*debug1->setText("DEBUG\nNodes Dibujados: " + std::to_string(numNodes));
+	debug1->display(rkRenderer);
+	debug2->setText("Meshes Dibujados: " + std::to_string(numMeshes));
+	debug2->display(rkRenderer);*/
 }
 
 void Pacman::deinit(){
