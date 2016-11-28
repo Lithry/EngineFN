@@ -80,6 +80,8 @@ private:
 	float _scaleY;
 	float _scaleZ;
 
+	
+
 	AABB* bBox;
 
 	std::string _name;

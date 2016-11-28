@@ -11,32 +11,20 @@ void RigLefUpDownController(Entity3D* object, Input& rkInput);
 bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
 	cam->setCameraSpeed(0.2f);
-
+	
+	Importer* importer = new Importer(rkRenderer);
+	
 	debug1 = new ScreenText();
 	debug1->create(0, 0, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
 	debug2 = new ScreenText();
 	debug2->create(0, 60, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
 
 	root = new Node();
+	root->setPos(0, 0, 0);
 
-	Importer* importer = new Importer(rkRenderer);
-	importer->importScene("Assets/Scene/2ObjScene.dae", *root);
+	importer->importScene("Assets/Scene/TP8Scene.dae", *root);
 
 	root->updateTransformation();
-
-	min = new Mesh(rkRenderer);
-	max = new Mesh(rkRenderer);
-
-	importer->importMesh("Assets/Obj/Ball.obj", *min);
-	importer->importMesh("Assets/Obj/Ball.obj", *max);
-
-	min->setScale(0.2f, 0.2f, 0.2f);
-	max->setScale(0.2f, 0.2f, 0.2f);
-
-	Texture a = rkRenderer.loadTexture("Assets/Texture/Red.png", D3DCOLOR_XRGB(200, 200, 200));
-	min->setTexture(a);
-	Texture b = rkRenderer.loadTexture("Assets/Texture/Blue.png", D3DCOLOR_XRGB(200, 200, 200));
-	min->setTexture(b);
 
 	return true;
 }
@@ -44,21 +32,15 @@ bool Pacman::init(Renderer& rkRenderer){
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 
-	WASDController(root->findWithName("cube_pCube4"), rkInput);
-	KLController(root->findWithName("pCube4"), rkInput);
-	RigLefUpDownController(root, rkInput);
+	WASDController(root->findWithName("Node1"), rkInput);
+	KLController(root->findWithName("Node1"), rkInput);
+	RigLefUpDownController(root->findWithName("Teapot"), rkInput);
 	
 	int numNodes = 0;
 	int numMeshes = 0;
 	std::string text = "";
 
 	root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text);
-	
-	min->setPos(root->findWithName("cube_pCube4")->getAABB().actualMin.x, root->findWithName("cube_pCube4")->getAABB().actualMin.y, root->findWithName("cube_pCube4")->getAABB().actualMin.z);
-	max->setPos(root->findWithName("cube_pCube4")->getAABB().actualMax.x, root->findWithName("cube_pCube4")->getAABB().actualMax.y, root->findWithName("cube_pCube4")->getAABB().actualMax.z);
-
-	min->draw(cam->getFrustum());
-	max->draw(cam->getFrustum());
 
 	debug1->setText(text);
 	debug1->display(rkRenderer);
@@ -82,10 +64,10 @@ void WASDController(Entity3D* object, Input& rkInput){
 		object->setPosZ(object->posZ() - speed);
 	}
 
-	if (rkInput.keyDown(Input::KEY_A)){
+	if (rkInput.keyDown(Input::KEY_D)){
 		object->setPosX(object->posX() + speed);
 	}
-	else if (rkInput.keyDown(Input::KEY_D)){
+	else if (rkInput.keyDown(Input::KEY_A)){
 		object->setPosX(object->posX() - speed);
 	}
 }

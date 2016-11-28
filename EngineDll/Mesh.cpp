@@ -139,41 +139,6 @@ void Mesh::updateBV(){
 	setActualBoundingBoxMaxX((getAABB().max.x * scale.x) + pos.x);
 	setActualBoundingBoxMaxY((getAABB().max.y * scale.y) + pos.y);
 	setActualBoundingBoxMaxZ((getAABB().max.z * scale.z) + pos.z);
-
-	/*setActualBoundingBoxMinX((getAABB().min.x + posX()) * scaleX());
-	setActualBoundingBoxMaxX((getAABB().max.x + posX()) * scaleX());
-
-	setActualBoundingBoxMinY((getAABB().min.y + posY()) * scaleY());
-	setActualBoundingBoxMaxY((getAABB().max.y + posY()) * scaleY());
-
-	setActualBoundingBoxMinZ((getAABB().min.z + posZ()) * scaleZ());
-	setActualBoundingBoxMaxZ((getAABB().max.z + posZ()) * scaleZ());*/
-	
-	/*setActualBoundingBoxMinX((getAABB().min.x * scaleX()) + posX());
-	setActualBoundingBoxMaxX((getAABB().max.x * scaleX()) + posX());
-
-	setActualBoundingBoxMinY((getAABB().min.y * scaleY()) + posY());
-	setActualBoundingBoxMaxY((getAABB().max.y * scaleY()) + posY());
-
-	setActualBoundingBoxMinZ((getAABB().min.z * scaleZ()) + posZ());
-	setActualBoundingBoxMaxZ((getAABB().max.z * scaleZ()) + posZ());*/
-
-	// Check Escala Negativa
-	if (getAABB().actualMin.x > getAABB().actualMax.x){
-		float a = getAABB().actualMin.x;
-		setActualBoundingBoxMinX(getAABB().actualMax.x);
-		setActualBoundingBoxMaxX(a);
-	}
-	if (getAABB().actualMin.y > getAABB().actualMax.y){
-		float a = getAABB().actualMin.y;
-		setActualBoundingBoxMinY(getAABB().actualMax.y);
-		setActualBoundingBoxMaxY(a);
-	}
-	if (getAABB().actualMin.z > getAABB().actualMax.z){
-		float a = getAABB().actualMin.z;
-		setActualBoundingBoxMinZ(getAABB().actualMax.z);
-		setActualBoundingBoxMaxZ(a);
-	}
 }
 
 AABBFrustumCollision Mesh::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){

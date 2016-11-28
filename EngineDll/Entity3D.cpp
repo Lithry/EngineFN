@@ -97,11 +97,21 @@ void Entity3D::setScale(float fScaleX, float fScaleY, float fScaleZ){
 	_scaleY = fScaleY;
 	_scaleZ = fScaleZ;
 
+	if (_scaleX < 0)
+		_scaleX = 0;
+	if (_scaleY < 0)
+		_scaleY = 0;
+	if (_scaleZ < 0)
+		_scaleZ = 0;
+	
 	updateLocalTransformation();
 }
 
 void Entity3D::setScaleX(float fScaleX){
 	_scaleX = fScaleX;
+
+	if (_scaleX < 0)
+		_scaleX = 0;
 
 	updateLocalTransformation();
 }
@@ -109,11 +119,17 @@ void Entity3D::setScaleX(float fScaleX){
 void Entity3D::setScaleY(float fScaleY){
 	_scaleY = fScaleY;
 
+	if (_scaleY < 0)
+		_scaleY = 0;
+
 	updateLocalTransformation();
 }
 
 void Entity3D::setScaleZ(float fScaleZ){
 	_scaleZ = fScaleZ;
+
+	if (_scaleZ < 0)
+		_scaleZ = 0;
 
 	updateLocalTransformation();
 }

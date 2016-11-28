@@ -27,7 +27,7 @@ void Node::draw(const Frustum& rkFrustum){
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
 	updateBV();
-	
+
 	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
@@ -44,7 +44,7 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
 	updateTransformation();
 	updateBV();
-	
+
 	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
@@ -54,7 +54,7 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 			text = text + "NODE: " + getName() + " (AllInside)\n";
 		else
 			text = text + "NODE: " + getName() + " (PartialInside)\n";
-		
+
 		if (!_childs.empty()){
 			for (size_t i = 0; i < _childs.size(); i++){
 				_childs[i]->draw(pCollision, rkFrustum, text);
@@ -66,13 +66,13 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
 	updateTransformation();
 	updateBV();
-	
+
 	if (pCollision == AABBFrustumCollision::PartialInside){
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
 	if (pCollision != AABBFrustumCollision::AllOutside){
-		
+
 		numNodes++;
 
 		if (!_childs.empty()){
@@ -111,16 +111,26 @@ const std::vector<Entity3D*>& Node::childs() const{
 }
 
 void Node::updateBV(){
-	setBoundingBoxMaxX(FLT_MIN);
+	/*setBoundingBoxMaxX(FLT_MIN);
 	setBoundingBoxMaxY(FLT_MIN);
 	setBoundingBoxMaxZ(FLT_MIN);
 	setBoundingBoxMinX(FLT_MAX);
 	setBoundingBoxMinY(FLT_MAX);
-	setBoundingBoxMinZ(FLT_MAX);
+	setBoundingBoxMinZ(FLT_MAX);*/
 
 	for (size_t i = 0; i < _childs.size(); i++){
 		_childs[i]->updateBV();
 
+		if (i == 0){ // Primer pasada
+			setBoundingBoxMinX(_childs[i]->getAABB().actualMin.x);
+			setBoundingBoxMinY(_childs[i]->getAABB().actualMin.y);
+			setBoundingBoxMinZ(_childs[i]->getAABB().actualMin.z);
+
+			setBoundingBoxMaxX(_childs[i]->getAABB().actualMax.x);
+			setBoundingBoxMaxY(_childs[i]->getAABB().actualMax.y);
+			setBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
+		}
+		
 		if (_childs[i]->getAABB().actualMin.x < getAABB().min.x){
 			setBoundingBoxMinX(_childs[i]->getAABB().actualMin.x);
 		}
@@ -140,37 +150,15 @@ void Node::updateBV(){
 		if (_childs[i]->getAABB().actualMax.z > getAABB().max.z){
 			setBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
 		}
-
-		D3DXVECTOR3 pos;
-		D3DXQUATERNION rot;
-		D3DXVECTOR3 scale;
-		D3DXMatrixDecompose(&scale, &rot, &pos, worldMatrix());
-
-		setActualBoundingBoxMinX((getAABB().min.x * scale.x) + pos.x);
-		setActualBoundingBoxMinY((getAABB().min.y * scale.y) + pos.y);
-		setActualBoundingBoxMinZ((getAABB().min.z * scale.z) + pos.z);
-
-		setActualBoundingBoxMaxX((getAABB().max.x * scale.x) + pos.x);
-		setActualBoundingBoxMaxY((getAABB().max.y * scale.y) + pos.y);
-		setActualBoundingBoxMaxZ((getAABB().max.z * scale.z) + pos.z);
-
-		// Check Escala Negativa
-		if (getAABB().actualMin.x > getAABB().actualMax.x){
-			float a = getAABB().actualMin.x;
-			setActualBoundingBoxMinX(getAABB().actualMax.x);
-			setActualBoundingBoxMaxX(a);
-		}
-		if (getAABB().actualMin.y > getAABB().actualMax.y){
-			float a = getAABB().actualMin.y;
-			setActualBoundingBoxMinY(getAABB().actualMax.y);
-			setActualBoundingBoxMaxY(a);
-		}
-		if (getAABB().actualMin.z > getAABB().actualMax.z){
-			float a = getAABB().actualMin.z;
-			setActualBoundingBoxMinZ(getAABB().actualMax.z);
-			setActualBoundingBoxMaxZ(a);
-		}
 	}
+	
+	setActualBoundingBoxMinX(getAABB().min.x);
+	setActualBoundingBoxMinY(getAABB().min.y);
+	setActualBoundingBoxMinZ(getAABB().min.z);
+
+	setActualBoundingBoxMaxX(getAABB().max.x);
+	setActualBoundingBoxMaxY(getAABB().max.y);
+	setActualBoundingBoxMaxZ(getAABB().max.z);
 }
 
 AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){

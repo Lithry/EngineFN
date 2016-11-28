@@ -25,7 +25,7 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(rkFilename,
-		aiProcess_Triangulate);
+		aiProcess_Triangulate | aiProcess_MakeLeftHanded);
 
 	if (!scene)
 	{

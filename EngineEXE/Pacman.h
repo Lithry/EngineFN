@@ -24,7 +24,14 @@ private:
 	ScreenText* debug1;
 	ScreenText* debug2;
 
+	Mesh* cube;
+	Mesh* cube2;
+	Node* nCube;
+	Node* nCube2;
+
 	Mesh* min;
 	Mesh* max;
+	Mesh* min2;
+	Mesh* max2;
 };
 #endif
