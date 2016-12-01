@@ -20,10 +20,8 @@ bool Pacman::init(Renderer& rkRenderer){
 	debug2->create(0, 60, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
 
 	root = new Node();
-	root->setPos(0, 0, 0);
-
 	importer->importScene("Assets/Scene/TP8Scene.dae", *root);
-
+	root->setPosZ(50);
 	root->updateTransformation();
 
 	return true;
@@ -35,7 +33,7 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	WASDController(root->findWithName("Node1"), rkInput);
 	KLController(root->findWithName("Node1"), rkInput);
 	RigLefUpDownController(root->findWithName("Teapot"), rkInput);
-	
+
 	int numNodes = 0;
 	int numMeshes = 0;
 	std::string text = "";
@@ -44,11 +42,6 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 
 	debug1->setText(text);
 	debug1->display(rkRenderer);
-	
-	/*debug1->setText("DEBUG\nNodes Dibujados: " + std::to_string(numNodes));
-	debug1->display(rkRenderer);
-	debug2->setText("Meshes Dibujados: " + std::to_string(numMeshes));
-	debug2->display(rkRenderer);*/
 }
 
 void Pacman::deinit(){

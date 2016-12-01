@@ -25,7 +25,7 @@ Entity3D::Entity3D()
 {
 	bBox->localTransformMatrix = new D3DXMATRIX();
 	
-	bBox->max.x = bBox->max.y = bBox->max.z = FLT_MIN;
+	bBox->max.x = bBox->max.y = bBox->max.z = std::numeric_limits<float>::lowest();
 	bBox->min.x = bBox->min.y = bBox->min.z = FLT_MAX;
 
 	updateLocalTransformation();

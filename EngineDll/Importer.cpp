@@ -25,7 +25,8 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(rkFilename,
-		aiProcess_Triangulate | aiProcess_MakeLeftHanded);
+		aiProcess_Triangulate |
+		aiProcess_MakeLeftHanded);
 
 	if (!scene)
 	{
@@ -89,7 +90,8 @@ bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot){
 	const aiScene* scene = importer.ReadFile(rkFilename,
 		aiProcess_CalcTangentSpace |
 		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices);
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_MakeLeftHanded);
 
 	if (!scene)
 	{
@@ -99,6 +101,9 @@ bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot){
 
 	aiNode* root = scene->mRootNode;
 	loadNode(root, orkSceneRoot, scene);
+	orkSceneRoot.setPos(0, 0, 0);
+	orkSceneRoot.setScale(1, 1, 1);
+	orkSceneRoot.setRotation(0, 0, 0);
 
 	return true;
 }
@@ -131,13 +136,12 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
 		node.addChild(newNode);
 
 		loadNode(root->mChildren[i], *newNode, scene);
-
 	}
 }
 
 void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
 	mesh->setName(aiMesh->mName.C_Str());
-	
+
 	TexturedVertex* vert = new TexturedVertex[aiMesh->mNumVertices];
 
 	for (size_t i = 0; i < aiMesh->mNumVertices; i++)
@@ -182,15 +186,13 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
 		indices[i * 3 + 2] = aiMesh->mFaces[i].mIndices[2];
 	}
 
-
 	aiString path;
 	aiString name;
-
 
 	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS)
 	{
 		std::string texturePath;
-		for (size_t i = path.length - 0; i > 0; i--)
+		for (size_t i = path.length; i < -1; i--)
 		{
 			if (path.data[i] == '/')
 				break;

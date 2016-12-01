@@ -26,9 +26,9 @@ void Node::draw(const Frustum& rkFrustum){
 
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
-	updateBV();
 
 	if (pCollision == AABBFrustumCollision::PartialInside){
+		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
@@ -43,9 +43,9 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
 	updateTransformation();
-	updateBV();
-
+	
 	if (pCollision == AABBFrustumCollision::PartialInside){
+		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
@@ -65,9 +65,9 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 
 void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
 	updateTransformation();
-	updateBV();
 
 	if (pCollision == AABBFrustumCollision::PartialInside){
+		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
@@ -111,54 +111,37 @@ const std::vector<Entity3D*>& Node::childs() const{
 }
 
 void Node::updateBV(){
-	/*setBoundingBoxMaxX(FLT_MIN);
-	setBoundingBoxMaxY(FLT_MIN);
-	setBoundingBoxMaxZ(FLT_MIN);
-	setBoundingBoxMinX(FLT_MAX);
-	setBoundingBoxMinY(FLT_MAX);
-	setBoundingBoxMinZ(FLT_MAX);*/
+	setActualBoundingBoxMinX(FLT_MAX);
+	setActualBoundingBoxMinY(FLT_MAX);
+	setActualBoundingBoxMinZ(FLT_MAX);
+
+	setActualBoundingBoxMaxX(std::numeric_limits<float>::lowest());
+	setActualBoundingBoxMaxY(std::numeric_limits<float>::lowest());
+	setActualBoundingBoxMaxZ(std::numeric_limits<float>::lowest());
 
 	for (size_t i = 0; i < _childs.size(); i++){
 		_childs[i]->updateBV();
 
-		if (i == 0){ // Primer pasada
-			setBoundingBoxMinX(_childs[i]->getAABB().actualMin.x);
-			setBoundingBoxMinY(_childs[i]->getAABB().actualMin.y);
-			setBoundingBoxMinZ(_childs[i]->getAABB().actualMin.z);
-
-			setBoundingBoxMaxX(_childs[i]->getAABB().actualMax.x);
-			setBoundingBoxMaxY(_childs[i]->getAABB().actualMax.y);
-			setBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
+		if (_childs[i]->getAABB().actualMin.x < getAABB().actualMin.x){
+			setActualBoundingBoxMinX(_childs[i]->getAABB().actualMin.x);
 		}
-		
-		if (_childs[i]->getAABB().actualMin.x < getAABB().min.x){
-			setBoundingBoxMinX(_childs[i]->getAABB().actualMin.x);
+		if (_childs[i]->getAABB().actualMin.y < getAABB().actualMin.y){
+			setActualBoundingBoxMinY(_childs[i]->getAABB().actualMin.y);
 		}
-		if (_childs[i]->getAABB().actualMin.y < getAABB().min.y){
-			setBoundingBoxMinY(_childs[i]->getAABB().actualMin.y);
-		}
-		if (_childs[i]->getAABB().actualMin.z < getAABB().min.z){
-			setBoundingBoxMinZ(_childs[i]->getAABB().actualMin.z);
+		if (_childs[i]->getAABB().actualMin.z < getAABB().actualMin.z){
+			setActualBoundingBoxMinZ(_childs[i]->getAABB().actualMin.z);
 		}
 
-		if (_childs[i]->getAABB().actualMax.x > getAABB().max.x){
-			setBoundingBoxMaxX(_childs[i]->getAABB().actualMax.x);
+		if (_childs[i]->getAABB().actualMax.x > getAABB().actualMax.x){
+			setActualBoundingBoxMaxX(_childs[i]->getAABB().actualMax.x);
 		}
-		if (_childs[i]->getAABB().actualMax.y > getAABB().max.y){
-			setBoundingBoxMaxY(_childs[i]->getAABB().actualMax.y);
+		if (_childs[i]->getAABB().actualMax.y > getAABB().actualMax.y){
+			setActualBoundingBoxMaxY(_childs[i]->getAABB().actualMax.y);
 		}
-		if (_childs[i]->getAABB().actualMax.z > getAABB().max.z){
-			setBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
+		if (_childs[i]->getAABB().actualMax.z > getAABB().actualMax.z){
+			setActualBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
 		}
 	}
-	
-	setActualBoundingBoxMinX(getAABB().min.x);
-	setActualBoundingBoxMinY(getAABB().min.y);
-	setActualBoundingBoxMinZ(getAABB().min.z);
-
-	setActualBoundingBoxMaxX(getAABB().max.x);
-	setActualBoundingBoxMaxY(getAABB().max.y);
-	setActualBoundingBoxMaxZ(getAABB().max.z);
 }
 
 AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){

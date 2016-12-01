@@ -44,9 +44,9 @@ void Mesh::draw(const Frustum& rkFrustum){
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	updateTransformation();
-	updateBV();
 
 	if (pCollision == AABBFrustumCollision::PartialInside){
+		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
@@ -61,9 +61,9 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
 	updateTransformation();
-	updateBV();
 
 	if (pCollision == AABBFrustumCollision::PartialInside){
+		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
@@ -84,9 +84,9 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 
 void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
 	updateTransformation();
-	updateBV();
 
 	if (pCollision == AABBFrustumCollision::PartialInside){
+		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
