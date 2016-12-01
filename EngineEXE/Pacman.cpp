@@ -10,7 +10,7 @@ void RigLefUpDownController(Entity3D* object, Input& rkInput);
 
 bool Pacman::init(Renderer& rkRenderer){
 	cam = new Camera(rkRenderer);
-	cam->setCameraSpeed(0.2f);
+	cam->setCameraSpeed(5);
 	
 	Importer* importer = new Importer(rkRenderer);
 	
@@ -20,8 +20,8 @@ bool Pacman::init(Renderer& rkRenderer){
 	debug2->create(0, 60, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
 
 	root = new Node();
-	importer->importScene("Assets/Scene/TP8Scene.dae", *root);
-	root->setPosZ(50);
+	importer->importScene("Assets/Scene/sample_scene.dae", *root);
+	root->setPosZ(500);
 	root->updateTransformation();
 
 	return true;
@@ -30,9 +30,9 @@ bool Pacman::init(Renderer& rkRenderer){
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 
-	WASDController(root->findWithName("Node1"), rkInput);
-	KLController(root->findWithName("Node1"), rkInput);
-	RigLefUpDownController(root->findWithName("Teapot"), rkInput);
+	WASDController(root, rkInput);
+	KLController(root->findWithName("Group001"), rkInput);
+	RigLefUpDownController(root->findWithName("Group001"), rkInput);
 
 	int numNodes = 0;
 	int numMeshes = 0;
@@ -48,7 +48,7 @@ void Pacman::deinit(){
 }
 
 void WASDController(Entity3D* object, Input& rkInput){
-	static float speed = 1;
+	static float speed = 10;
 	
 	if (rkInput.keyDown(Input::KEY_W)){
 		object->setPosZ(object->posZ() + speed);
@@ -77,13 +77,13 @@ void KLController(Entity3D* object, Input& rkInput){
 }
 
 void RigLefUpDownController(Entity3D* object, Input& rkInput){
-	static float speed = 1;
+	static float speed = 10;
 
 	if (rkInput.keyDown(Input::KEY_UP)){
-		object->setScaleY(object->scaleY() + speed);
+		object->setScaleY(object->scaleY() + (speed / 100));
 	}
 	else if (rkInput.keyDown(Input::KEY_DOWN)){
-		object->setScaleY(object->scaleY() - speed);
+		object->setScaleY(object->scaleY() - (speed / 100));
 	}
 
 	if (rkInput.keyDown(Input::KEY_RIGHT)){
