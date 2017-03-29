@@ -12,7 +12,8 @@ Mesh::Mesh(Renderer& rkRenderer)
 	:
 	vertexBuffer(NULL),
 	indexBuffer(NULL),
-	render(rkRenderer)
+	render(rkRenderer),
+	polygons(0)
 {}
 
 Mesh::~Mesh(){
@@ -59,7 +60,30 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
 	}
 }
 
-void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
+void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) {
+	updateTransformation();
+
+	if (pCollision == AABBFrustumCollision::PartialInside) {
+		updateBV();
+		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
+	}
+
+	if (pCollision != AABBFrustumCollision::AllOutside) {
+
+		if (pCollision == AABBFrustumCollision::AllInside)
+			text = text + "    MESH (AllInside)\n";
+		else
+			text = text + "    MESH (PartialInside)\n";
+
+		render.setCurrentTexture(texture());
+		render.setCurrentVertexBuffer(vertexBuffer);
+		render.setCurrentIndexBuffer(indexBuffer);
+		render.setMatrix(worldMatrix());
+		render.drawCurrentBuffers(_primitiv);
+	}
+}
+
+void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen){
 	updateTransformation();
 
 	if (pCollision == AABBFrustumCollision::PartialInside){
@@ -69,10 +93,12 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 
 	if (pCollision != AABBFrustumCollision::AllOutside){
 
+		polygonsOnScreen = polygonsOnScreen + polygons;
+
 		if (pCollision == AABBFrustumCollision::AllInside)
-			text = text + "    MESH " + getName() + " (AllInside)\n";
+			text = text + "    MESH " + "POLYGONS: " + std::to_string(polygons) + " (AllInside)\n";
 		else
-			text = text + "    MESH " + getName() + " (PartialInside)\n";
+			text = text + "    MESH " + "POLYGONS: " + std::to_string(polygons) + " (PartialInside)\n";
 
 		render.setCurrentTexture(texture());
 		render.setCurrentVertexBuffer(vertexBuffer);
@@ -124,6 +150,10 @@ Entity3D* Mesh::findWithName(std::string name){
 	}
 	else
 		return NULL;
+}
+
+void Mesh::countPolygons(int& totalPolugons) {
+	totalPolugons += polygons;
 }
 
 void Mesh::updateBV(){

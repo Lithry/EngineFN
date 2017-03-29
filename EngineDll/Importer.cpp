@@ -142,6 +142,8 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
 void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
 	mesh->setName(aiMesh->mName.C_Str());
 
+	mesh->polygons = aiMesh->mNumFaces;
+
 	TexturedVertex* vert = new TexturedVertex[aiMesh->mNumVertices];
 
 	for (size_t i = 0; i < aiMesh->mNumVertices; i++)

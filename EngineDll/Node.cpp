@@ -7,96 +7,118 @@
 #include <d3dx9.h>
 #pragma comment (lib, "d3dx9.lib") 
 
-Node::Node(){}
+Node::Node() {}
 
-Node::~Node(){}
+Node::~Node() {}
 
-void Node::addChild(Entity3D* pkChild){
+void Node::addChild(Entity3D* pkChild) {
 	pkChild->setParent(this);
 	_childs.push_back(pkChild);
 }
 
-void Node::removeChild(Entity3D* pkChild){
+void Node::removeChild(Entity3D* pkChild) {
 	_childs.erase(find(_childs.begin(), _childs.end(), pkChild));
 }
 
-void Node::draw(const Frustum& rkFrustum){
+void Node::draw(const Frustum& rkFrustum) {
 	draw(AABBFrustumCollision::PartialInside, rkFrustum);
 }
 
-void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
+void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) {
 	updateTransformation();
 
-	if (pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision == AABBFrustumCollision::PartialInside) {
 		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision != AABBFrustumCollision::AllOutside){
-		if (!_childs.empty()){
-			for (size_t i = 0; i < _childs.size(); i++){
+	if (pCollision != AABBFrustumCollision::AllOutside) {
+		if (!_childs.empty()) {
+			for (size_t i = 0; i < _childs.size(); i++) {
 				_childs[i]->draw(pCollision, rkFrustum);
 			}
 		}
 	}
 }
 
-void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text){
+void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) {
 	updateTransformation();
-	
-	if (pCollision == AABBFrustumCollision::PartialInside){
+
+	if (pCollision == AABBFrustumCollision::PartialInside) {
 		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision != AABBFrustumCollision::AllOutside){
+	if (pCollision != AABBFrustumCollision::AllOutside) {
 		if (pCollision == AABBFrustumCollision::AllInside)
 			text = text + "NODE: " + getName() + " (AllInside)\n";
 		else
 			text = text + "NODE: " + getName() + " (PartialInside)\n";
 
-		if (!_childs.empty()){
-			for (size_t i = 0; i < _childs.size(); i++){
+		if (!_childs.empty()) {
+			for (size_t i = 0; i < _childs.size(); i++) {
 				_childs[i]->draw(pCollision, rkFrustum, text);
 			}
 		}
 	}
 }
 
-void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
+void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen) {
 	updateTransformation();
 
-	if (pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision == AABBFrustumCollision::PartialInside) {
 		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision != AABBFrustumCollision::AllOutside){
+	if (pCollision != AABBFrustumCollision::AllOutside) {
+		if (pCollision == AABBFrustumCollision::AllInside)
+			text = text + "NODE: " + getName() + " (AllInside)\n";
+		else
+			text = text + "NODE: " + getName() + " (PartialInside)\n";
+
+		if (!_childs.empty()) {
+			for (size_t i = 0; i < _childs.size(); i++) {
+				_childs[i]->draw(pCollision, rkFrustum, text, polygonsOnScreen);
+			}
+		}
+	}
+}
+
+void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes) {
+	updateTransformation();
+
+	if (pCollision == AABBFrustumCollision::PartialInside) {
+		updateBV();
+		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
+	}
+
+	if (pCollision != AABBFrustumCollision::AllOutside) {
 
 		numNodes++;
 
-		if (!_childs.empty()){
-			for (size_t i = 0; i < _childs.size(); i++){
+		if (!_childs.empty()) {
+			for (size_t i = 0; i < _childs.size(); i++) {
 				_childs[i]->draw(pCollision, rkFrustum, numNodes, numMeshes);
 			}
 		}
 	}
 }
 
-void Node::updateTransformation(){
+void Node::updateTransformation() {
 	Entity3D::updateTransformation();
 
-	for (size_t i = 0; i < _childs.size(); i++){
+	for (size_t i = 0; i < _childs.size(); i++) {
 		_childs[i]->updateTransformation();
 	}
 }
 
-Entity3D* Node::findWithName(std::string name){
-	if (getName() == name){
+Entity3D* Node::findWithName(std::string name) {
+	if (getName() == name) {
 		return this;
 	}
-	else{
-		for (size_t i = 0; i < _childs.size(); i++){
+	else {
+		for (size_t i = 0; i < _childs.size(); i++) {
 			Entity3D* find = _childs[i]->findWithName(name);
 			if (find != NULL) {
 				return find;
@@ -106,11 +128,17 @@ Entity3D* Node::findWithName(std::string name){
 	}
 }
 
-const std::vector<Entity3D*>& Node::childs() const{
+void Node::countPolygons(int& totalPolugons) {
+	for (size_t i = 0; i < _childs.size(); i++) {
+		_childs[i]->countPolygons(totalPolugons);
+	}
+}
+
+const std::vector<Entity3D*>& Node::childs() const {
 	return _childs;
 }
 
-void Node::updateBV(){
+void Node::updateBV() {
 	setActualBoundingBoxMinX(FLT_MAX);
 	setActualBoundingBoxMinY(FLT_MAX);
 	setActualBoundingBoxMinZ(FLT_MAX);
@@ -119,32 +147,32 @@ void Node::updateBV(){
 	setActualBoundingBoxMaxY(std::numeric_limits<float>::lowest());
 	setActualBoundingBoxMaxZ(std::numeric_limits<float>::lowest());
 
-	for (size_t i = 0; i < _childs.size(); i++){
+	for (size_t i = 0; i < _childs.size(); i++) {
 		_childs[i]->updateBV();
 
-		if (_childs[i]->getAABB().actualMin.x < getAABB().actualMin.x){
+		if (_childs[i]->getAABB().actualMin.x < getAABB().actualMin.x) {
 			setActualBoundingBoxMinX(_childs[i]->getAABB().actualMin.x);
 		}
-		if (_childs[i]->getAABB().actualMin.y < getAABB().actualMin.y){
+		if (_childs[i]->getAABB().actualMin.y < getAABB().actualMin.y) {
 			setActualBoundingBoxMinY(_childs[i]->getAABB().actualMin.y);
 		}
-		if (_childs[i]->getAABB().actualMin.z < getAABB().actualMin.z){
+		if (_childs[i]->getAABB().actualMin.z < getAABB().actualMin.z) {
 			setActualBoundingBoxMinZ(_childs[i]->getAABB().actualMin.z);
 		}
 
-		if (_childs[i]->getAABB().actualMax.x > getAABB().actualMax.x){
+		if (_childs[i]->getAABB().actualMax.x > getAABB().actualMax.x) {
 			setActualBoundingBoxMaxX(_childs[i]->getAABB().actualMax.x);
 		}
-		if (_childs[i]->getAABB().actualMax.y > getAABB().actualMax.y){
+		if (_childs[i]->getAABB().actualMax.y > getAABB().actualMax.y) {
 			setActualBoundingBoxMaxY(_childs[i]->getAABB().actualMax.y);
 		}
-		if (_childs[i]->getAABB().actualMax.z > getAABB().actualMax.z){
+		if (_childs[i]->getAABB().actualMax.z > getAABB().actualMax.z) {
 			setActualBoundingBoxMaxZ(_childs[i]->getAABB().actualMax.z);
 		}
 	}
 }
 
-AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){
+AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max) {
 	int count = 0;
 	Vec3 toCheck[8];
 
@@ -163,7 +191,7 @@ AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3
 			D3DXPlaneDotCoord(frustum.leftPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
 			D3DXPlaneDotCoord(frustum.rightPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
 			D3DXPlaneDotCoord(frustum.topPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
-			D3DXPlaneDotCoord(frustum.bottomPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0){
+			D3DXPlaneDotCoord(frustum.bottomPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0) {
 			count++;
 		}
 	}

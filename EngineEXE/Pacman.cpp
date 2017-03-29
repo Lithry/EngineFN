@@ -37,8 +37,14 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	int numNodes = 0;
 	int numMeshes = 0;
 	std::string text = "";
+	int polygonsOnScreen = 0;
+	int totalPolygons = 0;
 
-	root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text);
+	root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text, polygonsOnScreen);
+	totalPolygons = 0;
+	root->countPolygons(totalPolygons);
+
+	text += "\n\nPolygons on Screen: " + std::to_string(polygonsOnScreen) + "\nTotal Polygons: " + std::to_string(totalPolygons);
 
 	debug1->setText(text);
 	debug1->display(rkRenderer);

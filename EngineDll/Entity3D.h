@@ -48,8 +48,10 @@ public:
 	virtual void draw(const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) = 0;
+	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes) = 0;
 	virtual Entity3D* findWithName(std::string name) = 0;
+	virtual void countPolygons(int& totalPolugons) = 0;
 
 	Node* _parent;
 

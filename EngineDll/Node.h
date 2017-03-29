@@ -20,9 +20,11 @@ public:
 	void draw(const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text);
+	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes);
 
 	Entity3D* findWithName(std::string name);
+	void countPolygons(int& totalPolugons);
 
 	const std::vector<Entity3D*>& childs() const;
 
