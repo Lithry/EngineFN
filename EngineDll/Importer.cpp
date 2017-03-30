@@ -35,7 +35,10 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	}
 
 	aiMesh* meshs = *scene->mMeshes;
+	
 	TexturedVertex* vert = new TexturedVertex[meshs->mNumVertices];
+
+	
 
 	for (size_t i = 0; i < meshs->mNumVertices; i++)
 	{
@@ -78,7 +81,8 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 		indices[i * 3 + 1] = meshs->mFaces[i].mIndices[1];
 		indices[i * 3 + 2] = meshs->mFaces[i].mIndices[2];
 	}
-
+	
+	mesher.polygons = meshs->mNumFaces;
 	mesher.setMeshData(vert, Primitive::TriangleList, meshs->mNumVertices, indices, indexCount);
 
 	return true;

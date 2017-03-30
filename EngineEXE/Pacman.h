@@ -33,5 +33,7 @@ private:
 	Mesh* max;
 	Mesh* min2;
 	Mesh* max2;
+
+	int totalPolygons;
 };
 #endif

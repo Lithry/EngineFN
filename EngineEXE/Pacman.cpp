@@ -15,14 +15,19 @@ bool Pacman::init(Renderer& rkRenderer){
 	Importer* importer = new Importer(rkRenderer);
 	
 	debug1 = new ScreenText();
-	debug1->create(0, 0, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
+	debug1->create(0, 0, 1000, 1000, 14, "Arial", "DEBUG", false, rkRenderer);
 	debug2 = new ScreenText();
-	debug2->create(0, 60, 1000, 1000, 25, "Arial", "DEBUG", false, rkRenderer);
+	debug2->create(0, 60, 1000, 1000, 14, "Arial", "DEBUG", false, rkRenderer);
 
 	root = new Node();
-	importer->importScene("Assets/Scene/sample_scene.dae", *root);
+	//importer->importScene("Assets/Scene/tank.x", *root);
+	importer->importScene("Assets/Scene/bones_all.x", *root);
+	//importer->importScene("Assets/Scene/sample_scene.dae", *root);
 	root->setPosZ(500);
+	root->setScale(10, 10, 10);
 	root->updateTransformation();
+
+	root->countPolygons(totalPolygons);
 
 	return true;
 }
@@ -31,20 +36,17 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer){
 	cam->controls(rkInput);
 
 	WASDController(root, rkInput);
-	KLController(root->findWithName("Group001"), rkInput);
-	RigLefUpDownController(root->findWithName("Group001"), rkInput);
+	//KLController(root->findWithName("Group001"), rkInput);
+	//RigLefUpDownController(root->findWithName("Group001"), rkInput);
 
 	int numNodes = 0;
 	int numMeshes = 0;
 	std::string text = "";
 	int polygonsOnScreen = 0;
-	int totalPolygons = 0;
 
 	root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text, polygonsOnScreen);
-	totalPolygons = 0;
-	root->countPolygons(totalPolygons);
-
-	text += "\n\nPolygons on Screen: " + std::to_string(polygonsOnScreen) + "\nTotal Polygons: " + std::to_string(totalPolygons);
+	
+	text += "\nPolygons on Screen: " + std::to_string(polygonsOnScreen) + "\nTotal Polygons: " + std::to_string(totalPolygons);
 
 	debug1->setText(text);
 	debug1->display(rkRenderer);
