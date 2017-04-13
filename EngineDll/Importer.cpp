@@ -17,11 +17,11 @@ Importer::Importer(Renderer& render)
 	materialCount(0)
 {}
 
-Importer::~Importer(){
+Importer::~Importer() {
 
 }
 
-bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
+bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher) {
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(rkFilename,
@@ -35,41 +35,39 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 	}
 
 	aiMesh* meshs = *scene->mMeshes;
-	
-	TexturedVertex* vert = new TexturedVertex[meshs->mNumVertices];
 
-	
+	TexturedVertex* vert = new TexturedVertex[meshs->mNumVertices];
 
 	for (size_t i = 0; i < meshs->mNumVertices; i++)
 	{
 		vert[i].x = meshs->mVertices[i].x; // Set X Vert
-		// Set X AABB
-		if (mesher.getAABB().max.x < vert[i].x){ // MAX
+										   // Set X AABB
+		if (mesher.getAABB().max.x < vert[i].x) { // MAX
 			mesher.setBoundingBoxMaxX(vert[i].x);
 		}
-		else if (mesher.getAABB().min.x > vert[i].x){ // MIN
+		else if (mesher.getAABB().min.x > vert[i].x) { // MIN
 			mesher.setBoundingBoxMinX(vert[i].x);
 		}
 		vert[i].y = meshs->mVertices[i].y; // Set Y Vert
-		// Set Y AABB
-		if (mesher.getAABB().max.y < vert[i].y){ // MAX
+										   // Set Y AABB
+		if (mesher.getAABB().max.y < vert[i].y) { // MAX
 			mesher.setBoundingBoxMaxY(vert[i].y);
 		}
-		else if (mesher.getAABB().min.y > vert[i].y){ // MIN
+		else if (mesher.getAABB().min.y > vert[i].y) { // MIN
 			mesher.setBoundingBoxMinY(vert[i].y);
 		}
 		vert[i].z = meshs->mVertices[i].z; // Set Z Vert
-		// Set Z AABB
-		if (mesher.getAABB().max.z < vert[i].z){ // MAX
+										   // Set Z AABB
+		if (mesher.getAABB().max.z < vert[i].z) { // MAX
 			mesher.setBoundingBoxMaxZ(vert[i].z);
 		}
-		else if (mesher.getAABB().min.z > vert[i].z){ // MIN
+		else if (mesher.getAABB().min.z > vert[i].z) { // MIN
 			mesher.setBoundingBoxMinZ(vert[i].z);
 		}
 
-		if (meshs->HasTextureCoords(0)){
+		if (meshs->HasTextureCoords(0)) {
 			vert[i].u = meshs->mTextureCoords[0][i].x;
-			vert[i].v = - meshs->mTextureCoords[0][i].y;
+			vert[i].v = -meshs->mTextureCoords[0][i].y;
 		}
 	}
 
@@ -81,14 +79,14 @@ bool Importer::importMesh(const std::string& rkFilename, Mesh& mesher){
 		indices[i * 3 + 1] = meshs->mFaces[i].mIndices[1];
 		indices[i * 3 + 2] = meshs->mFaces[i].mIndices[2];
 	}
-	
+
 	mesher.polygons = meshs->mNumFaces;
 	mesher.setMeshData(vert, Primitive::TriangleList, meshs->mNumVertices, indices, indexCount);
 
 	return true;
 }
 
-bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot){
+bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot) {
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(rkFilename,
@@ -107,12 +105,12 @@ bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot){
 	loadNode(root, orkSceneRoot, scene);
 	orkSceneRoot.setPos(0, 0, 0);
 	orkSceneRoot.setScale(1, 1, 1);
-	orkSceneRoot.setRotation(0, 0, 0);
+	orkSceneRoot.setRotation(1, 0, 0, 0);
 
 	return true;
 }
 
-void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
+void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene) {
 	node.setName(root->mName.C_Str());
 
 	aiVector3t<float> pos;
@@ -122,8 +120,8 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
 
 	node.setPos(pos.x, pos.y, pos.z);
 	node.setScale(scale.x, scale.y, scale.z);
-	node.setRotation(rotation.x, rotation.y, rotation.z);
-	
+	node.setRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+
 	for (size_t i = 0; i < root->mNumMeshes; i++)
 	{
 		Mesh* newMesh = new Mesh(_render);
@@ -143,7 +141,7 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene){
 	}
 }
 
-void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
+void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material) {
 	mesh->setName(aiMesh->mName.C_Str());
 
 	mesh->polygons = aiMesh->mNumFaces;
@@ -153,33 +151,33 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
 	for (size_t i = 0; i < aiMesh->mNumVertices; i++)
 	{
 		vert[i].x = aiMesh->mVertices[i].x; // Set X Vert
-		// Set X AABB
-		if (mesh->getAABB().max.x < vert[i].x){ // MAX
+											// Set X AABB
+		if (mesh->getAABB().max.x < vert[i].x) { // MAX
 			mesh->setBoundingBoxMaxX(vert[i].x);
 		}
-		else if (mesh->getAABB().min.x > vert[i].x){ // MIN
+		else if (mesh->getAABB().min.x > vert[i].x) { // MIN
 			mesh->setBoundingBoxMinX(vert[i].x);
 		}
 		vert[i].y = aiMesh->mVertices[i].y; // Set Y Vert
-		// Set Y AABB
-		if (mesh->getAABB().max.y < vert[i].y){ // MAX
+											// Set Y AABB
+		if (mesh->getAABB().max.y < vert[i].y) { // MAX
 			mesh->setBoundingBoxMaxY(vert[i].y);
 		}
-		else if (mesh->getAABB().min.y > vert[i].y){ // MIN
+		else if (mesh->getAABB().min.y > vert[i].y) { // MIN
 			mesh->setBoundingBoxMinY(vert[i].y);
 		}
 		vert[i].z = aiMesh->mVertices[i].z; // Set Z Vert
-		// Set Z AABB
-		if (mesh->getAABB().max.z < vert[i].z){ // MAX
+											// Set Z AABB
+		if (mesh->getAABB().max.z < vert[i].z) { // MAX
 			mesh->setBoundingBoxMaxZ(vert[i].z);
 		}
-		else if (mesh->getAABB().min.z > vert[i].z){ // MIN
+		else if (mesh->getAABB().min.z > vert[i].z) { // MIN
 			mesh->setBoundingBoxMinZ(vert[i].z);
 		}
 
-		if (aiMesh->HasTextureCoords(0)){
+		if (aiMesh->HasTextureCoords(0)) {
 			vert[i].u = aiMesh->mTextureCoords[0][i].x;
-			vert[i].v = - aiMesh->mTextureCoords[0][i].y;
+			vert[i].v = -aiMesh->mTextureCoords[0][i].y;
 		}
 	}
 
@@ -213,4 +211,5 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material){
 
 	mesh->setMeshData(vert, Primitive::TriangleList, aiMesh->mNumVertices, indices, indexCount);
 }
+
 

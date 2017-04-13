@@ -8,7 +8,7 @@ class Node;
 
 #include "Export.h"
 
-class DllExport Entity3D{
+class DllExport Entity3D {
 public:
 	Entity3D();
 	~Entity3D();
@@ -16,10 +16,11 @@ public:
 	void setPosX(float fPosX);
 	void setPosY(float fPosY);
 	void setPosZ(float fPosZ);
-	void setRotation(float fRotationX, float fRotationY, float fRotationZ);
+	void setRotation(float fRotationW, float fRotationX, float fRotationY, float fRotationZ);
 	void setRotationX(float fRotationX);
 	void setRotationY(float fRotationY);
 	void setRotationZ(float fRotationZ);
+
 	void setScale(float fScaleX, float fScaleY, float fScaleZ);
 	void setScaleX(float fScaleX);
 	void setScaleY(float fScaleY);
@@ -44,7 +45,7 @@ public:
 	const Texture& texture() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
-	
+
 	virtual void draw(const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) = 0;
@@ -75,14 +76,17 @@ private:
 	float _posX;
 	float _posY;
 	float _posZ;
+	float _rotationW;
 	float _rotationX;
 	float _rotationY;
 	float _rotationZ;
+	float _rotationEulerX;
+	float _rotationEulerY;
+	float _rotationEulerZ;
 	float _scaleX;
 	float _scaleY;
 	float _scaleZ;
 
-	
 
 	AABB* bBox;
 
