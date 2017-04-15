@@ -57,7 +57,7 @@ void Pacman::deinit() {
 }
 
 void WASDController(Entity3D* object, Input& rkInput) {
-	static float speed = 0.1;
+	static float speed = 0.1f;
 
 	if (rkInput.keyDown(Input::KEY_W)) {
 		object->setPosZ(object->posZ() + speed);
@@ -82,7 +82,7 @@ void WASDController(Entity3D* object, Input& rkInput) {
 }
 
 void KLController(Entity3D* object, Input& rkInput) {
-	static float speed = 0.1;
+	static float speed = 0.1f;
 
 	if (rkInput.keyDown(Input::KEY_K)) {
 		object->setScale(object->scaleX() + speed, object->scaleY() + speed, object->scaleZ() + speed);
@@ -93,7 +93,7 @@ void KLController(Entity3D* object, Input& rkInput) {
 }
 
 void RigLefUpDownController(Entity3D* object, Input& rkInput) {
-	static float speed = 10;
+	static float speed = 0.1f;
 
 	if (rkInput.keyDown(Input::KEY_UP)) {
 		object->setScaleY(object->scaleY() + (speed / 100));
