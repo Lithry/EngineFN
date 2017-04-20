@@ -70,6 +70,9 @@
     <Filter Include="Entities\Entity3D\Mesh">
       <UniqueIdentifier>{9971b6a9-0093-449b-862f-43bcce6b20c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities\Entity3D\BSP">
+      <UniqueIdentifier>{e6f2f265-9396-499a-a297-6d73411e1e61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -149,6 +152,9 @@
       <Filter>Entities\Entity2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="StructsAndEnums.h" />
+    <ClInclude Include="BSP.h">
+      <Filter>Entities\Entity3D\BSP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="input.inl">
@@ -239,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Entities\Entity2D\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="BSP.cpp">
+      <Filter>Entities\Entity3D\BSP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

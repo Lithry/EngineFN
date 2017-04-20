@@ -5,6 +5,7 @@
 #include "StructsAndEnums.h"
 
 class Node;
+class BSP;
 
 #include "Export.h"
 
@@ -45,6 +46,7 @@ public:
 	const Texture& texture() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
+	void setParentBSP(BSP* pkParent);
 
 	virtual void draw(const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;

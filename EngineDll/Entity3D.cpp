@@ -1,7 +1,6 @@
 #include "Entity3D.h"
 #include "Node.h"
-//#include <limits>
-//#include <cstddef>
+#include "BSP.h"
 
 #include <d3dx9.h>
 #pragma comment (lib, "d3dx9.lib")

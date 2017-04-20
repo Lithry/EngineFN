@@ -20,10 +20,11 @@ bool Pacman::init(Renderer& rkRenderer) {
 	debug2->create(0, 60, 1000, 1000, 14, "Arial", "DEBUG", false, rkRenderer);
 
 	root = new Node();
+	bsp = new BSP();
 	//importer->importScene("Assets/Scene/tank.x", *root);
 	//importer->importScene("Assets/Scene/bones_all.x", *root);
 	//importer->importScene("Assets/Scene/sample_scene.dae", *root);
-	importer->importScene("Assets/Scene/BSPTest3.dae", *root);
+	importer->importScene("Assets/Scene/BSPTest.dae", *root, *bsp);
 	root->setPosZ(500);
 	root->setScale(10, 10, 10);
 	root->updateTransformation();

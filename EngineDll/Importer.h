@@ -6,11 +6,13 @@
 class Renderer;
 class Mesh;
 class Node;
+class BSP;
 
 struct aiNode;
 struct aiMesh;
 struct aiMaterial;
 struct aiScene;
+struct Vec3;
 
 #include "Export.h"
 
@@ -21,9 +23,13 @@ public:
 	bool importMesh(const std::string& rkFilename, Mesh& mesher);
 
 	bool importScene(const std::string& rkFilename, Node& orkSceneRoot);
+	bool importScene(const std::string& rkFilename, Node& orkSceneRoot, BSP& orkSceneBSP);
 
 	void loadNode(aiNode* root, Node& node, const aiScene* scene);
+	void loadNode(aiNode* root, Node& node, const aiScene* scene, BSP& bsp);
 	void loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material);
+	void loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP& bsp);
+	void loadPlane(BSP* bsp, Vec3 v1, Vec3 v2, Vec3 v3);
 private:
 	Renderer& _render;
 	int materialCount;

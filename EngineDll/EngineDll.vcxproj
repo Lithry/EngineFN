@@ -82,6 +82,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BSP.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="directinput.h" />
     <ClInclude Include="Engine.h" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BSP.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="directinput.cpp" />
     <ClCompile Include="Engine.cpp" />

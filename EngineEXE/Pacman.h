@@ -11,6 +11,7 @@
 #include "Mesh.h"
 #include "Importer.h"
 #include "Node.h"
+#include "BSP.h"
 
 class Pacman : public Game{
 public:
@@ -23,6 +24,8 @@ private:
 	Node* root;
 	ScreenText* debug1;
 	ScreenText* debug2;
+
+	BSP* bsp;
 
 	Mesh* cube;
 	Mesh* cube2;
