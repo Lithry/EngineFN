@@ -22,3 +22,5 @@ temp
 /bin/Release/EngineEXE.pdb
 /EngineEXE/Assets/Texture/.mayaSwatches
 /EngineFN.VC.db
+/.vs/EngineFN/v15/*.suo
+/*.htm

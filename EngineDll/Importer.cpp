@@ -5,6 +5,7 @@
 #include "StructsAndEnums.h"
 #include "Mesh.h"
 #include "Node.h"
+#include "BSP.h"
 #include "AssImp\Importer.hpp"
 #include "AssImp\scene.h"
 #include "AssImp\postprocess.h"
@@ -115,7 +116,7 @@ bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot) {
 	return true;
 }
 
-bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot, BSP& orkSceneBSP) {
+bool Importer::importScene(const std::string& rkFilename, Node& orkSceneRoot, BSP* orkSceneBSP) {
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(rkFilename,
@@ -172,7 +173,7 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene) {
 	}
 }
 
-void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene, BSP& bsp) {
+void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene, BSP* bsp) {
 	node.setName(root->mName.C_Str());
 	
 	std::string name = root->mName.C_Str();
@@ -283,7 +284,7 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material) 
 	mesh->setMeshData(vert, Primitive::TriangleList, aiMesh->mNumVertices, indices, indexCount);
 }
 
-void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP& bsp) {
+void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP* bsp) {
 	mesh->setName(aiMesh->mName.C_Str());
 
 	mesh->polygons = aiMesh->mNumFaces;
@@ -352,27 +353,19 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, 
 	}
 
 	if (isPlane) {
-		Vec3 vec1;
-		vec1.x = aiMesh->mVertices[0].x; vec1.y = aiMesh->mVertices[0].y; vec1.z = aiMesh->mVertices[0].z;
-		Vec3 vec2;
-		vec2.x = aiMesh->mVertices[1].x; vec2.y = aiMesh->mVertices[1].y; vec2.z = aiMesh->mVertices[1].z;
-		Vec3 vec3;
-		vec3.x = aiMesh->mVertices[2].x; vec3.y = aiMesh->mVertices[2].y; vec3.z = aiMesh->mVertices[2].z;
-		loadPlane(&bsp, vec1, vec2, vec3);
+		bsp->addMesh(mesh);
+		//loadPlane(bsp);
 	}
 
 	mesh->setMeshData(vert, Primitive::TriangleList, aiMesh->mNumVertices, indices, indexCount);
 }
 
-void Importer::loadPlane(BSP* bsp, Vec3 v1, Vec3 v2, Vec3 v3) {
+void Importer::loadPlane(BSP* bsp) {
+	
 
-
-	D3DXPLANE* plane = new D3DXPLANE();
+	/*D3DXPLANE* plane = new D3DXPLANE();
 	D3DXVECTOR3* vec1 = new D3DXVECTOR3(v1.x, v1.y, v1.z);
 	D3DXVECTOR3* vec2 = new D3DXVECTOR3(v2.x, v2.y, v2.z);
 	D3DXVECTOR3* vec3 = new D3DXVECTOR3(v3.x, v3.y, v3.z);
-	D3DXPlaneFromPoints(plane, vec1, vec2, vec3);
-
-	
-	
+	D3DXPlaneFromPoints(plane, vec1, vec2, vec3);*/
 }

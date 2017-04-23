@@ -24,10 +24,12 @@ bool Pacman::init(Renderer& rkRenderer) {
 	//importer->importScene("Assets/Scene/tank.x", *root);
 	//importer->importScene("Assets/Scene/bones_all.x", *root);
 	//importer->importScene("Assets/Scene/sample_scene.dae", *root);
-	importer->importScene("Assets/Scene/BSPTest.dae", *root, *bsp);
+	importer->importScene("Assets/Scene/BSPTest.dae", *root, bsp);
 	root->setPosZ(500);
 	root->setScale(10, 10, 10);
 	root->updateTransformation();
+
+	//bsp->makePlanes(); // falta hacer función de crear planos y de chequear con ellos
 
 	root->countPolygons(totalPolygons);
 
