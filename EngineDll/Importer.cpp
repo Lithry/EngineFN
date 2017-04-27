@@ -189,23 +189,28 @@ void Importer::loadNode(aiNode* root, Node& node, const aiScene* scene, BSP* bsp
 	aiVector3t<float> pos;
 	aiVector3t<float> scale;
 	aiQuaterniont<float> rotation;
+	aiMatrix4x4 transformationMat = root->mTransformation;
 	root->mTransformation.Decompose(scale, rotation, pos);
-
+	
 	node.setPos(pos.x, pos.y, pos.z);
 	node.setScale(scale.x, scale.y, scale.z);
 	node.setRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+	Vec3 position;
+	position.x = pos.x; position.y = pos.y; position.z = pos.z;
+	Vec3 scal;
+	scal.x = scale.x; scal.y = scale.y; scal.z = scale.z;
+	Quaternion rot;
+	rot.x = rotation.x; rot.y = rotation.y; rot.z = rotation.z; rot.w = rotation.w;
 
-	for (size_t i = 0; i < root->mNumMeshes; i++)
-	{
+	for (size_t i = 0; i < root->mNumMeshes; i++) {
 		Mesh* newMesh = new Mesh(_render);
 		node.addChild(newMesh);
 		aiMesh* aiMesh = scene->mMeshes[root->mMeshes[i]];
 		aiMaterial* pMaterial = scene->mMaterials[aiMesh->mMaterialIndex];
-		loadMesh(aiMesh, newMesh, pMaterial, isPlane, bsp);
+		loadMesh(aiMesh, newMesh, pMaterial, isPlane, bsp, position, scal, rot);
 	}
 
-	for (size_t i = 0; i < root->mNumChildren; i++)
-	{
+	for (size_t i = 0; i < root->mNumChildren; i++)	{
 		Node* newNode = new Node();
 		node.addChild(newNode);
 
@@ -284,7 +289,7 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material) 
 	mesh->setMeshData(vert, Primitive::TriangleList, aiMesh->mNumVertices, indices, indexCount);
 }
 
-void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP* bsp) {
+void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP* bsp, Vec3 position, Vec3 scale, Quaternion rotation) {
 	mesh->setName(aiMesh->mName.C_Str());
 
 	mesh->polygons = aiMesh->mNumFaces;
@@ -353,6 +358,14 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, 
 	}
 
 	if (isPlane) {
+		Vec3 v1;
+		v1.x = aiMesh->mVertices[0].x; v1.y = aiMesh->mVertices[0].y; v1.z = aiMesh->mVertices[0].z;
+		Vec3 v2;
+		v2.x = aiMesh->mVertices[1].x; v2.y = aiMesh->mVertices[1].y; v2.z = aiMesh->mVertices[1].z;
+		Vec3 v3;
+		v3.x = aiMesh->mVertices[2].x; v3.y = aiMesh->mVertices[2].y; v3.z = aiMesh->mVertices[2].z;
+		bsp->makePlane(v1, v2, v3, position, scale, rotation);
+		
 		bsp->addMesh(mesh);
 		//loadPlane(bsp);
 	}

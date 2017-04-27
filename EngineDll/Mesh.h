@@ -22,6 +22,7 @@ public:
 		size_t uiVertexCount, const unsigned short* pusIndices,
 		size_t uiIndexCount);
 
+	void draw();
 	void draw(const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text);
@@ -37,15 +38,20 @@ public:
 
 	Entity3D* findWithName(std::string name);
 	void countPolygons(int& totalPolugons);
+	
+	void checkBSP(BSP* bsp, Vec3 cameraPos);
 
 	VertexBuffer3D* getVertexBuffer();
 	IndexBuffer* getIndexBuffer();
 
 	int polygons;
+	void visible(bool isOrNot);
+	bool isVisible;
 private:
 	Renderer& render;
 	VertexBuffer3D* vertexBuffer;
 	IndexBuffer* indexBuffer;
 	Primitive _primitiv;
+	
 };
 #endif

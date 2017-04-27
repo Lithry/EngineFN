@@ -4,8 +4,6 @@
 #include "Renderer.h"
 #include "input.h"
 
-
-
 #include "Export.h"
 
 class DllExport Camera{
@@ -29,6 +27,7 @@ public:
 
 	void controls(Input& rkInput);
 	void setCameraSpeed(float speed);
+	Vec3 getCameraPosition();
 private:
 	Renderer _renderer;
 	Vector3 _eye;

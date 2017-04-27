@@ -17,6 +17,7 @@ public:
 	void removeChild(Entity3D* pkChild);
 	void updateTransformation();
 	
+	void draw();
 	void draw(const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text);
@@ -30,6 +31,7 @@ public:
 
 	void updateBV();
 	AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max);
+	void checkBSP(BSP* bsp, Vec3 cameraPos);
 private:
 	std::vector<Entity3D*> _childs;
 };

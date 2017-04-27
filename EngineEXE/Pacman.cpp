@@ -16,20 +16,18 @@ bool Pacman::init(Renderer& rkRenderer) {
 
 	debug1 = new ScreenText();
 	debug1->create(0, 0, 1000, 1000, 14, "Arial", "DEBUG", false, rkRenderer);
-	debug2 = new ScreenText();
-	debug2->create(0, 60, 1000, 1000, 14, "Arial", "DEBUG", false, rkRenderer);
+	//debug2 = new ScreenText();
+	//debug2->create(0, 60, 1000, 1000, 14, "Arial", "DEBUG", false, rkRenderer);
 
 	root = new Node();
 	bsp = new BSP();
 	//importer->importScene("Assets/Scene/tank.x", *root);
 	//importer->importScene("Assets/Scene/bones_all.x", *root);
 	//importer->importScene("Assets/Scene/sample_scene.dae", *root);
-	importer->importScene("Assets/Scene/BSPTest.dae", *root, bsp);
+	importer->importScene("Assets/Scene/BSPTest.dae", *root);
 	root->setPosZ(500);
 	root->setScale(10, 10, 10);
 	root->updateTransformation();
-
-	//bsp->makePlanes(); // falta hacer función de crear planos y de chequear con ellos
 
 	root->countPolygons(totalPolygons);
 
@@ -38,22 +36,25 @@ bool Pacman::init(Renderer& rkRenderer) {
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer) {
 	cam->controls(rkInput);
-
+	Entity3D* a = root->findWithName("Inmovil1");
 	WASDController(root->findWithName("Inmovil1"), rkInput);
 	//KLController(root->findWithName("Group001"), rkInput);
 	//RigLefUpDownController(root->findWithName("Group001"), rkInput);
 
-	int numNodes = 0;
-	int numMeshes = 0;
+	//int numNodes = 0;
+	//int numMeshes = 0;
 	std::string text = "";
-	int polygonsOnScreen = 0;
+	//int polygonsOnScreen = 0;
+	
+	root->checkBSP(bsp, cam->getCameraPosition());
+	root->draw();
+	//root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text, polygonsOnScreen);
 
-	root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text, polygonsOnScreen);
-
-	text += "\nPolygons on Screen: " + std::to_string(polygonsOnScreen) + "\nTotal Polygons: " + std::to_string(totalPolygons);
+	//text += "\nPolygons on Screen: " + std::to_string(polygonsOnScreen) + "\nTotal Polygons: " + std::to_string(totalPolygons);
+	//text += cam->getCameraPosition();
 
 	debug1->setText(text);
-	debug1->display(rkRenderer);
+	//debug1->display(rkRenderer);
 }
 
 void Pacman::deinit() {

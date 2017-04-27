@@ -48,6 +48,7 @@ public:
 	void setParent(Node* pkParent);
 	void setParentBSP(BSP* pkParent);
 
+	virtual void draw() = 0;
 	virtual void draw(const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) = 0;
@@ -74,6 +75,7 @@ public:
 	virtual void updateBV() = 0;
 
 	virtual AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max) = 0;
+	virtual void checkBSP(BSP* bsp, Vec3 cameraPos) = 0;
 private:
 	float _posX;
 	float _posY;

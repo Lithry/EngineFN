@@ -16,11 +16,11 @@ public:
 	~BSP();
 	void addPlane(Plane plane);
 	void addMesh(Mesh* mesh);
-	void makePlanes();
+	void makePlane(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 position, Vec3 scale, Quaternion rotation);
+	void updatePlanes();
 	const std::vector<Plane> planes() const;
-	const std::vector<Mesh*> meshs() const;
 private:
 	std::vector<Plane> _planes;
-	std::vector<Mesh*> _meshsToFormPlanes;
+	std::vector<Mesh*> _meshes;
 };
 #endif

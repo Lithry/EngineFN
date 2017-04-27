@@ -13,6 +13,7 @@ struct aiMesh;
 struct aiMaterial;
 struct aiScene;
 struct Vec3;
+struct Quaternion;
 
 #include "Export.h"
 
@@ -28,7 +29,7 @@ public:
 	void loadNode(aiNode* root, Node& node, const aiScene* scene);
 	void loadNode(aiNode* root, Node& node, const aiScene* scene, BSP* bsp);
 	void loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material);
-	void loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP* bsp);
+	void loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, bool& isPlane, BSP* bsp, Vec3 position, Vec3 scale, Quaternion rotation);
 	void loadPlane(BSP* bsp);
 private:
 	Renderer& _render;

@@ -213,3 +213,9 @@ void Camera::controls(Input& rkInput){
 void Camera::setCameraSpeed(float speed){
 	cameraSpeed = speed;
 }
+
+Vec3 Camera::getCameraPosition() {
+	Vec3 camPos;
+	camPos.x = _eye->x; camPos.y = _eye->y; camPos.z = _eye->z;
+	return camPos;
+}

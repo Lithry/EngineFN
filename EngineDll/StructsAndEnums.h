@@ -9,6 +9,9 @@
 struct DllExport Vec3{
 	float x, y, z;
 };
+struct DllExport Quaternion {
+	float x, y, z, w;
+};
 
 // Renderer
 struct D3DXMATRIX;

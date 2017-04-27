@@ -4,6 +4,7 @@
 #include "pg2_vertexbuffer.h"
 #include "pg2_indexbuffer.h"
 #include "Importer.h"
+#include "BSP.h"
 
 #define CUSTOMFVF (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 #define TEXTUREFVF (D3DFVF_XYZ | D3DFVF_TEX1)
@@ -13,10 +14,11 @@ Mesh::Mesh(Renderer& rkRenderer)
 	vertexBuffer(NULL),
 	indexBuffer(NULL),
 	render(rkRenderer),
-	polygons(0)
+	polygons(0),
+	isVisible(true)
 {}
 
-Mesh::~Mesh(){
+Mesh::~Mesh() {
 	delete vertexBuffer;
 	vertexBuffer = NULL;
 	delete indexBuffer;
@@ -25,7 +27,7 @@ Mesh::~Mesh(){
 
 void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 	size_t uiVertexCount, const unsigned short* pusIndices,
-	size_t uiIndexCount){
+	size_t uiIndexCount) {
 
 	vertexBuffer = render.createVertexBuffer(sizeof(TexturedVertex), TEXTUREFVF);
 	indexBuffer = render.createIndexBuffer();
@@ -39,19 +41,31 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 	_primitiv = ePrimitive;
 }
 
-void Mesh::draw(const Frustum& rkFrustum){
+void Mesh::draw() {
+	updateTransformation();
+
+	if (isVisible) {
+		render.setCurrentTexture(texture());
+		render.setCurrentVertexBuffer(vertexBuffer);
+		render.setCurrentIndexBuffer(indexBuffer);
+		render.setMatrix(worldMatrix());
+		render.drawCurrentBuffers(_primitiv);
+	}
+}
+
+void Mesh::draw(const Frustum& rkFrustum) {
 	draw(AABBFrustumCollision::PartialInside, rkFrustum);
 }
 
-void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum){
+void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum) {
 	updateTransformation();
 
-	if (pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision == AABBFrustumCollision::PartialInside) {
 		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision != AABBFrustumCollision::AllOutside){
+	if (pCollision != AABBFrustumCollision::AllOutside) {
 		render.setCurrentTexture(texture());
 		render.setCurrentVertexBuffer(vertexBuffer);
 		render.setCurrentIndexBuffer(indexBuffer);
@@ -83,15 +97,15 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 	}
 }
 
-void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen){
+void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen) {
 	updateTransformation();
 
-	if (pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision == AABBFrustumCollision::PartialInside) {
 		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision != AABBFrustumCollision::AllOutside){
+	if (pCollision != AABBFrustumCollision::AllOutside) {
 
 		polygonsOnScreen = polygonsOnScreen + polygons;
 
@@ -108,15 +122,15 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::
 	}
 }
 
-void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes){
+void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes) {
 	updateTransformation();
 
-	if (pCollision == AABBFrustumCollision::PartialInside){
+	if (pCollision == AABBFrustumCollision::PartialInside) {
 		updateBV();
 		pCollision = checkAABBtoFrustum(rkFrustum, getAABB().actualMin, getAABB().actualMax);
 	}
 
-	if (pCollision != AABBFrustumCollision::AllOutside){
+	if (pCollision != AABBFrustumCollision::AllOutside) {
 
 		numMeshes++;
 
@@ -128,24 +142,29 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& 
 	}
 }
 
-void Mesh::setTextureId(int iTextureId){
+void Mesh::setTextureId(int iTextureId) {
 
 }
 
-VertexBuffer3D* Mesh::getVertexBuffer(){
+VertexBuffer3D* Mesh::getVertexBuffer() {
 	return vertexBuffer;
 }
 
-IndexBuffer* Mesh::getIndexBuffer(){
+IndexBuffer* Mesh::getIndexBuffer() {
 	return indexBuffer;
 }
 
-void Mesh::setTexture(const Texture& texture){
+void Mesh::visible(bool isOrNot)
+{
+	isVisible = isOrNot;
+}
+
+void Mesh::setTexture(const Texture& texture) {
 	Entity3D::setTexture(texture);
 }
 
-Entity3D* Mesh::findWithName(std::string name){
-	if (getName() == name){
+Entity3D* Mesh::findWithName(std::string name) {
+	if (getName() == name) {
 		return this;
 	}
 	else
@@ -156,7 +175,47 @@ void Mesh::countPolygons(int& totalPolugons) {
 	totalPolugons += polygons;
 }
 
-void Mesh::updateBV(){
+void Mesh::checkBSP(BSP* bsp, Vec3 cameraPos) {
+	visible(true);
+	updateBV();
+	int count = 0;
+	Vec3 toCheck[8];
+
+	toCheck[0].x = getAABB().actualMin.x; toCheck[1].x = getAABB().actualMin.x; toCheck[2].x = getAABB().actualMin.x; toCheck[3].x = getAABB().actualMin.x;
+	toCheck[0].y = getAABB().actualMin.y; toCheck[1].y = getAABB().actualMin.y;	toCheck[2].y = getAABB().actualMax.y; toCheck[3].y = getAABB().actualMax.y;
+	toCheck[0].z = getAABB().actualMin.z; toCheck[1].z = getAABB().actualMax.z;	toCheck[2].z = getAABB().actualMin.z; toCheck[3].z = getAABB().actualMax.z;
+
+	toCheck[4].x = getAABB().actualMax.x; toCheck[5].x = getAABB().actualMax.x; toCheck[6].x = getAABB().actualMax.x; toCheck[7].x = getAABB().actualMax.x;
+	toCheck[4].y = getAABB().actualMax.y; toCheck[5].y = getAABB().actualMax.y;	toCheck[6].y = getAABB().actualMin.y; toCheck[7].y = getAABB().actualMin.y;
+	toCheck[4].z = getAABB().actualMax.z; toCheck[5].z = getAABB().actualMin.z;	toCheck[6].z = getAABB().actualMax.z; toCheck[7].z = getAABB().actualMin.z;
+
+	for (size_t i = 0; i < bsp->planes().size(); i++){
+		float cameraSide = D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(cameraPos.x, cameraPos.y, cameraPos.z));
+		if (isVisible) {
+			count = 0;
+			if (cameraSide < 0){
+				for (size_t j = 0; j < 8; j++){
+					if (D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(toCheck[j].x, toCheck[j].y, toCheck[j].z)) > 0) {
+						count++;
+					}
+				}
+				if (count == 8)
+					visible(false);
+			}
+			else{
+				for (size_t j = 0; j < 8; j++){
+					if (D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(toCheck[j].x, toCheck[j].y, toCheck[j].z)) < 0) {
+						count++;
+					}
+				}
+				if (count == 8)
+					visible(false);
+			}
+		}
+	}
+}
+
+void Mesh::updateBV() {
 	D3DXVECTOR3 pos;
 	D3DXQUATERNION rot;
 	D3DXVECTOR3 scale;
@@ -171,7 +230,7 @@ void Mesh::updateBV(){
 	setActualBoundingBoxMaxZ((getAABB().max.z * scale.z) + pos.z);
 }
 
-AABBFrustumCollision Mesh::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max){
+AABBFrustumCollision Mesh::checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max) {
 	int count = 0;
 	Vec3 toCheck[8];
 
@@ -190,7 +249,7 @@ AABBFrustumCollision Mesh::checkAABBtoFrustum(const Frustum& frustum, const Vec3
 			D3DXPlaneDotCoord(frustum.leftPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
 			D3DXPlaneDotCoord(frustum.rightPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
 			D3DXPlaneDotCoord(frustum.topPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0 &&
-			D3DXPlaneDotCoord(frustum.bottomPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0){
+			D3DXPlaneDotCoord(frustum.bottomPlane, &D3DXVECTOR3(toCheck[i].x, toCheck[i].y, toCheck[i].z)) > 0) {
 			count++;
 		}
 	}

@@ -20,6 +20,16 @@ void Node::removeChild(Entity3D* pkChild) {
 	_childs.erase(find(_childs.begin(), _childs.end(), pkChild));
 }
 
+void Node::draw(){
+	updateTransformation();
+
+	if (!_childs.empty()) {
+		for (size_t i = 0; i < _childs.size(); i++) {
+			_childs[i]->draw();
+		}
+	}
+}
+
 void Node::draw(const Frustum& rkFrustum) {
 	draw(AABBFrustumCollision::PartialInside, rkFrustum);
 }
@@ -202,4 +212,12 @@ AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3
 		return AABBFrustumCollision::AllOutside;
 	else
 		return AABBFrustumCollision::PartialInside;
+}
+
+void Node::checkBSP(BSP* bsp, Vec3 cameraPos) {
+	if (!_childs.empty()) {
+		for (size_t i = 0; i < _childs.size(); i++) {
+			_childs[i]->checkBSP(bsp, cameraPos);
+		}
+	}
 }
