@@ -10,7 +10,7 @@ void RigLefUpDownController(Entity3D* object, Input& rkInput);
 
 bool Pacman::init(Renderer& rkRenderer) {
 	cam = new Camera(rkRenderer);
-	cam->setCameraSpeed(5);
+	cam->setCameraSpeed(0.1);
 
 	Importer* importer = new Importer(rkRenderer);
 
@@ -24,10 +24,12 @@ bool Pacman::init(Renderer& rkRenderer) {
 	//importer->importScene("Assets/Scene/tank.x", *root);
 	//importer->importScene("Assets/Scene/bones_all.x", *root);
 	//importer->importScene("Assets/Scene/sample_scene.dae", *root);
-	importer->importScene("Assets/Scene/BSPTest.dae", *root);
-	root->setPosZ(500);
-	root->setScale(10, 10, 10);
+	importer->importScene("Assets/Scene/BSPTest.dae", *root, bsp);
+	//root->setPosZ(500);
+	//root->setScale(10, 10, 10);
 	root->updateTransformation();
+
+	//bsp->updatePlanes();
 
 	root->countPolygons(totalPolygons);
 
@@ -45,6 +47,7 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer) {
 	//int numMeshes = 0;
 	std::string text = "";
 	//int polygonsOnScreen = 0;
+	
 	
 	root->checkBSP(bsp, cam->getCameraPosition());
 	root->draw();
@@ -64,10 +67,10 @@ void WASDController(Entity3D* object, Input& rkInput) {
 	static float speed = 0.1f;
 
 	if (rkInput.keyDown(Input::KEY_W)) {
-		object->setPosZ(object->posZ() + speed);
+		object->setPosY(object->posY() + speed);
 	}
 	else if (rkInput.keyDown(Input::KEY_S)) {
-		object->setPosZ(object->posZ() - speed);
+		object->setPosY(object->posY() - speed);
 	}
 
 	if (rkInput.keyDown(Input::KEY_D)) {

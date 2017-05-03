@@ -20,8 +20,6 @@ void BSP::addMesh(Mesh * mesh){
 }
 
 void BSP::makePlane(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 position, Vec3 scale, Quaternion rotation) {
-	
-	
 	D3DXMATRIX traslatrionMat;
 	D3DXMatrixTranslation(&traslatrionMat, position.x, position.y, position.z);
 
@@ -58,11 +56,6 @@ void BSP::makePlane(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 position, Vec3 scale, Quater
 	//D3DXPlaneTransform(plane, plane, transformationMatrix);
 
 	addPlane(plane);
-
-	//D3DXPLANE* plane = new D3DXPLANE();
-	//D3DXPlaneFromPoints(plane, new D3DXVECTOR3(0, 0, 0), new D3DXVECTOR3(0, 1, 0), new D3DXVECTOR3(0, 0, 1));
-
-	//addPlane(plane);
 }
 
 void BSP::updatePlanes(){

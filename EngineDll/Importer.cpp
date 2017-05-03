@@ -365,9 +365,7 @@ void Importer::loadMesh(aiMesh* aiMesh, Mesh* mesh, const aiMaterial* material, 
 		Vec3 v3;
 		v3.x = aiMesh->mVertices[2].x; v3.y = aiMesh->mVertices[2].y; v3.z = aiMesh->mVertices[2].z;
 		bsp->makePlane(v1, v2, v3, position, scale, rotation);
-		
 		bsp->addMesh(mesh);
-		//loadPlane(bsp);
 	}
 
 	mesh->setMeshData(vert, Primitive::TriangleList, aiMesh->mNumVertices, indices, indexCount);
