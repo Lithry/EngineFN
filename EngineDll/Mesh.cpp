@@ -14,8 +14,7 @@ Mesh::Mesh(Renderer& rkRenderer)
 	vertexBuffer(NULL),
 	indexBuffer(NULL),
 	render(rkRenderer),
-	polygons(0),
-	isVisible(true)
+	polygons(0)
 {}
 
 Mesh::~Mesh() {
@@ -44,13 +43,11 @@ void Mesh::setMeshData(const TexturedVertex* pakVertices, Primitive ePrimitive,
 void Mesh::draw() {
 	updateTransformation();
 
-	if (isVisible) {
-		render.setCurrentTexture(texture());
-		render.setCurrentVertexBuffer(vertexBuffer);
-		render.setCurrentIndexBuffer(indexBuffer);
-		render.setMatrix(worldMatrix());
-		render.drawCurrentBuffers(_primitiv);
-	}
+	render.setCurrentTexture(texture());
+	render.setCurrentVertexBuffer(vertexBuffer);
+	render.setCurrentIndexBuffer(indexBuffer);
+	render.setMatrix(worldMatrix());
+	render.drawCurrentBuffers(_primitiv);
 }
 
 void Mesh::draw(const Frustum& rkFrustum) {
@@ -142,6 +139,26 @@ void Mesh::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& 
 	}
 }
 
+void Mesh::draw(BSP* bsp, Vec3 cameraPos) {
+	draw(BSPState::Inside, bsp, cameraPos);
+}
+
+void Mesh::draw(BSPState pCollision, BSP* bsp, Vec3 cameraPos) {
+	updateTransformation();
+
+	if (pCollision == BSPState::Inside) {
+		pCollision = checkBSP(bsp, cameraPos, getAABB().actualMin, getAABB().actualMax);
+	}
+
+	if (pCollision != BSPState::Outside) {
+		render.setCurrentTexture(texture());
+		render.setCurrentVertexBuffer(vertexBuffer);
+		render.setCurrentIndexBuffer(indexBuffer);
+		render.setMatrix(worldMatrix());
+		render.drawCurrentBuffers(_primitiv);
+	}
+}
+
 void Mesh::setTextureId(int iTextureId) {
 
 }
@@ -152,11 +169,6 @@ VertexBuffer3D* Mesh::getVertexBuffer() {
 
 IndexBuffer* Mesh::getIndexBuffer() {
 	return indexBuffer;
-}
-
-void Mesh::visible(bool isOrNot)
-{
-	isVisible = isOrNot;
 }
 
 void Mesh::setTexture(const Texture& texture) {
@@ -175,44 +187,45 @@ void Mesh::countPolygons(int& totalPolugons) {
 	totalPolugons += polygons;
 }
 
-void Mesh::checkBSP(BSP* bsp, Vec3 cameraPos) {
-	visible(true);
+BSPState Mesh::checkBSP(BSP* bsp, Vec3 cameraPos, const Vec3& min, const Vec3& max) {
 	updateBV();
+	BSPState state = BSPState::Inside;
 	int count = 0;
 	Vec3 toCheck[8];
 
-	toCheck[0].x = getAABB().actualMin.x; toCheck[1].x = getAABB().actualMin.x; toCheck[2].x = getAABB().actualMin.x; toCheck[3].x = getAABB().actualMin.x;
-	toCheck[0].y = getAABB().actualMin.y; toCheck[1].y = getAABB().actualMin.y;	toCheck[2].y = getAABB().actualMax.y; toCheck[3].y = getAABB().actualMax.y;
-	toCheck[0].z = getAABB().actualMin.z; toCheck[1].z = getAABB().actualMax.z;	toCheck[2].z = getAABB().actualMin.z; toCheck[3].z = getAABB().actualMax.z;
+	toCheck[0].x = min.x; toCheck[1].x = min.x; toCheck[2].x = min.x; toCheck[3].x = min.x;
+	toCheck[0].y = min.y; toCheck[1].y = min.y;	toCheck[2].y = max.y; toCheck[3].y = max.y;
+	toCheck[0].z = min.z; toCheck[1].z = max.z;	toCheck[2].z = min.z; toCheck[3].z = max.z;
 
-	toCheck[4].x = getAABB().actualMax.x; toCheck[5].x = getAABB().actualMax.x; toCheck[6].x = getAABB().actualMax.x; toCheck[7].x = getAABB().actualMax.x;
-	toCheck[4].y = getAABB().actualMax.y; toCheck[5].y = getAABB().actualMax.y;	toCheck[6].y = getAABB().actualMin.y; toCheck[7].y = getAABB().actualMin.y;
-	toCheck[4].z = getAABB().actualMax.z; toCheck[5].z = getAABB().actualMin.z;	toCheck[6].z = getAABB().actualMax.z; toCheck[7].z = getAABB().actualMin.z;
+	toCheck[4].x = max.x; toCheck[5].x = max.x; toCheck[6].x = max.x; toCheck[7].x = max.x;
+	toCheck[4].y = max.y; toCheck[5].y = max.y;	toCheck[6].y = min.y; toCheck[7].y = min.y;
+	toCheck[4].z = max.z; toCheck[5].z = min.z;	toCheck[6].z = max.z; toCheck[7].z = min.z;
 
-	for (size_t i = 0; i < bsp->planes().size(); i++){
+	for (size_t i = 0; i < bsp->planes().size(); i++) {
 		float cameraSide = D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(cameraPos.x, cameraPos.y, cameraPos.z));
-		if (isVisible) {
+		if (state == BSPState::Inside) {
 			count = 0;
-			if (cameraSide < 0){
-				for (size_t j = 0; j < 8; j++){
+			if (cameraSide < 0) {
+				for (size_t j = 0; j < 8; j++) {
 					if (D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(toCheck[j].x, toCheck[j].y, toCheck[j].z)) > 0) {
 						count++;
 					}
 				}
 				if (count == 8)
-					visible(false);
+					state = BSPState::Outside;
 			}
-			else{
-				for (size_t j = 0; j < 8; j++){
+			else {
+				for (size_t j = 0; j < 8; j++) {
 					if (D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(toCheck[j].x, toCheck[j].y, toCheck[j].z)) < 0) {
 						count++;
 					}
 				}
 				if (count == 8)
-					visible(false);
+					state = BSPState::Outside;
 			}
 		}
 	}
+	return state;
 }
 
 void Mesh::updateBV() {

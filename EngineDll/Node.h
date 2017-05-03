@@ -23,6 +23,8 @@ public:
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes);
+	void draw(BSP* bsp, Vec3 cameraPos);
+	void draw(BSPState pCollision, BSP* bsp, Vec3 cameraPos);
 
 	Entity3D* findWithName(std::string name);
 	void countPolygons(int& totalPolugons);
@@ -31,7 +33,7 @@ public:
 
 	void updateBV();
 	AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max);
-	void checkBSP(BSP* bsp, Vec3 cameraPos);
+	BSPState checkBSP(BSP* bsp, Vec3 cameraPos, const Vec3& min, const Vec3& max);
 private:
 	std::vector<Entity3D*> _childs;
 };

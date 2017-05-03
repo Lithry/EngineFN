@@ -1,6 +1,7 @@
 #include "Node.h"
 
 #include "StructsAndEnums.h"
+#include "BSP.h"
 
 #include <d3d9.h>
 #pragma comment (lib, "d3d9.lib") 
@@ -20,7 +21,7 @@ void Node::removeChild(Entity3D* pkChild) {
 	_childs.erase(find(_childs.begin(), _childs.end(), pkChild));
 }
 
-void Node::draw(){
+void Node::draw() {
 	updateTransformation();
 
 	if (!_childs.empty()) {
@@ -110,6 +111,26 @@ void Node::draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& 
 		if (!_childs.empty()) {
 			for (size_t i = 0; i < _childs.size(); i++) {
 				_childs[i]->draw(pCollision, rkFrustum, numNodes, numMeshes);
+			}
+		}
+	}
+}
+
+void Node::draw(BSP * bsp, Vec3 cameraPos) {
+	draw(BSPState::Inside, bsp, cameraPos);
+}
+
+void Node::draw(BSPState pCollision, BSP* bsp, Vec3 cameraPos) {
+	updateTransformation();
+
+	if (pCollision == BSPState::Inside) {
+		pCollision = checkBSP(bsp, cameraPos, getAABB().actualMin, getAABB().actualMax);
+	}
+
+	if (pCollision != BSPState::Outside) {
+		if (!_childs.empty()) {
+			for (size_t i = 0; i < _childs.size(); i++) {
+				_childs[i]->draw(pCollision, bsp, cameraPos);
 			}
 		}
 	}
@@ -214,10 +235,43 @@ AABBFrustumCollision Node::checkAABBtoFrustum(const Frustum& frustum, const Vec3
 		return AABBFrustumCollision::PartialInside;
 }
 
-void Node::checkBSP(BSP* bsp, Vec3 cameraPos) {
-	if (!_childs.empty()) {
-		for (size_t i = 0; i < _childs.size(); i++) {
-			_childs[i]->checkBSP(bsp, cameraPos);
+BSPState Node::checkBSP(BSP* bsp, Vec3 cameraPos, const Vec3& min, const Vec3& max) {
+	updateBV();
+	BSPState state = BSPState::Inside;
+	int count = 0;
+	Vec3 toCheck[8];
+
+	toCheck[0].x = min.x; toCheck[1].x = min.x; toCheck[2].x = min.x; toCheck[3].x = min.x;
+	toCheck[0].y = min.y; toCheck[1].y = min.y;	toCheck[2].y = max.y; toCheck[3].y = max.y;
+	toCheck[0].z = min.z; toCheck[1].z = max.z;	toCheck[2].z = min.z; toCheck[3].z = max.z;
+
+	toCheck[4].x = max.x; toCheck[5].x = max.x; toCheck[6].x = max.x; toCheck[7].x = max.x;
+	toCheck[4].y = max.y; toCheck[5].y = max.y;	toCheck[6].y = min.y; toCheck[7].y = min.y;
+	toCheck[4].z = max.z; toCheck[5].z = min.z;	toCheck[6].z = max.z; toCheck[7].z = min.z;
+
+	for (size_t i = 0; i < bsp->planes().size(); i++) {
+		float cameraSide = D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(cameraPos.x, cameraPos.y, cameraPos.z));
+		if (state == BSPState::Inside) {
+			count = 0;
+			if (cameraSide < 0) {
+				for (size_t j = 0; j < 8; j++) {
+					if (D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(toCheck[j].x, toCheck[j].y, toCheck[j].z)) > 0) {
+						count++;
+					}
+				}
+				if (count == 8)
+					state = BSPState::Outside;
+			}
+			else {
+				for (size_t j = 0; j < 8; j++) {
+					if (D3DXPlaneDotCoord(bsp->planes()[i], &D3DXVECTOR3(toCheck[j].x, toCheck[j].y, toCheck[j].z)) < 0) {
+						count++;
+					}
+				}
+				if (count == 8)
+					state = BSPState::Outside;
+			}
 		}
 	}
+	return state;
 }

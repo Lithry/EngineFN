@@ -10,7 +10,7 @@ void RigLefUpDownController(Entity3D* object, Input& rkInput);
 
 bool Pacman::init(Renderer& rkRenderer) {
 	cam = new Camera(rkRenderer);
-	cam->setCameraSpeed(0.1);
+	cam->setCameraSpeed(0.1f);
 
 	Importer* importer = new Importer(rkRenderer);
 
@@ -48,9 +48,7 @@ void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer) {
 	std::string text = "";
 	//int polygonsOnScreen = 0;
 	
-	
-	root->checkBSP(bsp, cam->getCameraPosition());
-	root->draw();
+	root->draw(bsp, cam->getCameraPosition());
 	//root->draw(AABBFrustumCollision::PartialInside, cam->getFrustum(), text, polygonsOnScreen);
 
 	//text += "\nPolygons on Screen: " + std::to_string(polygonsOnScreen) + "\nTotal Polygons: " + std::to_string(totalPolygons);

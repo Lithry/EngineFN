@@ -63,6 +63,11 @@ enum AABBFrustumCollision{
 	AllOutside
 };
 
+enum BSPState {
+	Inside = 0,
+	Outside
+};
+
 // Camera
 struct D3DXVECTOR3;
 typedef D3DXVECTOR3* Vector3;

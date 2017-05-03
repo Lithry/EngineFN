@@ -46,7 +46,6 @@ public:
 	const Texture& texture() const;
 	virtual void updateTransformation();
 	void setParent(Node* pkParent);
-	void setParentBSP(BSP* pkParent);
 
 	virtual void draw() = 0;
 	virtual void draw(const Frustum& rkFrustum) = 0;
@@ -54,6 +53,8 @@ public:
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen) = 0;
 	virtual void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes) = 0;
+	virtual void draw(BSP* bsp, Vec3 CameraPos) = 0;
+	virtual void draw(BSPState pCollision, BSP* bsp, Vec3 CameraPos) = 0;
 	virtual Entity3D* findWithName(std::string name) = 0;
 	virtual void countPolygons(int& totalPolugons) = 0;
 
@@ -75,7 +76,7 @@ public:
 	virtual void updateBV() = 0;
 
 	virtual AABBFrustumCollision checkAABBtoFrustum(const Frustum& frustum, const Vec3& min, const Vec3& max) = 0;
-	virtual void checkBSP(BSP* bsp, Vec3 cameraPos) = 0;
+	virtual BSPState checkBSP(BSP* bsp, Vec3 cameraPos, const Vec3& min, const Vec3& max) = 0;
 private:
 	float _posX;
 	float _posY;
@@ -90,7 +91,6 @@ private:
 	float _scaleX;
 	float _scaleY;
 	float _scaleZ;
-
 
 	AABB* bBox;
 

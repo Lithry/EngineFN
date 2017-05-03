@@ -28,6 +28,8 @@ public:
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, std::string& text, int& polygonsOnScreen);
 	void draw(AABBFrustumCollision pCollision, const Frustum& rkFrustum, int& numNodes, int& numMeshes);
+	void draw(BSP* bsp, Vec3 cameraPos);
+	void draw(BSPState pCollision, BSP* bsp, Vec3 cameraPos);
 
 	void setTextureId(int iTextureId);
 
@@ -39,14 +41,12 @@ public:
 	Entity3D* findWithName(std::string name);
 	void countPolygons(int& totalPolugons);
 	
-	void checkBSP(BSP* bsp, Vec3 cameraPos);
+	BSPState checkBSP(BSP* bsp, Vec3 cameraPos, const Vec3& min, const Vec3& max);
 
 	VertexBuffer3D* getVertexBuffer();
 	IndexBuffer* getIndexBuffer();
 
 	int polygons;
-	void visible(bool isOrNot);
-	bool isVisible;
 private:
 	Renderer& render;
 	VertexBuffer3D* vertexBuffer;
