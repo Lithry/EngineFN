@@ -38,8 +38,8 @@ bool Pacman::init(Renderer& rkRenderer) {
 
 void Pacman::frame(Renderer& rkRenderer, Input& rkInput, Timer& rkTimer) {
 	cam->controls(rkInput);
-	Entity3D* a = root->findWithName("Inmovil1");
-	WASDController(root->findWithName("Inmovil1"), rkInput);
+
+	WASDController(root->findWithName("Move"), rkInput);
 	//KLController(root->findWithName("Group001"), rkInput);
 	//RigLefUpDownController(root->findWithName("Group001"), rkInput);
 
@@ -67,10 +67,10 @@ void WASDController(Entity3D* object, Input& rkInput) {
 	static float speed = 0.1f;
 
 	if (rkInput.keyDown(Input::KEY_W)) {
-		object->setPosY(object->posY() + speed);
+		object->setPosZ(object->posZ() + speed);
 	}
 	else if (rkInput.keyDown(Input::KEY_S)) {
-		object->setPosY(object->posY() - speed);
+		object->setPosZ(object->posZ() - speed);
 	}
 
 	if (rkInput.keyDown(Input::KEY_D)) {

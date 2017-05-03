@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
-  <asset><contributor><author></author><authoring_tool>FBX COLLADA exporter</authoring_tool><comments></comments></contributor><created>2017-04-13T01:04:44Z</created><keywords></keywords><modified>2017-04-13T01:04:44Z</modified><revision></revision><subject></subject><title></title><unit meter="0.010000" name="centimeter"></unit><up_axis>Y_UP</up_axis></asset>
+  <asset><contributor><author></author><authoring_tool>FBX COLLADA exporter</authoring_tool><comments></comments></contributor><created>2017-05-03T22:18:36Z</created><keywords></keywords><modified>2017-05-03T22:18:36Z</modified><revision></revision><subject></subject><title></title><unit meter="0.010000" name="centimeter"></unit><up_axis>Y_UP</up_axis></asset>
   <library_images>
     <image id="file1-image" name="file1"><init_from>file://C:/Users/822/Desktop/EngineFN/EngineEXE/Assets/Texture/Red.png</init_from></image>
-    <image id="file3-image" name="file3"><init_from>file://C:/Users/822/Desktop/EngineFN/EngineEXE/Assets/Texture/Green.png</init_from></image>
     <image id="file2-image" name="file2"><init_from>file://C:/Users/822/Desktop/EngineFN/EngineEXE/Assets/Texture/Blue.png</init_from></image>
+    <image id="file3-image" name="file3"><init_from>file://C:/Users/822/Desktop/EngineFN/EngineEXE/Assets/Texture/Green.png</init_from></image>
   </library_images>
   <library_materials>
     <material id="lambert2" name="lambert2">
       <instance_effect url="#lambert2-fx"/>
     </material>
-    <material id="lambert4" name="lambert4">
-      <instance_effect url="#lambert4-fx"/>
-    </material>
     <material id="lambert3" name="lambert3">
       <instance_effect url="#lambert3-fx"/>
+    </material>
+    <material id="lambert4" name="lambert4">
+      <instance_effect url="#lambert4-fx"/>
     </material>
   </library_materials>
   <library_effects>
@@ -49,7 +49,7 @@
         </technique>
       </profile_COMMON>
     </effect>
-    <effect id="lambert4-fx" name="lambert4">
+    <effect id="lambert3-fx" name="lambert3">
       <profile_COMMON>
         <technique sid="standard">
           <lambert>
@@ -60,7 +60,7 @@
               <color sid="ambient">0.000000  0.000000 0.000000 1.000000</color>
             </ambient>
             <diffuse>
-              <texture texture="file3-image" texcoord="CHANNEL0">
+              <texture texture="file2-image" texcoord="CHANNEL0">
                 <extra>
                   <technique profile="MAYA">
                     <wrapU sid="wrapU0">TRUE</wrapU>
@@ -80,7 +80,7 @@
         </technique>
       </profile_COMMON>
     </effect>
-    <effect id="lambert3-fx" name="lambert3">
+    <effect id="lambert4-fx" name="lambert4">
       <profile_COMMON>
         <technique sid="standard">
           <lambert>
@@ -91,7 +91,7 @@
               <color sid="ambient">0.000000  0.000000 0.000000 1.000000</color>
             </ambient>
             <diffuse>
-              <texture texture="file2-image" texcoord="CHANNEL0">
+              <texture texture="file3-image" texcoord="CHANNEL0">
                 <extra>
                   <technique profile="MAYA">
                     <wrapU sid="wrapU0">TRUE</wrapU>
@@ -209,104 +209,6 @@
           <input semantic="POSITION" source="#Inmovil1-POSITION"/>
         </vertices>
         <triangles count="12" material="lambert2"><input semantic="VERTEX" offset="0" source="#Inmovil1-VERTEX"/><input semantic="NORMAL" offset="1" source="#Inmovil1-Normal0"/><input semantic="TEXCOORD" offset="2" set="0" source="#Inmovil1-UV0"/><p> 3 0 3 2 1 2 0 2 0 3 3 3 0 4 0 1 5 1 3 6 3 5 7 5 2 8 2 2 9 2 5 10 5 4 11 4 7 12 7 6 13 6 4 14 4 7 15 7 4 16 4 5 17 5 1 18 9 0 19 8 6 20 6 1 21 9 6 22 6 7 23 7 3 24 3 1 25 1 5 26 11 1 27 1 7 28 10 5 29 11 2 30 2 6 31 12 0 32 0 6 33 12 2 34 2 4 35 13</p></triangles>
-      </mesh>
-    </geometry>
-    <geometry id="pasted__Plane1-lib" name="pasted__Plane1Mesh">
-      <mesh>
-        <source id="pasted__Plane1-POSITION">
-          <float_array id="pasted__Plane1-POSITION-array" count="24">
--0.432872 -3.781327 6.027014
-0.432872 -3.781327 6.027014
--0.432872 3.781327 6.027014
-0.432872 3.781327 6.027014
--0.432872 3.781327 -6.027014
-0.432872 3.781327 -6.027014
--0.432872 -3.781327 -6.027014
-0.432872 -3.781327 -6.027014
-</float_array>
-          <technique_common>
-            <accessor source="#pasted__Plane1-POSITION-array" count="8" stride="3">
-              <param name="X" type="float"/>
-              <param name="Y" type="float"/>
-              <param name="Z" type="float"/>
-            </accessor>
-          </technique_common>
-        </source>
-        <source id="pasted__Plane1-Normal0">
-          <float_array id="pasted__Plane1-Normal0-array" count="108">
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
-</float_array>
-          <technique_common>
-            <accessor source="#pasted__Plane1-Normal0-array" count="36" stride="3">
-              <param name="X" type="float"/>
-              <param name="Y" type="float"/>
-              <param name="Z" type="float"/>
-            </accessor>
-          </technique_common>
-        </source>
-        <source id="pasted__Plane1-UV0">
-          <float_array id="pasted__Plane1-UV0-array" count="28">
-0.375000 0.000000
-0.625000 0.000000
-0.375000 0.250000
-0.625000 0.250000
-0.375000 0.500000
-0.625000 0.500000
-0.375000 0.750000
-0.625000 0.750000
-0.375000 1.000000
-0.625000 1.000000
-0.875000 0.000000
-0.875000 0.250000
-0.125000 0.000000
-0.125000 0.250000
-</float_array>
-          <technique_common>
-            <accessor source="#pasted__Plane1-UV0-array" count="14" stride="2">
-              <param name="S" type="float"/>
-              <param name="T" type="float"/>
-            </accessor>
-          </technique_common>
-        </source>
-        <vertices id="pasted__Plane1-VERTEX">
-          <input semantic="POSITION" source="#pasted__Plane1-POSITION"/>
-        </vertices>
-        <triangles count="12" material="lambert4"><input semantic="VERTEX" offset="0" source="#pasted__Plane1-VERTEX"/><input semantic="NORMAL" offset="1" source="#pasted__Plane1-Normal0"/><input semantic="TEXCOORD" offset="2" set="0" source="#pasted__Plane1-UV0"/><p> 2 0 2 0 1 0 3 2 3 3 3 3 0 4 0 1 5 1 5 6 5 2 7 2 3 8 3 2 9 2 5 10 5 4 11 4 6 12 6 4 13 4 7 14 7 7 15 7 4 16 4 5 17 5 0 18 8 6 19 6 1 20 9 1 21 9 6 22 6 7 23 7 3 24 3 1 25 1 5 26 11 1 27 1 7 28 10 5 29 11 2 30 2 6 31 12 0 32 0 6 33 12 2 34 2 4 35 13</p></triangles>
       </mesh>
     </geometry>
     <geometry id="Inmovil2-lib" name="Inmovil2Mesh">
@@ -1948,18 +1850,14 @@
     <geometry id="Plane1-lib" name="Plane1Mesh">
       <mesh>
         <source id="Plane1-POSITION">
-          <float_array id="Plane1-POSITION-array" count="24">
--0.432872 -3.781327 6.027014
-0.432872 -3.781327 6.027014
--0.432872 3.781327 6.027014
-0.432872 3.781327 6.027014
--0.432872 3.781327 -6.027014
-0.432872 3.781327 -6.027014
--0.432872 -3.781327 -6.027014
-0.432872 -3.781327 -6.027014
+          <float_array id="Plane1-POSITION-array" count="12">
+-6.588752 -0.000000 2.775668
+6.588752 -0.000000 2.775668
+-6.588752 0.000000 -2.775668
+6.588752 0.000000 -2.775668
 </float_array>
           <technique_common>
-            <accessor source="#Plane1-POSITION-array" count="8" stride="3">
+            <accessor source="#Plane1-POSITION-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -1967,46 +1865,14 @@
           </technique_common>
         </source>
         <source id="Plane1-Normal0">
-          <float_array id="Plane1-Normal0-array" count="108">
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
+          <float_array id="Plane1-Normal0-array" count="12">
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
 </float_array>
           <technique_common>
-            <accessor source="#Plane1-Normal0-array" count="36" stride="3">
+            <accessor source="#Plane1-Normal0-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -2014,24 +1880,14 @@
           </technique_common>
         </source>
         <source id="Plane1-UV0">
-          <float_array id="Plane1-UV0-array" count="28">
-0.375000 0.000000
-0.625000 0.000000
-0.375000 0.250000
-0.625000 0.250000
-0.375000 0.500000
-0.625000 0.500000
-0.375000 0.750000
-0.625000 0.750000
-0.375000 1.000000
-0.625000 1.000000
-0.875000 0.000000
-0.875000 0.250000
-0.125000 0.000000
-0.125000 0.250000
+          <float_array id="Plane1-UV0-array" count="8">
+0.000000 0.000000
+1.000000 0.000000
+0.000000 0.421274
+1.000000 0.421274
 </float_array>
           <technique_common>
-            <accessor source="#Plane1-UV0-array" count="14" stride="2">
+            <accessor source="#Plane1-UV0-array" count="4" stride="2">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
             </accessor>
@@ -2039,25 +1895,22 @@
         </source>
         <vertices id="Plane1-VERTEX">
           <input semantic="POSITION" source="#Plane1-POSITION"/>
+          <input semantic="NORMAL" source="#Plane1-Normal0"/>
         </vertices>
-        <triangles count="12" material="lambert4"><input semantic="VERTEX" offset="0" source="#Plane1-VERTEX"/><input semantic="NORMAL" offset="1" source="#Plane1-Normal0"/><input semantic="TEXCOORD" offset="2" set="0" source="#Plane1-UV0"/><p> 2 0 2 0 1 0 3 2 3 3 3 3 0 4 0 1 5 1 5 6 5 2 7 2 3 8 3 2 9 2 5 10 5 4 11 4 6 12 6 4 13 4 7 14 7 7 15 7 4 16 4 5 17 5 0 18 8 6 19 6 1 20 9 1 21 9 6 22 6 7 23 7 3 24 3 1 25 1 5 26 11 1 27 1 7 28 10 5 29 11 2 30 2 6 31 12 0 32 0 6 33 12 2 34 2 4 35 13</p></triangles>
+        <triangles count="2" material="lambert4"><input semantic="VERTEX" offset="0" source="#Plane1-VERTEX"/><input semantic="TEXCOORD" offset="1" set="0" source="#Plane1-UV0"/><p> 0 0 1 1 3 3 0 0 3 3 2 2</p></triangles>
       </mesh>
     </geometry>
     <geometry id="Plane2-lib" name="Plane2Mesh">
       <mesh>
         <source id="Plane2-POSITION">
-          <float_array id="Plane2-POSITION-array" count="24">
--0.432872 -3.781327 6.027014
-0.432872 -3.781327 6.027014
--0.432872 3.781327 6.027014
-0.432872 3.781327 6.027014
--0.432872 3.781327 -6.027014
-0.432872 3.781327 -6.027014
--0.432872 -3.781327 -6.027014
-0.432872 -3.781327 -6.027014
+          <float_array id="Plane2-POSITION-array" count="12">
+-6.588752 -0.000000 2.775668
+6.588752 -0.000000 2.775668
+-6.588752 0.000000 -2.775668
+6.588752 0.000000 -2.775668
 </float_array>
           <technique_common>
-            <accessor source="#Plane2-POSITION-array" count="8" stride="3">
+            <accessor source="#Plane2-POSITION-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -2065,46 +1918,14 @@
           </technique_common>
         </source>
         <source id="Plane2-Normal0">
-          <float_array id="Plane2-Normal0-array" count="108">
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
+          <float_array id="Plane2-Normal0-array" count="12">
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
 </float_array>
           <technique_common>
-            <accessor source="#Plane2-Normal0-array" count="36" stride="3">
+            <accessor source="#Plane2-Normal0-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -2112,24 +1933,14 @@
           </technique_common>
         </source>
         <source id="Plane2-UV0">
-          <float_array id="Plane2-UV0-array" count="28">
-0.375000 0.000000
-0.625000 0.000000
-0.375000 0.250000
-0.625000 0.250000
-0.375000 0.500000
-0.625000 0.500000
-0.375000 0.750000
-0.625000 0.750000
-0.375000 1.000000
-0.625000 1.000000
-0.875000 0.000000
-0.875000 0.250000
-0.125000 0.000000
-0.125000 0.250000
+          <float_array id="Plane2-UV0-array" count="8">
+0.000000 0.000000
+1.000000 0.000000
+0.000000 0.421274
+1.000000 0.421274
 </float_array>
           <technique_common>
-            <accessor source="#Plane2-UV0-array" count="14" stride="2">
+            <accessor source="#Plane2-UV0-array" count="4" stride="2">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
             </accessor>
@@ -2137,25 +1948,22 @@
         </source>
         <vertices id="Plane2-VERTEX">
           <input semantic="POSITION" source="#Plane2-POSITION"/>
+          <input semantic="NORMAL" source="#Plane2-Normal0"/>
         </vertices>
-        <triangles count="12" material="lambert4"><input semantic="VERTEX" offset="0" source="#Plane2-VERTEX"/><input semantic="NORMAL" offset="1" source="#Plane2-Normal0"/><input semantic="TEXCOORD" offset="2" set="0" source="#Plane2-UV0"/><p> 2 0 2 0 1 0 3 2 3 3 3 3 0 4 0 1 5 1 5 6 5 2 7 2 3 8 3 2 9 2 5 10 5 4 11 4 6 12 6 4 13 4 7 14 7 7 15 7 4 16 4 5 17 5 0 18 8 6 19 6 1 20 9 1 21 9 6 22 6 7 23 7 3 24 3 1 25 1 5 26 11 1 27 1 7 28 10 5 29 11 2 30 2 6 31 12 0 32 0 6 33 12 2 34 2 4 35 13</p></triangles>
+        <triangles count="2" material="lambert4"><input semantic="VERTEX" offset="0" source="#Plane2-VERTEX"/><input semantic="TEXCOORD" offset="1" set="0" source="#Plane2-UV0"/><p> 0 0 1 1 3 3 0 0 3 3 2 2</p></triangles>
       </mesh>
     </geometry>
     <geometry id="Plane3-lib" name="Plane3Mesh">
       <mesh>
         <source id="Plane3-POSITION">
-          <float_array id="Plane3-POSITION-array" count="24">
--0.432872 -3.781327 6.027014
-0.432872 -3.781327 6.027014
--0.432872 3.781327 6.027014
-0.432872 3.781327 6.027014
--0.432872 3.781327 -6.027014
-0.432872 3.781327 -6.027014
--0.432872 -3.781327 -6.027014
-0.432872 -3.781327 -6.027014
+          <float_array id="Plane3-POSITION-array" count="12">
+-6.588752 -0.000000 2.775668
+6.588752 -0.000000 2.775668
+-6.588752 0.000000 -2.775668
+6.588752 0.000000 -2.775668
 </float_array>
           <technique_common>
-            <accessor source="#Plane3-POSITION-array" count="8" stride="3">
+            <accessor source="#Plane3-POSITION-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -2163,46 +1971,14 @@
           </technique_common>
         </source>
         <source id="Plane3-Normal0">
-          <float_array id="Plane3-Normal0-array" count="108">
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
-0.000000 0.000000 1.000000
+          <float_array id="Plane3-Normal0-array" count="12">
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
 0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 0.000000 -1.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-0.000000 -1.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
-1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
--1.000000 0.000000 0.000000
 </float_array>
           <technique_common>
-            <accessor source="#Plane3-Normal0-array" count="36" stride="3">
+            <accessor source="#Plane3-Normal0-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -2210,24 +1986,14 @@
           </technique_common>
         </source>
         <source id="Plane3-UV0">
-          <float_array id="Plane3-UV0-array" count="28">
-0.375000 0.000000
-0.625000 0.000000
-0.375000 0.250000
-0.625000 0.250000
-0.375000 0.500000
-0.625000 0.500000
-0.375000 0.750000
-0.625000 0.750000
-0.375000 1.000000
-0.625000 1.000000
-0.875000 0.000000
-0.875000 0.250000
-0.125000 0.000000
-0.125000 0.250000
+          <float_array id="Plane3-UV0-array" count="8">
+0.000000 0.000000
+1.000000 0.000000
+0.000000 0.421274
+1.000000 0.421274
 </float_array>
           <technique_common>
-            <accessor source="#Plane3-UV0-array" count="14" stride="2">
+            <accessor source="#Plane3-UV0-array" count="4" stride="2">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
             </accessor>
@@ -2235,22 +2001,23 @@
         </source>
         <vertices id="Plane3-VERTEX">
           <input semantic="POSITION" source="#Plane3-POSITION"/>
+          <input semantic="NORMAL" source="#Plane3-Normal0"/>
         </vertices>
-        <triangles count="12" material="lambert4"><input semantic="VERTEX" offset="0" source="#Plane3-VERTEX"/><input semantic="NORMAL" offset="1" source="#Plane3-Normal0"/><input semantic="TEXCOORD" offset="2" set="0" source="#Plane3-UV0"/><p> 2 0 2 0 1 0 3 2 3 3 3 3 0 4 0 1 5 1 5 6 5 2 7 2 3 8 3 2 9 2 5 10 5 4 11 4 6 12 6 4 13 4 7 14 7 7 15 7 4 16 4 5 17 5 0 18 8 6 19 6 1 20 9 1 21 9 6 22 6 7 23 7 3 24 3 1 25 1 5 26 11 1 27 1 7 28 10 5 29 11 2 30 2 6 31 12 0 32 0 6 33 12 2 34 2 4 35 13</p></triangles>
+        <triangles count="2" material="lambert4"><input semantic="VERTEX" offset="0" source="#Plane3-VERTEX"/><input semantic="TEXCOORD" offset="1" set="0" source="#Plane3-UV0"/><p> 0 0 1 1 3 3 0 0 3 3 2 2</p></triangles>
       </mesh>
     </geometry>
   </library_geometries>
   <library_visual_scenes>
     <visual_scene id="BSPTest3" name="BSPTest3">
-      <node name="Inmovil1" id="Inmovil1" sid="Inmovil1"><matrix sid="matrix">0.939693 0.000000 0.342020 -7.830775 0.000000 1.000000 0.000000 1.004547 -0.342020 0.000000 0.939693 -6.488024 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Inmovil1-lib"><bind_material><technique_common><instance_material symbol="lambert2" target="#lambert2"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="pasted__Plane1" id="pasted__Plane1" sid="pasted__Plane1"><matrix sid="matrix">0.707107 0.000000 0.707107 -1.939066 0.000000 1.000000 0.000000 2.776780 -0.707107 0.000000 0.707107 5.604305 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#pasted__Plane1-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
+      <node name="Inmovil1" id="Inmovil1" sid="Inmovil1"><matrix sid="matrix">0.939693 0.000000 0.342020 -7.830775 0.000000 1.000000 0.000000 1.004547 -0.342020 0.000000 0.939693 -6.488024 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Inmovil1-lib"><bind_material><technique_common><instance_material symbol="lambert2" target="#lambert2"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node>
       <node name="Inmovil2" id="Inmovil2" sid="Inmovil2"><matrix sid="matrix">1.000000 0.000000 0.000000 -2.427371 0.000000 1.000000 0.000000 1.004547 0.000000 0.000000 1.000000 -6.433668 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Inmovil2-lib"><bind_material><technique_common><instance_material symbol="lambert2" target="#lambert2"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node>
       <node name="Inmovil3" id="Inmovil3" sid="Inmovil3"><matrix sid="matrix">1.000000 0.000000 0.000000 7.952454 0.000000 1.000000 0.000000 1.004547 0.000000 0.000000 1.000000 -6.432929 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Inmovil3-lib"><bind_material><technique_common><instance_material symbol="lambert2" target="#lambert2"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node>
       <node name="Inmovil4" id="Inmovil4" sid="Inmovil4"><matrix sid="matrix">1.000000 0.000000 0.000000 -0.036280 0.000000 1.000000 0.000000 1.004547 0.000000 0.000000 1.000000 2.094701 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Inmovil4-lib"><bind_material><technique_common><instance_material symbol="lambert2" target="#lambert2"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node>
       <node name="Inmovil5" id="Inmovil5" sid="Inmovil5"><matrix sid="matrix">1.000000 0.000000 0.000000 1.758600 0.000000 1.000000 0.000000 1.004547 0.000000 0.000000 1.000000 7.570870 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Inmovil5-lib"><bind_material><technique_common><instance_material symbol="lambert2" target="#lambert2"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node>
       <node name="Move" id="Move" sid="Move"><matrix sid="matrix">1.000000 0.000000 0.000000 7.977537 0.000000 1.000000 0.000000 1.569750 0.000000 0.000000 1.000000 -0.754649 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Move-lib"><bind_material><technique_common><instance_material symbol="lambert3" target="#lambert3"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node>
-      <node name="Plane1G" id="Plane1G" sid="Plane1G"><matrix sid="matrix">1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="Plane1" id="Plane1" sid="Plane1"><matrix sid="matrix">1.000000 0.000000 0.000000 -5.459485 0.000000 1.000000 0.000000 3.781327 0.000000 0.000000 1.000000 -6.091666 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Plane1-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
-      <node name="Plane2G" id="Plane2G" sid="Plane2G"><matrix sid="matrix">1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="Plane2" id="Plane2" sid="Plane2"><matrix sid="matrix">1.000000 0.000000 0.000000 -0.021048 0.000000 1.000000 0.000000 3.781327 0.000000 0.000000 1.000000 -6.091666 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Plane2-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
-      <node name="Plane3G" id="Plane3G" sid="Plane3G"><matrix sid="matrix">0.000000 0.000000 1.000000 -4.843313 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 5.436639 0.000000 0.000000 0.000000 1.000000</matrix><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="Plane3" id="Plane3" sid="Plane3"><matrix sid="matrix">1.000000 0.000000 0.000000 0.538435 0.000000 1.000000 0.000000 3.781327 0.000000 0.000000 1.000000 5.123267 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Plane3-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
+      <node name="PlaneG1" id="PlaneG1" sid="PlaneG1"><matrix sid="matrix">1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="Plane1" id="Plane1" sid="Plane1"><matrix sid="matrix">1.000000 0.000000 0.000000 0.952755 0.000000 0.000000 -1.000000 2.372556 0.000000 1.000000 0.000000 4.646634 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Plane1-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
+      <node name="PlaneG2" id="PlaneG2" sid="PlaneG2"><matrix sid="matrix">1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="Plane2" id="Plane2" sid="Plane2"><matrix sid="matrix">0.704790 0.709416 0.000000 -5.749107 0.000000 0.000000 -1.000000 2.372556 -0.709416 0.704790 0.000000 1.613085 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Plane2-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
+      <node name="PlaneG3" id="PlaneG3" sid="PlaneG3"><matrix sid="matrix">1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000</matrix><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra><node name="Plane3" id="Plane3" sid="Plane3"><matrix sid="matrix">-0.432858 0.901462 0.000000 4.739421 0.000000 0.000000 -1.000000 2.372556 -0.901462 -0.432858 -0.000000 1.613085 0.000000 0.000000 0.000000 1.000000</matrix><instance_geometry url="#Plane3-lib"><bind_material><technique_common><instance_material symbol="lambert4" target="#lambert4"/></technique_common></bind_material></instance_geometry><extra><technique profile="FCOLLADA"><visibility>1.000000</visibility></technique></extra></node></node>
       <extra><technique profile="MAX3D"><frame_rate>24.000000</frame_rate></technique><technique profile="FCOLLADA"><start_time>0.041667</start_time><end_time>8.333333</end_time></technique></extra>
     </visual_scene>
   </library_visual_scenes>
